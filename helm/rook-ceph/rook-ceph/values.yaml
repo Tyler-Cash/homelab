@@ -1,4 +1,5 @@
 rook-ceph-cluster:
+  operatorNamespace: storage
   configOverride: |
     [global]
     # Default of 0.05 is too aggressive for my cluster. (seconds)
@@ -18,15 +19,15 @@ rook-ceph-cluster:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       host:
-        name: ceph1.k8s-test.tylercash.dev
+        name: ceph.k8s-test.tylercash.dev
         path: /
       tls:
       - hosts:
-          - ceph1.k8s-test.tylercash.dev
+          - ceph.k8s-test.tylercash.dev
         secretName: ceph-home-tylercash-dev-tls
   cephClusterSpec:
-    continueUpgradeAfterChecksEvenIfNotHealthy: false
-    skipUpgradeChecks: false
+    continueUpgradeAfterChecksEvenIfNotHealthy: true
+    skipUpgradeChecks: true
     removeOSDsIfOutAndSafeToRemove: true
     storage:
       useAllNodes: true
@@ -125,11 +126,11 @@ rook-ceph-cluster:
         imageFormat: "2"
         imageFeatures: layering
         csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/provisioner-secret-namespace: storage
         csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-namespace: storage
         csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-namespace: storage
         csi.storage.k8s.io/fstype: ext4
   - name: ceph-blockpool-1rep
     spec:
@@ -147,11 +148,11 @@ rook-ceph-cluster:
         imageFormat: "2"
         imageFeatures: layering
         csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/provisioner-secret-namespace: storage
         csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-namespace: storage
         csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-namespace: storage
         csi.storage.k8s.io/fstype: ext4
   # cephBlockPoolsVolumeSnapshotClass:
   #   enabled: true
@@ -162,7 +163,7 @@ rook-ceph-cluster:
   #   parameters:
   #     clusterID: rook-ceph
   #     csi.storage.k8s.io/snapshotter-secret-name: rook-csi-rbd-provisioner
-  #     csi.storage.k8s.io/snapshotter-secret-namespace: rook-ceph
+  #     csi.storage.k8s.io/snapshotter-secret-namespace: storage
   cephFileSystems:
   - name: ceph-filesystem
     spec:
@@ -202,11 +203,11 @@ rook-ceph-cluster:
       mountOptions: []
       parameters:
         csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/provisioner-secret-namespace: storage
         csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-namespace: storage
         csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-namespace: storage
         csi.storage.k8s.io/fstype: ext4
   - name: ceph-filesystem-hdd
     spec:
@@ -245,9 +246,9 @@ rook-ceph-cluster:
       mountOptions: []
       parameters:
         csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/provisioner-secret-namespace: storage
         csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-namespace: storage
         csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-namespace: storage
         csi.storage.k8s.io/fstype: ext4
