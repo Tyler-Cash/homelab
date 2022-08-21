@@ -1,16 +1,15 @@
 argocd:
   redis-ha:
-    enabled: false
+    enabled: true
 
   controller:
-    enableStatefulSet: false
+    replicas: 1
 
-  repoServer:
-    autoscaling:
-      enabled: false
-      
   server:
-    replicas: 2
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+        replicas: 2
     env:
       - name: ARGOCD_API_SERVER_REPLICAS
         value: '2'
@@ -32,3 +31,12 @@ argocd:
         - hosts:
           - argocd.k8s-test.tylercash.dev
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
+
+
+  repoServer:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+
+  applicationSet:
+    replicas: 2
