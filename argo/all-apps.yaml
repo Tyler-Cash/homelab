@@ -15,7 +15,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/argoproj/applicationset.git
+        repoURL: https://github.com/Tyler-Cash/k3s-argo.git
         targetRevision: HEAD
         path: '{{path}}'
       destination:
