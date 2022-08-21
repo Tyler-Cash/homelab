@@ -1,14 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: apps
+  name: helm-apps
 spec:
   generators:
   - git:
       repoURL: https://github.com/Tyler-Cash/k3s-argo.git
       revision: HEAD
       directories:
-      - path: apps/*/*
+      - path: helm/*/*
+  syncPolicy:
+    preserveResourcesOnDeletion: true
   template:
     metadata:
       name: '{{path.basename}}'
@@ -18,6 +20,9 @@ spec:
         repoURL: https://github.com/Tyler-Cash/k3s-argo.git
         targetRevision: HEAD
         path: '{{path}}'
+        helm:
+          valueFiles:
+          - values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path[1]}}'
