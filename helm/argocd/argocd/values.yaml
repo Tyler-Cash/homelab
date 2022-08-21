@@ -9,7 +9,6 @@ argocd:
     autoscaling:
       enabled: true
       minReplicas: 2
-        replicas: 2
     env:
       - name: ARGOCD_API_SERVER_REPLICAS
         value: '2'
