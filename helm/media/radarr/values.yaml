@@ -10,14 +10,14 @@ radarr:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - host: radarr.tylercash.dev
+        - host: radarr.k8s.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: radarr-letsencrypt-certificate
           hosts:
-            - radarr.tylercash.dev
+            - radarr.k8s.tylercash.dev
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
