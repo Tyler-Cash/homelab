@@ -4,11 +4,11 @@ sealed-secrets:
   clusterDomain: k8s-test.tylercash.dev
   resources:
     limits:
-      cpu: "30m"
-      memory: "32Mi"
+      cpu: "300m"
+      memory: "320Mi"
     requests:
-      cpu: "10m"
-      memory: "16Mi"
+      cpu: "100m"
+      memory: "160Mi"
   ingress:
     enabled: true
     tls: true
