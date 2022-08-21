@@ -1,4 +1,4 @@
-argo-cd:
+argocd:
   global:
     image:
       tag: v2.4.8
