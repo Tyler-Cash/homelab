@@ -1,6 +1,7 @@
 sealed-secrets:
   fullnameOverride: sealed-secrets-controller
   namespaceOverride: security
+  clusterDomain: k8s-test.tylercash.dev
   resources:
     limits:
       cpu: "30m"
