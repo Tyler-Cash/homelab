@@ -1,4 +1,5 @@
 sealed-secrets:
+  namespaceOverride: security
   resources:
     limits:
       cpu: "30m"
