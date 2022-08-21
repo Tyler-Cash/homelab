@@ -1,0 +1,76 @@
+---
+jellyfin:
+  image:
+    repository: ghcr.io/confusedpolarbear/jellyfin-intro-skipper
+    tag: 83fc2cf4fe
+  env:
+    TZ: "Australia/Sydney"
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        nginx.org/websocket-services: "jellyfin"
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          more_set_headers "Content-Security-Policy: default-src https: data: blob: http://image.tmdb.org; style-src 'self' 'unsafe-inline' https://fallenbagel.github.io ; script-src 'self' 'unsafe-inline' https://www.gstatic.com/cv/js/sender/v1/cast_sender.js https://www.youtube.com blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; frame-ancestors 'self';"
+      hosts:
+        - host: jellyfin.home.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: jellyfin-letsencrypt-certificate
+          hosts:
+            - jellyfin.home.tylercash.dev
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+  persistence:
+    config:
+      enabled: true
+      storageClass: ceph-block
+      size: 10Gi
+    cache:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 10Gi
+    transcodes:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 50Gi
+    tv:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteMany
+      size: 2048Gi
+    movies:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteMany
+      size: 2048Gi
+  metrics:
+    enabled: true
+  probes:
+    liveness:
+      spec:
+        exec:
+          command:
+          - /usr/bin/env
+          - bash
+          - -c
+          - test -w /config/data/jellyfin.db
+  resources:
+    limits:
+      memory: 1.5Gi
+    requests:
+      cpu: 1000m
+      memory: 800Mi
