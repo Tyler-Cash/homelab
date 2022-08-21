@@ -39,7 +39,7 @@ coredns:
     - name: reload
     - name: loadbalance
   - zones:
-    - zone: home.tylercash.dev
+    - zone: k8s-test.tylercash.dev
       scheme: dns://
     port: 53
     plugins:
