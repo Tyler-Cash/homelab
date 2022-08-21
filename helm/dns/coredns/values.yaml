@@ -45,7 +45,7 @@ servers:
   plugins:
   - name: errors
   - name: forward
-    parameters: home.tylercash.dev dns://10.0.0.42
+    parameters: k8s.tylercash.dev dns://10.0.0.31
   - name: loop
   - name: reload
   - name: loadbalance
