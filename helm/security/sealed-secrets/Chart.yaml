@@ -6,4 +6,4 @@ appVersion: "1.0.0"
 dependencies:
 - name: sealed-secrets
   version: 1.0.12
-  repository: https://bitnami-labs.github.io/sealed-secrets
+  repository: https://charts.bitnami.com/bitnami
