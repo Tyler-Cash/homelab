@@ -10,14 +10,14 @@ sonarr:
         kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - host: sonarr..tylercash.dev
+        - host: sonarr.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: sonarr-letsencrypt-certificate
           hosts:
-            - sonarr..tylercash.dev
+            - sonarr.tylercash.dev
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
