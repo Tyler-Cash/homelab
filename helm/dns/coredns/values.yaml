@@ -1,0 +1,51 @@
+coredns:
+isClusterService: false
+serviceType: LoadBalancer
+service:
+  type: udp
+  loadBalancerIP: 10.0.0.40
+autoscaler:
+  enabled: true
+  min: 3
+  preventSinglePointFailure: true
+podDisruptionBudget:
+  minAvailable: 2
+servers:
+- zones:
+  - zone: .
+    scheme: dns://
+  port: 53
+  plugins:
+  - name: errors
+  - name: health
+    configBlock: |-
+      lameduck 5s
+  - name: ready
+  - name: kubernetes
+    parameters: cluster.local in-addr.arpa ip6.arpa
+    configBlock: |-
+      pods insecure
+      fallthrough in-addr.arpa ip6.arpa
+      ttl 30
+  - name: prometheus
+    parameters: 0.0.0.0:9153
+  - name: forward
+    parameters: . /etc/resolv.conf tls://1.0.0.1 tls://1.1.1.1
+  - name: k8s_external
+    parameters: home.tylercash.dev
+  - name: cache
+    parameters: 30
+  - name: loop
+  - name: reload
+  - name: loadbalance
+- zones:
+  - zone: home.tylercash.dev
+    scheme: dns://
+  port: 53
+  plugins:
+  - name: errors
+  - name: forward
+    parameters: home.tylercash.dev dns://10.0.0.42
+  - name: loop
+  - name: reload
+  - name: loadbalance
