@@ -154,16 +154,6 @@ rook-ceph-cluster:
         csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
         csi.storage.k8s.io/node-stage-secret-namespace: storage
         csi.storage.k8s.io/fstype: ext4
-  # cephBlockPoolsVolumeSnapshotClass:
-  #   enabled: true
-  #   name: ceph-blockpool
-  #   isDefault: true
-  #   deletionPolicy: Delete
-  #   # see https://rook.io/docs/rook/latest/ceph-csi-snapshot.html#rbd-snapshots for available configuration
-  #   parameters:
-  #     clusterID: rook-ceph
-  #     csi.storage.k8s.io/snapshotter-secret-name: rook-csi-rbd-provisioner
-  #     csi.storage.k8s.io/snapshotter-secret-namespace: storage
   cephFileSystems:
   - name: ceph-filesystem
     spec:
