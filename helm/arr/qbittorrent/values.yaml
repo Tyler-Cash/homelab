@@ -1,0 +1,52 @@
+qbittorrent:
+  env:
+    TZ: "Australia/Sydney"
+  settings:
+    automaticPortSetup: false
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+      hosts:
+        - host: qbittorrent.home.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: qbittorrent-letsencrypt-certificate
+          hosts:
+            - qbittorrent.home.tylercash.dev
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+  persistence:
+    config:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 5Gi
+    cache:
+      enabled: true
+      storageClass: ceph-block-1rep
+      accessMode: ReadWriteOnce
+      size: 250Gi
+    share:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteMany
+      size: 250Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 700Mi
+    requests:
+      cpu: 100m
+      memory: 500Mi
