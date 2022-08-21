@@ -19,14 +19,14 @@ jellyfin:
         nginx.ingress.kubernetes.io/configuration-snippet: |
           more_set_headers "Content-Security-Policy: default-src https: data: blob: http://image.tmdb.org; style-src 'self' 'unsafe-inline' https://fallenbagel.github.io ; script-src 'self' 'unsafe-inline' https://www.gstatic.com/cv/js/sender/v1/cast_sender.js https://www.youtube.com blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; frame-ancestors 'self';"
       hosts:
-        - host: jellyfin.tylercash.dev
+        - host: jellyfin.dns.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: jellyfin-letsencrypt-certificate
           hosts:
-            - jellyfin.tylercash.dev
+            - jellyfin.dns.tylercash.dev
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
