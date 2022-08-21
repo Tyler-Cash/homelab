@@ -1,0 +1,9 @@
+rook-ceph:
+  monitoring.enabled: true
+  resources:
+    limits:
+      cpu: "400m"
+      memory: "450Mi"
+    requests:
+      cpu: "300m"
+      memory: "300Mi"

@@ -1,0 +1,141 @@
+gatus:
+  config:
+    storage:
+      type: sqlite
+      path: /data/data.db
+    endpoints:
+      - name: bazarr
+        url: https://bazarr.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 1500'
+
+      - name: bitwarden
+        url: https://bitwarden.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 300'
+
+      - name: gotify
+        url: https://gotify.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 1000'
+          
+      - name: jellyfin
+        url: https://jellyfin.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+
+      - name: prowlarr
+        url: https://prowlarr.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+
+      - name: radarr
+        url: https://radarr.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 2000'
+
+      - name: sonarr
+        url: https://sonarr.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+
+      - name: k8s-master
+        url: tcp://10.0.0.10:6443
+        conditions:
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 1000'
+
+      - name: argo
+        url: https://argocd.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+
+      - name: prometheus
+        url: https://prometheus.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+
+      - name: alert-manager
+        url: https://alert-manager.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+
+      - name: grafana
+        url: https://grafana.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+
+      - name: ceph
+        url: https://ceph1.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+
+      - name: qbittorrent
+        url: https://qbittorrent.home.tylercash.dev/
+        conditions:
+          - '[STATUS] == 200'
+          - '[CERTIFICATE_EXPIRATION] > 48h'
+          - '[CONNECTED] == true'
+          - '[RESPONSE_TIME] < 500'
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      kubernetes.io/ingress-allow-http: "false" 
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+      cert-manager.io/cluster-issuer: "prod-issuer"
+      nginx.org/websocket-services: gatus
+    hosts:
+      - health.home.tylercash.dev
+    tls:
+      - secretName: health-letsencrypt-certificate
+        hosts:
+          - health.home.tylercash.dev
+  persistence:
+    enabled: true
+    storageClass: ceph-block
+    size: 5Gi
+  resources:
+    limits:
+      cpu: 100m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 32Mi

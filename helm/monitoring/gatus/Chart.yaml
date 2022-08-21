@@ -1,9 +1,9 @@
 apiVersion: v2
-name: dragonfly
+name: gatus
 type: application
 version: 1.0.0
 appVersion: "1.0.0"
 dependencies:
-- name: dragonfly
+- name: gatus
   version: "*"
-  repository:  https://dragonflyoss.github.io/helm-charts/
+  repository: https://avakarev.github.io/gatus-chart

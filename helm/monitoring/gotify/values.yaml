@@ -1,0 +1,44 @@
+gotify:
+  env:
+    TZ: "Australia/Sydney"
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        nginx.org/websocket-services: "gotify"
+      hosts:
+        - host: gotify.home.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: gotify-letsencrypt-certificate
+          hosts:
+            - gotify.home.tylercash.dev
+  deployment:
+    initContainers:
+      - name: volume-permissions
+        image: busybox:1.31.1
+        command: ["sh", "-c", "chmod -Rv 600 /config/*"]
+        volumeMounts:
+          - name: config
+            mountPath: /config
+  persistence:
+    data:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 5Gi
+  resources:
+    limits:
+      cpu: 80m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 32Mi
