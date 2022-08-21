@@ -5,7 +5,7 @@ gatus:
       path: /data/data.db
     endpoints:
       - name: bazarr
-        url: https://bazarr.home.tylercash.dev/
+        url: https://bazarr.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -13,7 +13,7 @@ gatus:
           - '[RESPONSE_TIME] < 1500'
 
       - name: bitwarden
-        url: https://bitwarden.home.tylercash.dev/
+        url: https://bitwarden.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -21,7 +21,7 @@ gatus:
           - '[RESPONSE_TIME] < 300'
 
       - name: gotify
-        url: https://gotify.home.tylercash.dev/
+        url: https://gotify.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -29,7 +29,7 @@ gatus:
           - '[RESPONSE_TIME] < 1000'
           
       - name: jellyfin
-        url: https://jellyfin.home.tylercash.dev/
+        url: https://jellyfin.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -37,7 +37,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: prowlarr
-        url: https://prowlarr.home.tylercash.dev/
+        url: https://prowlarr.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -45,7 +45,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: radarr
-        url: https://radarr.home.tylercash.dev/
+        url: https://radarr.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -53,7 +53,7 @@ gatus:
           - '[RESPONSE_TIME] < 2000'
 
       - name: sonarr
-        url: https://sonarr.home.tylercash.dev/
+        url: https://sonarr.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -67,7 +67,7 @@ gatus:
           - '[RESPONSE_TIME] < 1000'
 
       - name: argo
-        url: https://argocd.home.tylercash.dev/
+        url: https://argocd.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -75,7 +75,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: prometheus
-        url: https://prometheus.home.tylercash.dev/
+        url: https://prometheus.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -83,7 +83,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: alert-manager
-        url: https://alert-manager.home.tylercash.dev/
+        url: https://alert-manager.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -91,7 +91,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: grafana
-        url: https://grafana.home.tylercash.dev/
+        url: https://grafana.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -99,7 +99,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: ceph
-        url: https://ceph1.home.tylercash.dev/
+        url: https://ceph1.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -107,7 +107,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: qbittorrent
-        url: https://qbittorrent.home.tylercash.dev/
+        url: https://qbittorrent.k8s-test.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
@@ -123,11 +123,11 @@ gatus:
       cert-manager.io/cluster-issuer: "prod-issuer"
       nginx.org/websocket-services: gatus
     hosts:
-      - health.home.tylercash.dev
+      - health.k8s-test.tylercash.dev
     tls:
       - secretName: health-letsencrypt-certificate
         hosts:
-          - health.home.tylercash.dev
+          - health.k8s-test.tylercash.dev
   persistence:
     enabled: true
     storageClass: ceph-block

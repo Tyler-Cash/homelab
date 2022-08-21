@@ -11,14 +11,14 @@ bazarr:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - host: bazarr.k8s.tylercash.dev
+        - host: bazarr.k8s-test.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: bazarr-letsencrypt-certificate
           hosts:
-            - bazarr.k8s.tylercash.dev
+            - bazarr.k8s-test.tylercash.dev
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568

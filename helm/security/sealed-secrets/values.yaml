@@ -1,0 +1,17 @@
+sealed-secrets:
+  resources:
+    limits:
+      cpu: "30m"
+      memory: "32Mi"
+    requests:
+      cpu: "10m"
+      memory: "16Mi"
+  ingress:
+    enabled: true
+    tls: true
+    annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    hostname: secrets.k8s-test.tylercash.dev

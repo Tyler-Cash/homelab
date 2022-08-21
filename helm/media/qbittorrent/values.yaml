@@ -14,14 +14,14 @@ qbittorrent:
         nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
       hosts:
-        - host: qbittorrent.k8s.tylercash.dev
+        - host: qbittorrent.k8s-test.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: qbittorrent-letsencrypt-certificate
           hosts:
-            - qbittorrent.k8s.tylercash.dev
+            - qbittorrent.k8s-test.tylercash.dev
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568

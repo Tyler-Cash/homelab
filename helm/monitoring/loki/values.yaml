@@ -22,11 +22,11 @@ loki:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - dragonfly.home.tylercash.dev
+        - dragonfly.k8s-test.tylercash.dev
       tls:
         - secretName: dragonfly-letsencrypt-certificate
           hosts:
-            - dragonfly.home.tylercash.dev
+            - dragonfly.k8s-test.tylercash.dev
   containerRuntime:
     containerd:
       enable: true

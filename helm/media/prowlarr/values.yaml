@@ -10,14 +10,14 @@ prowlarr:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - host: prowlarr.home.tylercash.dev
+        - host: prowlarr.k8s-test.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: prowlarr-letsencrypt-certificate
           hosts:
-            - prowlarr.home.tylercash.dev
+            - prowlarr.k8s-test.tylercash.dev
   persistence:
     config:
       enabled: true
