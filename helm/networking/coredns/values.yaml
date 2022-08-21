@@ -45,7 +45,7 @@ coredns:
     plugins:
     - name: errors
     - name: forward
-      parameters: k8s.tylercash.dev dns://10.0.0.31
+      parameters: k8s-test.tylercash.dev dns://10.0.0.30
     - name: loop
     - name: reload
     - name: loadbalance
