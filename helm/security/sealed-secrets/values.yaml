@@ -1,4 +1,5 @@
 sealed-secrets:
+  fullnameOverride: sealed-secrets-controller
   namespaceOverride: security
   resources:
     limits:
