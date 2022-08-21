@@ -1,0 +1,36 @@
+argocd:
+  global:
+    image:
+      tag: v2.4.8
+  redis-ha:
+    enabled: true
+    topologySpreadConstraints:
+      enabled: enabled
+  controller:
+    enableStatefulSet: true
+  repoServer:
+    replicas: 2
+          
+  server:
+    replicas: 2
+    env:
+      - name: ARGOCD_API_SERVER_REPLICAS
+        value: '2'
+    extraArgs:
+      - --insecure
+    ingress:
+      enabled: true
+      hosts: 
+        - argocd.k8s.tylercash.dev
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        nginx.org/websocket-services: "argocd-server"
+      tls:
+        - hosts:
+          - argocd.k8s.tylercash.dev
+          secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD

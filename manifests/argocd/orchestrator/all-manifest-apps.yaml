@@ -8,7 +8,7 @@ spec:
       repoURL: https://github.com/Tyler-Cash/k3s-argo.git
       revision: HEAD
       directories:
-      - path: helm/*/*
+      - path: manifests/*/*
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
@@ -20,9 +20,6 @@ spec:
         repoURL: https://github.com/Tyler-Cash/k3s-argo.git
         targetRevision: HEAD
         path: '{{path}}'
-        helm:
-          valueFiles:
-          - values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path[1]}}'
