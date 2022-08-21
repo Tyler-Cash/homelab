@@ -8,10 +8,10 @@ spec:
       repoURL: https://github.com/Tyler-Cash/k3s-argo.git
       revision: HEAD
       directories:
-      - path: apps/*
+      - path: apps/*/*
   template:
     metadata:
-      name: '{{path[0]}}'
+      name: '{{path.basename}}'
     spec:
       project: default
       source:
@@ -20,4 +20,4 @@ spec:
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
+        namespace: '{{path[1]}}'
