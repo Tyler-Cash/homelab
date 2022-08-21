@@ -1,16 +1,14 @@
 argocd:
-  global:
-    image:
-      tag: v2.4.8
   redis-ha:
-    enabled: true
-    topologySpreadConstraints:
-      enabled: enabled
+    enabled: false
+
   controller:
     enableStatefulSet: false
+
   repoServer:
-    replicas: 2
-          
+    autoscaling:
+      enabled: false
+      
   server:
     replicas: 2
     env:
