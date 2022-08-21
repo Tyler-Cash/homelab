@@ -4,19 +4,19 @@ ingress:
   main:
     enabled: true
     annotations:
+      cert-manager.io/cluster-issuer: "prod-issuer"
       kubernetes.io/ingress-allow-http: "false" 
       kubernetes.io/ingress.class: "nginx"
-      cert-manager.io/cluster-issuer: "prod-issuer"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
     hosts:
-      - host: bazarr.home.tylercash.dev
+      - host: sonarr.home.tylercash.dev
         paths:
           - path: /
             pathType: Prefix
     tls:
-      - secretName: bazarr-letsencrypt-certificate
+      - secretName: sonarr-letsencrypt-certificate
         hosts:
-          - bazarr.home.tylercash.dev
+          - sonarr.home.tylercash.dev
 podSecurityContext:
   runAsUser: 568
   runAsGroup: 568
@@ -26,23 +26,27 @@ persistence:
   config:
     enabled: true
     storageClass: ceph-block
-    size: 10Gi
+    size: 5Gi
   tv:
     enabled: true
     type: pvc
     existingClaim: jellyfin-tv
-  movies:
+  share:
     enabled: true
     type: pvc
-    existingClaim: jellyfin-movies
+    existingClaim: qbittorrent-share
   backups:
     enabled: true
-    type: pvc
-    existingClaim: sonarr-backups
+    storageClass: ceph-filesystem-hdd
+    accessMode: ReadWriteMany
+    size: 10Gi
+    retain: true
+metrics:
+  enabled: true
 resources:
   limits:
-    cpu: 100m
-    memory: 512Mi
+    cpu: 900m
+    memory: 900Mi
   requests:
-    cpu: 100m
-    memory: 256Mi
+    cpu: 600m
+    memory: 700Mi
