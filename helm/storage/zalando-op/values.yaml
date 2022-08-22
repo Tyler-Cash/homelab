@@ -21,7 +21,7 @@ postgres-operator-ui:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
     hosts:
     - host: psgl.k8s.tylercash.dev
-      paths: [""]
+      path: ""
     tls:
     - secretName: psgl-op-letsencrypt-certificate
       hosts:
