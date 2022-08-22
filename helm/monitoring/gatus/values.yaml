@@ -131,6 +131,7 @@ gatus:
   persistence:
     enabled: true
     storageClass: ceph-block
+    accessMode: ReadWriteOnce
     size: 5Gi
   resources:
     limits:
