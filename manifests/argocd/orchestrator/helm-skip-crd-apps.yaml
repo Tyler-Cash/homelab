@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: helm-apps
+  name: helm--skip-crds-apps
   namespace: argocd
 spec:
   generators:
