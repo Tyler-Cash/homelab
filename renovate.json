@@ -3,6 +3,7 @@
   "extends": [
     "config:base"
   ],
+  "timezone": "Australia/Sydney",
   "schedule": [
     "after 3pm on monday",
     "before 5pm on monday"
