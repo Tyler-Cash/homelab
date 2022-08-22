@@ -13,7 +13,7 @@ postgres-operator-ui:
     teams:
       - "home"
   ingress:
-    enabled: false
+    enabled: true
     annotations:
       kubernetes.io/ingress-allow-http: "false" 
       kubernetes.io/ingress.class: "nginx"
