@@ -30,4 +30,4 @@ dragonfly:
   containerRuntime:
     containerd:
       enable: true
-    configPathDir: /var/lib/rancher/k3s/agent/etc/containerd/
+      configPathDir: /var/lib/rancher/k3s/agent/etc/containerd/
