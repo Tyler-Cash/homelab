@@ -5,7 +5,7 @@ gatus:
       path: /data/data.db
     endpoints:
       - name: bazarr
-        url: http://bazarr.media.svc.cluster.local/
+        url: http://bazarr.media.svc.cluster.local:6767/
         conditions:
           - '[STATUS] == 200'
           - '[CERTIFICATE_EXPIRATION] > 48h'
