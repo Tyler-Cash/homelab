@@ -36,9 +36,6 @@ kube-prometheus-stack:
   grafana:
     fullNameOverride: grafana
     defaultDashboardsTimezone: Australia/Sydney
-    deleteDatasources: 
-    - name: loki
-      orgId: 1
     ingress:
       enabled: true
       annotations:
