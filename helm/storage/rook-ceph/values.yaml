@@ -17,11 +17,11 @@ rook-ceph-cluster:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       host:
-        name: ceph.k8s-test.tylercash.dev
+        name: ceph.k8s.tylercash.dev
         path: /
       tls:
       - hosts:
-          - ceph.k8s-test.tylercash.dev
+          - ceph.k8s.tylercash.dev
         secretName: ceph-home-tylercash-dev-tls
   cephClusterSpec:
     continueUpgradeAfterChecksEvenIfNotHealthy: true

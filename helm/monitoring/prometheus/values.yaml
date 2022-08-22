@@ -28,11 +28,11 @@ kube-prometheus-stack:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - alert-manager.k8s-test.tylercash.dev
+        - alert-manager.k8s.tylercash.dev
       tls:
         - secretName: alert-manager-letsencrypt-certificate
           hosts:
-            - alert-manager.k8s-test.tylercash.dev
+            - alert-manager.k8s.tylercash.dev
   grafana:
     fullNameOverride: grafana
     defaultDashboardsTimezone: Australia/Sydney
@@ -47,11 +47,11 @@ kube-prometheus-stack:
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
         nginx.org/websocket-services: "prometheus-grafana"
       hosts:
-        - grafana.k8s-test.tylercash.dev
+        - grafana.k8s.tylercash.dev
       tls:
         - secretName: grafana-letsencrypt-certificate
           hosts:
-            - grafana.k8s-test.tylercash.dev
+            - grafana.k8s.tylercash.dev
   prometheus:
     fullNameOverride: prometheus
     prometheusSpec:
@@ -83,11 +83,11 @@ kube-prometheus-stack:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - prometheus.k8s-test.tylercash.dev
+        - prometheus.k8s.tylercash.dev
       tls:
         - secretName: prometheus-letsencrypt-certificate
           hosts:
-            - prometheus.k8s-test.tylercash.dev
+            - prometheus.k8s.tylercash.dev
   prometheusOperator:
     admissionWebhooks:
       certManager:
@@ -127,8 +127,8 @@ kube-prometheus-stack:
         cert-manager.io/cluster-issuer: "prod-issuer"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - thanos.k8s-test.tylercash.dev
+        - thanos.k8s.tylercash.dev
       tls:
         - secretName: thanos-letsencrypt-certificate
           hosts:
-            - thanos.k8s-test.tylercash.dev
+            - thanos.k8s.tylercash.dev

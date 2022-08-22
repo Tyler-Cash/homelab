@@ -13,14 +13,14 @@ gotify:
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
         nginx.org/websocket-services: "gotify"
       hosts:
-        - host: gotify.k8s-test.tylercash.dev
+        - host: gotify.k8s.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: gotify-letsencrypt-certificate
           hosts:
-            - gotify.k8s-test.tylercash.dev
+            - gotify.k8s.tylercash.dev
   deployment:
     initContainers:
       - name: volume-permissions
