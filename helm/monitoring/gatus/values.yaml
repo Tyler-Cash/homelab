@@ -74,7 +74,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: alert-manager
-        url: http://prometheus-alertmanager.monitoring.svc.cluster.local:9083/
+        url: http://prometheus-alertmanager.monitoring.svc.cluster.local:9093/
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
