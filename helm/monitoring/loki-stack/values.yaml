@@ -38,4 +38,4 @@ loki-stack:
               - logs_path:
                   logs_path: "/var/log/containers/"
         output.logstash:
-          hosts: ["logstash-loki:5044"]
+          hosts: ["loki-stack:5044"]
