@@ -25,4 +25,4 @@ postgres-operator-ui:
     tls:
     - secretName: psgl-op-letsencrypt-certificate
       hosts:
-        - psgl-op.k8s.tylercash.dev
+        - psgl.k8s.tylercash.dev
