@@ -4,7 +4,7 @@ postgres-operator:
     inherited_annotations:
     - owned-by
   configLoadBalancer:
-    db_hosted_zone: k8s.db.tylercash
+    db_hosted_zone: k8s.tylercash
     enable_master_load_balancer: true
     enable_master_pooler_load_balancer: true
 postgres-operator-ui:
