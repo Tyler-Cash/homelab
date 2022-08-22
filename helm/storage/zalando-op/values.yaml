@@ -20,8 +20,8 @@ postgres-operator-ui:
       cert-manager.io/cluster-issuer: "prod-issuer"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
     hosts:
-      - host: psgl-op.example.org
-        paths: ["/"]
+    - host: psgl-op.k8s.tylercash.dev
+      paths: [""]
     tls:
     - secretName: psgl-op-letsencrypt-certificate
       hosts:
