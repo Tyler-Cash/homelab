@@ -33,7 +33,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: prowlarr
-        url: http://prowlarr.media.svc.cluster.local/
+        url: http://prowlarr.media.svc.cluster.local:9696/
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
