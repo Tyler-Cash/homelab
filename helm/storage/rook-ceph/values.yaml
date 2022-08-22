@@ -66,11 +66,11 @@ rook-ceph-cluster:
           memory: "500Mi"
       osd:
         limits:
-          cpu: "500m"
-          memory: "2Gi"
+          cpu: "700m"
+          memory: "3Gi"
         requests:
-          cpu: "300m"
-          memory: "1Gi"
+          cpu: "600m"
+          memory: "2Gi"
       prepareosd:
         limits:
           cpu: "500m"
