@@ -12,8 +12,6 @@ spec:
       - path: helm-skip-crds/*/*
   syncPolicy:
     preserveResourcesOnDeletion: true
-    automated:
-      prune: true
   template:
     metadata:
       name: '{{path.basename}}'
