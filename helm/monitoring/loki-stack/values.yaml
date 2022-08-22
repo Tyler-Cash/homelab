@@ -1,4 +1,4 @@
-loki:
+loki-stack:
   namespace: monitoring
   loki:
     isDefault: false
