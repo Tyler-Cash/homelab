@@ -26,7 +26,7 @@ gatus:
           - '[RESPONSE_TIME] < 1000'
           
       - name: jellyfin
-        url: http://jellyfin.media.svc.cluster.local/
+        url: http://jellyfin.media.svc.cluster.local:8096/
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
@@ -40,14 +40,14 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: radarr
-        url: http://radarr.media.svc.cluster.local/
+        url: http://radarr.media.svc.cluster.local:7878/
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 2000'
 
       - name: sonarr
-        url: http://sonarr.media.svc.cluster.local/
+        url: http://sonarr.media.svc.cluster.local:8989/
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
@@ -67,7 +67,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: prometheus
-        url: http://prometheus-prometheus.monitoring.svc.cluster.local/
+        url: http://prometheus-prometheus.monitoring.svc.cluster.local:9090/
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
@@ -81,7 +81,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: grafana
-        url: http://prometheus-grafana.monitoring.svc.cluster.local:9090/
+        url: http://prometheus-grafana.monitoring.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
