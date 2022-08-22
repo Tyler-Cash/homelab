@@ -36,6 +36,14 @@ kube-prometheus-stack:
   grafana:
     fullNameOverride: grafana
     defaultDashboardsTimezone: Australia/Sydney
+    additionalDataSources:
+    - name: loki
+      type: loki
+      access: proxy
+      editable: false
+      url: http://loki:3100
+      version: 1
+      orgId: 1
     ingress:
       enabled: true
       annotations:
