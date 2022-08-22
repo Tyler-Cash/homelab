@@ -8,15 +8,13 @@ gatus:
         url: http://bazarr.media.svc.cluster.local:6767/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 1500'
 
       - name: bitwarden
-        url: http://bitwarden.security.svc.cluster.local/
+        url: http://bitwarden-vaultwarden.security.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 300'
 
@@ -24,7 +22,6 @@ gatus:
         url: http://gotify.monitoring.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 1000'
           
@@ -32,7 +29,6 @@ gatus:
         url: http://jellyfin.media.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
 
@@ -40,7 +36,6 @@ gatus:
         url: http://prowlarr.media.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
 
@@ -48,7 +43,6 @@ gatus:
         url: http://radarr.media.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 2000'
 
@@ -56,7 +50,6 @@ gatus:
         url: http://sonarr.media.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
 
@@ -70,7 +63,6 @@ gatus:
         url: http://argocd-server.argocd.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
 
@@ -78,39 +70,34 @@ gatus:
         url: http://prometheus-prometheus.monitoring.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
 
       - name: alert-manager
-        url: http://prometheus-alert-manager.monitoring.svc.cluster.local/
+        url: http://prometheus-alertmanager.monitoring.svc.cluster.local:9083/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
 
       - name: grafana
-        url: http://prometheus-grafana.monitoring.svc.cluster.local/
+        url: http://prometheus-grafana.monitoring.svc.cluster.local:9090/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
 
       - name: ceph
-        url: http://rook-ceph-mgr-dashboard/
+        url: http://storage-dashboard.storage.svc.cluster.local/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
 
       - name: qbittorrent
-        url: http://qbittorrent.media.svc.cluster.local/
+        url: http://qbittorrent.media.svc.cluster.local:8080/
         conditions:
           - '[STATUS] == 200'
-          - '[CERTIFICATE_EXPIRATION] > 48h'
           - '[CONNECTED] == true'
           - '[RESPONSE_TIME] < 500'
   ingress:
