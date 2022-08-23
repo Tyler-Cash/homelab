@@ -16,7 +16,7 @@ gatus:
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 300'
+          - '[RESPONSE_TIME] < 500'
 
       - name: gotify
         url: http://gotify.monitoring.svc.cluster.local/
@@ -88,7 +88,7 @@ gatus:
           - '[RESPONSE_TIME] < 500'
 
       - name: ceph
-        url: http://rook-ceph-mgr-dashboard.storage.svc.cluster.local/
+        url: https://ceph.k8s.tylercash.dev/
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
