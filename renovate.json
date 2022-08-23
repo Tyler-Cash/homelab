@@ -8,7 +8,7 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
-      "excludePackageNames": ["rook-ceph", "rook-ceph-cluster", "argo-cd", "qbittorrent"],
+      "excludePackageNames": ["rook-ceph", "rook-ceph-cluster", "qbittorrent"],
       "matchCurrentVersion": "!/^0/",
       "automergeType": "branch",
       "automerge": true
