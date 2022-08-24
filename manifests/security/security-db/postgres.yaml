@@ -1,0 +1,27 @@
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  labels:
+    team: home
+  name: home-security
+spec:
+  allowedSourceRanges: null
+  databases:
+    authentik: authentik
+  enableConnectionPooler: true
+  enableMasterLoadBalancer: true
+  numberOfInstances: 1
+  postgresql:
+    version: '14'
+  resources:
+    limits:
+      cpu: 500m
+      memory: 500Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
+  teamId: home
+  users:
+    authentik: []
+  volume:
+    size: 10Gi

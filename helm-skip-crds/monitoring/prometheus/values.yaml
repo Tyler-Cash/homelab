@@ -1,0 +1,134 @@
+kube-prometheus-stack:
+  nameOverride: "prometheus"
+  fullNameOverride: "prometheus"
+  alertmanager:
+    fullNameOverride: alertmanager
+    alertmanagerSpec:
+      podAntiAffinity: soft
+      resources:
+        limits:
+          cpu: 400m
+          memory: 700Mi
+        requests:
+          cpu: 300m
+          memory: 400Mi
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: ceph-block
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 50Gi
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      hosts:
+        - alert-manager.k8s.tylercash.dev
+      tls:
+        - secretName: alert-manager-letsencrypt-certificate
+          hosts:
+            - alert-manager.k8s.tylercash.dev
+  grafana:
+    fullNameOverride: grafana
+    defaultDashboardsTimezone: Australia/Sydney
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        nginx.org/websocket-services: "prometheus-grafana"
+      hosts:
+        - grafana.k8s.tylercash.dev
+      tls:
+        - secretName: grafana-letsencrypt-certificate
+          hosts:
+            - grafana.k8s.tylercash.dev
+  prometheus:
+    fullNameOverride: prometheus
+    prometheusSpec:
+      retention: 30d
+      replicas: 1
+      podMonitorSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      ruleSelectorNilUsesHelmValues: false
+      resources:
+        limits:
+          cpu: 2500m
+          memory: 3Gi
+        requests:
+          cpu: 1500m
+          memory: 2Gi
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: ceph-block
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 50Gi
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      hosts:
+        - prometheus.k8s.tylercash.dev
+      tls:
+        - secretName: prometheus-letsencrypt-certificate
+          hosts:
+            - prometheus.k8s.tylercash.dev
+  prometheusOperator:
+    admissionWebhooks:
+      certManager:
+        enabled: true
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+  thanosRuler:
+    thanosRulerSpec:
+      podAntiAffinity: soft
+      resources:
+        limits:
+          cpu: 500m
+          memory: 600Mi
+        requests:
+          cpu: 300m
+          memory: 400Mi
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: ceph-block
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 50Gi
+  thanos:
+    fullNameOverride: thanos
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      hosts:
+        - thanos.k8s.tylercash.dev
+      tls:
+        - secretName: thanos-letsencrypt-certificate
+          hosts:
+            - thanos.k8s.tylercash.dev

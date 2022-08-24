@@ -1,0 +1,9 @@
+apiVersion: v2
+name: dragonfly
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+- name: k8s-gateway
+  version: 1.1.12
+  repository: https://ori-edge.github.io/k8s_gateway/

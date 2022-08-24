@@ -1,0 +1,128 @@
+qbittorrent:
+  env:
+    TZ: "Australia/Sydney"
+    QBT_BitTorrent__Session__AlternativeGlobalDLSpeedLimit: "8000"
+    QBT_BitTorrent__Session__AlternativeGlobalUPSpeedLimit: "1000"
+    QBT_BitTorrent__Session__BandwidthSchedulerEnabled: "true"
+    QBT_BitTorrent__Session__DefaultSavePath: "/share"
+    QBT_BitTorrent__Session__DisableAutoTMMByDefault: "false"
+    QBT_BitTorrent__Session__DisableAutoTMMTriggers__CategorySavePathChanged: "false"
+    QBT_BitTorrent__Session__DisableAutoTMMTriggers__DefaultSavePathChanged: "false"
+    QBT_BitTorrent__Session__FinishedTorrentExportDirectory: "/tmp"
+    QBT_BitTorrent__Session__GlobalMaxRatio: "0"
+    QBT_BitTorrent__Session__GlobalMaxSeedingMinutes: "1"
+    QBT_BitTorrent__Session__IgnoreLimitsOnLAN: "true"
+    QBT_BitTorrent__Session__IgnoreSlowTorrentsForQueueing: "true"
+    QBT_BitTorrent__Session__MaxActiveDownloads: "10"
+    QBT_BitTorrent__Session__MaxActiveTorrents: "25"
+    QBT_BitTorrent__Session__MaxActiveUploads: "5"
+    QBT_BitTorrent__Session__Preallocation: "true"
+    QBT_BitTorrent__Session__QueueingSystemEnabled: "true"
+    QBT_BitTorrent__Session__SlowTorrentsDownloadRate: "200"
+    QBT_BitTorrent__Session__TempPath: "/cache"
+    QBT_BitTorrent__Session__TempPathEnabled: "true"
+    QBT_BitTorrent__Session__TorrentContentLayout: "Subfolder"
+    QBT_BitTorrent__Session__TorrentExportDirectory: "/config/torrents"
+    QBT_BitTorrent__Session__uTPRateLimited: "false"
+    QBT_Core__AutoDeleteAddedTorrentFile: "Never"
+    QBT_Preferences__Advanced__RecheckOnCompletion: "false"
+    QBT_Preferences__Advanced__confirmRemoveAllTags: "true"
+    QBT_Preferences__Advanced__confirmTorrentRecheck: "false"
+    QBT_Preferences__Advanced__trackerPort: "9000"
+    QBT_Preferences__Bittorrent__MaxRatio: "1"
+    QBT_Preferences__Connection__GlobalDLLimitAlt: "8000"
+    QBT_Preferences__Connection__GlobalUPLimitAlt: "1000"
+    QBT_Preferences__Connection__PortRangeMin: "6881"
+    QBT_Preferences__Connection__ResolvePeerCountries: "true"
+    QBT_Preferences__Downloads__FinishedTorrentExportDir: "/tmp/"
+    QBT_Preferences__Downloads__PreAllocation: "true"
+    QBT_Preferences__Downloads__SavePath: "/share/"
+    QBT_Preferences__Downloads__TempPath: "/cache/"
+    QBT_Preferences__Downloads__TempPathEnabled: "true"
+    QBT_Preferences__Downloads__TorrentExportDir: "/config/torrents/"
+    QBT_Preferences__General__AlternatingRowColors: "true"
+    QBT_Preferences__General__HideZeroComboValues: "0"
+    QBT_Preferences__General__HideZeroValues: "false"
+    QBT_Preferences__General__Locale: "en_AU"
+    QBT_Preferences__Queueing__IgnoreSlowTorrents: "true"
+    QBT_Preferences__Queueing__MaxActiveDownloads: "15"
+    QBT_Preferences__Queueing__MaxActiveTorrents: "40"
+    QBT_Preferences__Queueing__MaxActiveUploads: "10"
+    QBT_Preferences__Queueing__QueueingEnabled: "true"
+    QBT_Preferences__Scheduler__Enabled: "true"
+    QBT_Preferences__Scheduler__days: "0"
+    QBT_Preferences__Scheduler__end_time: "@Variant(\\0\\0\\0\\xf\\x4\\xb8\\x7f\\0)"
+    QBT_Preferences__Scheduler__start_time: "@Variant(\\0\\0\\0\\xf\\x4J\\xa2\\0)"
+    QBT_Preferences__WebUI__Address: "*"
+    QBT_Preferences__WebUI__AlternativeUIEnabled: "false"
+    QBT_Preferences__WebUI__AuthSubnetWhitelist: "10.0.0.0/8"
+    QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: "true"
+    QBT_Preferences__WebUI__BanDuration: "3600"
+    QBT_Preferences__WebUI__CSRFProtection: "true"
+    QBT_Preferences__WebUI__ClickjackingProtection: "true"
+    QBT_Preferences__WebUI__CustomHTTPHeaders: ""
+    QBT_Preferences__WebUI__CustomHTTPHeadersEnabled: "false"
+    QBT_Preferences__WebUI__HTTPS__CertificatePath: ""
+    QBT_Preferences__WebUI__HTTPS__Enabled: "false"
+    QBT_Preferences__WebUI__HTTPS__KeyPath: ""
+    QBT_Preferences__WebUI__HostHeaderValidation: "true"
+    QBT_Preferences__WebUI__LocalHostAuth: "true"
+    QBT_Preferences__WebUI__MaxAuthenticationFailCount: "5"
+    QBT_Preferences__WebUI__Port: "8080"
+    QBT_Preferences__WebUI__ReverseProxySupportEnabled: "false"
+    QBT_Preferences__WebUI__RootFolder: ""
+    QBT_Preferences__WebUI__SecureCookie: "true"
+    QBT_Preferences__WebUI__ServerDomains: "*"
+    QBT_Preferences__WebUI__SessionTimeout: "3600"
+    QBT_Preferences__WebUI__TrustedReverseProxiesList: ""
+    QBT_Preferences__WebUI__UseUPnP: "false"
+  settings:
+    automaticPortSetup: false
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress.class: "nginx"
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
+      hosts:
+        - host: qbittorrent.k8s.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: qbittorrent-letsencrypt-certificate
+          hosts:
+            - qbittorrent.k8s.tylercash.dev
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+  persistence:
+    config:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 250Gi
+    cache:
+      enabled: true
+      storageClass: ceph-block-1rep
+      accessMode: ReadWriteOnce
+      size: 250Gi
+    share:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteMany
+      size: 250Gi
+  resources:
+    limits:
+      cpu: 900m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 700Mi
