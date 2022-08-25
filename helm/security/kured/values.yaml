@@ -1,0 +1,17 @@
+kured:
+  extraArgs:
+
+  configuration:
+    timeZone: Australia/Sydney
+    preferNoScheduleTaint: "weave.works/kured-node-reboot"
+    drainTimeout: "20m"
+    annotateNodes: true
+
+  metrics:
+    create: true
+    namespace: "monitoring"
+  
+  tolerations:
+  - key: "master"
+    operator: "Exists"
+    effect: "NoSchedule"

@@ -1,0 +1,12 @@
+apiVersion: v2
+name: zalando-op
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+- name: postgres-operator
+  version: "*"
+  repository:  https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+- name: postgres-operator-ui
+  version: "*"
+  repository:  https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui

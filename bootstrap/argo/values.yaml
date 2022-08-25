@@ -1,0 +1,13 @@
+redis-ha:
+  enabled: false
+
+controller:
+  enableStatefulSet: false
+
+server:
+  autoscaling:
+    enabled: false
+
+repoServer:
+  autoscaling:
+    enabled: false

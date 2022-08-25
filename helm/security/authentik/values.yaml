@@ -1,0 +1,46 @@
+authentik:
+  envValueFrom:
+    AUTHENTIK_POSTGRESQL__PASSWORD:
+      secretKeyRef:
+        key: password
+        name: authentik.home-authentik.credentials.postgresql.acid.zalan.do
+    AUTHENTIK_SECRET_KEY:
+      secretKeyRef:
+        key: secret_key
+        name: authentik-secrets
+  env:
+    AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
+  authentik:
+    postgresql:
+      host: home-authentik
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress-allow-http: "false" 
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "prod-issuer"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+      nginx.org/websocket-services: "authentik"
+    hosts:
+      - host: authentik.k8s.tylercash.dev
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: authentik-letsencrypt-certificate
+        hosts:
+          - authentik.k8s.tylercash.dev
+
+  postgresql:
+    enabled: false
+
+  redis:
+    enabled: true
+
+  prometheus:
+    serviceMonitor:
+      create: true
+    rules:
+      create: true
