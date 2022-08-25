@@ -5,6 +5,7 @@ gatus:
       path: /data/data.db
     endpoints:
       - name: bazarr
+        interval: 20s
         url: http://bazarr.media.svc.cluster.local:6767/
         conditions:
           - '[STATUS] == 200'
@@ -13,6 +14,7 @@ gatus:
 
       - name: bitwarden
         url: http://bitwarden-vaultwarden.security.svc.cluster.local/
+
         conditions:
           - '[STATUS] == 200'
           - '[CONNECTED] == true'
