@@ -4,7 +4,6 @@ postgres-operator:
     inherited_annotations:
     - owned-by
     - argocd.argoproj.io/compare-options
-    - argocd.argoproj.io/sync-options
     inherited_labels:
     - argocd.argoproj.io/instance
   configLoadBalancer:
