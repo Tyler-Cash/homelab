@@ -3,7 +3,7 @@ kind: postgresql
 metadata:
   labels:
     team: home
-  name: home-security
+  name: home-keycloak
 spec:
   allowedSourceRanges: null
   databases:
