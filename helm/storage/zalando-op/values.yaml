@@ -4,8 +4,7 @@ postgres-operator:
     inherited_annotations:
     - owned-by
     - argocd.argoproj.io/compare-options
-    inherited_labels:
-    - argocd.argoproj.io/instance
+    - argocd.argoproj.io/sync-options
   configLoadBalancer:
     db_hosted_zone: k8s.tylercash.dev
     enable_master_load_balancer: true
