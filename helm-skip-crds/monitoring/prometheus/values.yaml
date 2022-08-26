@@ -134,4 +134,5 @@ kube-prometheus-stack:
             - thanos.k8s.tylercash.dev
   kubeEtcd:
     serviceMonitor:
+      scheme: https
       insecureSkipVerify: true
