@@ -135,27 +135,29 @@ kube-prometheus-stack:
   kubeEtcd:
     enabled: true
     endpoints:
-      - 10.0.0.82
-      - 10.0.0.83
-      - 10.0.0.85
+    - 10.0.0.82
+    - 10.0.0.83
+    - 10.0.0.85
     service:
       enabled: true
+      port: 2381
+      targetPort: 2381
 
 kubeScheduler:
   enabled: true
   endpoints:
-    - 10.0.0.82
-    - 10.0.0.83
-    - 10.0.0.85
+  - 10.0.0.82
+  - 10.0.0.83
+  - 10.0.0.85
   service:
     enabled: true
 
 kubeProxy:
   enabled: true
   endpoints:
-    - 10.0.0.82
-    - 10.0.0.83
-    - 10.0.0.85
+  - 10.0.0.82
+  - 10.0.0.83
+  - 10.0.0.85
 
 kubeStateMetrics:
   enabled: true
