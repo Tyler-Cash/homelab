@@ -147,6 +147,8 @@ kubeScheduler:
     - 10.0.0.82
     - 10.0.0.83
     - 10.0.0.85
+  service:
+    enabled: true
 
 kubeProxy:
   enabled: true
