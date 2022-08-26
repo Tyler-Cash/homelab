@@ -133,6 +133,29 @@ kube-prometheus-stack:
           hosts:
             - thanos.k8s.tylercash.dev
   kubeEtcd:
-    serviceMonitor:
-      scheme: https
-      insecureSkipVerify: true
+  enabled: true
+  endpoints:
+    - 10.0.0.82
+    - 10.0.0.83
+    - 10.0.0.85
+  service:
+    enabled: true
+    port: 2381
+    targetPort: 2381
+
+kubeScheduler:
+  enabled: true
+  endpoints:
+    - 10.0.0.82
+    - 10.0.0.83
+    - 10.0.0.85
+
+kubeProxy:
+  enabled: true
+  endpoints:
+    - 10.0.0.82
+    - 10.0.0.83
+    - 10.0.0.85
+
+kubeStateMetrics:
+  enabled: true
