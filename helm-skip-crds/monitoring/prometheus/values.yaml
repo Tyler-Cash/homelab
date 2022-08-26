@@ -54,12 +54,7 @@ kube-prometheus-stack:
             - grafana.k8s.tylercash.dev
   prometheus:
     fullNameOverride: prometheus
-    prometheusSpec:
-      retention: 30d
-      replicas: 1
-      podMonitorSelectorNilUsesHelmValues: false
-      serviceMonitorSelectorNilUsesHelmValues: false
-      ruleSelectorNilUsesHelmValues: false
+    serviceMonitor:
       metricRelabelings:
       - action: keep
         regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
@@ -71,6 +66,12 @@ kube-prometheus-stack:
         targetLabel: nodename
         replacement: $1
         action: replace
+    prometheusSpec:
+      retention: 30d
+      replicas: 1
+      podMonitorSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      ruleSelectorNilUsesHelmValues: false
       resources:
         limits:
           cpu: 2500m
