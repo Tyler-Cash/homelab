@@ -60,6 +60,17 @@ kube-prometheus-stack:
       podMonitorSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
       ruleSelectorNilUsesHelmValues: false
+      metricRelabelings:
+      - action: keep
+        regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
+        sourceLabels: [__name__]
+      relabelings:
+      - sourceLabels: [__meta_kubernetes_pod_node_name]
+        separator: ;
+        regex: ^(.*)$
+        targetLabel: nodename
+        replacement: $1
+        action: replace
       resources:
         limits:
           cpu: 2500m
@@ -81,9 +92,7 @@ kube-prometheus-stack:
           - role: node
         scheme: https
         tls_config:
-          ca_file:   /etc/prometheus/secrets/etcd-client-cert/etcd-ca
-          cert_file: /etc/prometheus/secrets/etcd-client-cert/etcd-client
-          key_file:  /etc/prometheus/secrets/etcd-client-cert/etcd-client-key
+          insecureSkipVerify: true
         relabel_configs:
         - action: labelmap
           regex: __meta_kubernetes_node_label_(.+)
