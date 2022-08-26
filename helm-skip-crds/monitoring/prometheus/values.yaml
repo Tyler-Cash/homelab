@@ -151,6 +151,10 @@ kubeScheduler:
   - 10.0.0.85
   service:
     enabled: true
+  serviceMonitor:
+    enabled: true
+    scheme: https
+    insecureSkipVerify: true
 
 kubeProxy:
   enabled: true
