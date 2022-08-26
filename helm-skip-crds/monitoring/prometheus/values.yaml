@@ -140,8 +140,6 @@ kube-prometheus-stack:
       - 10.0.0.85
     service:
       enabled: true
-      port: 2381
-      targetPort: 2381
 
 kubeScheduler:
   enabled: true
