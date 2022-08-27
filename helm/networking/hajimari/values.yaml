@@ -21,7 +21,8 @@ hajimari:
         nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - host: hajimari.k8s.tylercash.dev
-          paths:
-            - path: /
-              pathType: Prefix
+        - hajimari.k8s.tylercash.dev
+      tls:
+        - secretName: hajimari-letsencrypt-certificate
+          hosts:
+            - hajimari.k8s.tylercash.dev
