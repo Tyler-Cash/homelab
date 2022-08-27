@@ -22,7 +22,3 @@ hajimari:
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
         - hajimari.k8s.tylercash.dev
-      tls:
-        - secretName: hajimari-letsencrypt-certificate
-          hosts:
-            - hajimari.k8s.tylercash.dev
