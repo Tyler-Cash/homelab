@@ -5,12 +5,13 @@ gotify:
     main:
       enabled: true
       annotations:
+        cert-manager.io/cluster-issuer: "prod-issuer"
+        hajimari.io/enable: true
         kubernetes.io/ingress-allow-http: "false" 
         kubernetes.io/ingress.class: "nginx"
-        cert-manager.io/cluster-issuer: "prod-issuer"
-        nginx.ingress.kubernetes.io/ssl-redirect: "true"
         nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
         nginx.org/websocket-services: "gotify"
       hosts:
         - host: gotify.k8s.tylercash.dev
