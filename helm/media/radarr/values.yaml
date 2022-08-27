@@ -6,7 +6,7 @@ radarr:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: "prod-issuer"
-        hajimari.io/enable: true
+        hajimari.io/enable: "true"
         kubernetes.io/ingress-allow-http: "false" 
         kubernetes.io/ingress.class: "nginx"
       hosts:
