@@ -1,5 +1,8 @@
 hajimari:
-  image.tag: v0.2.0
+  image:
+    repository: ghcr.io/toboshii/hajimari
+    pullPolicy: IfNotPresent
+    tag: v0.2.0
   hajimari:
     title: Home
     customApps:
