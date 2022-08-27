@@ -18,7 +18,6 @@ hajimari:
         cert-manager.io/cluster-issuer: "prod-issuer"
         kubernetes.io/ingress-allow-http: "false" 
         kubernetes.io/ingress.class: "nginx"
-        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
         - host: hajimari.k8s.tylercash.dev
