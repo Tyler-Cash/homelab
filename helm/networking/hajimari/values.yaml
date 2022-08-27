@@ -1,4 +1,5 @@
 hajimari:
+  image.tag: v0.2.0
   hajimari:
     title: Home
     customApps:
