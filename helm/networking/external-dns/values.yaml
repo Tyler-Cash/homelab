@@ -3,14 +3,15 @@ external-dns:
     enabled: true
   provider: cloudflare
   txtPrefix: prefix.
-  extraArgs:
-  - --aws-prefer-cname
   logLevel: debug
   env:
-  - name: CF_API_EMAIL
-    value: tyler@tylercash.dev
+  - name: CF_ZONE_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-secrets
+        key: zone-id
   - name: CF_API_KEY
     valueFrom:
       secretKeyRef:
-        name: cloudflare-api-token-secret
+        name: cloudflare-secrets
         key: api-token
