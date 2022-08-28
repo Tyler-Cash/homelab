@@ -102,6 +102,7 @@ kube-prometheus-stack:
         api_url: https://authentik.k8s.tylercash.dev/application/o/userinfo/
         tls_skip_verify_insecure: true
         role_attribute_path: contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-write') && 'Editor' || contains(groups[*], 'grafana-read') && 'Viewer'
+        role_attribute_strict: true
     ingress:
       enabled: true
       annotations:
