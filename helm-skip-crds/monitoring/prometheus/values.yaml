@@ -22,6 +22,7 @@ kube-prometheus-stack:
           secretName: opsgenie-secret
           items:
           - key: alert-manager-k8s
+            path: alert-manager-k8s
       storage:
         volumeClaimTemplate:
           spec:
