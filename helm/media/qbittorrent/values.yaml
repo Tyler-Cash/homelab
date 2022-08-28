@@ -90,6 +90,7 @@ qbittorrent:
         nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
         nginx.ingress.kubernetes.io/rewrite-target: /$2
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
         - host: qbittorrent.k8s.tylercash.dev
           paths:

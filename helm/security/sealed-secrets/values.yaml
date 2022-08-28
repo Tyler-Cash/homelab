@@ -13,7 +13,8 @@ sealed-secrets:
     enabled: true
     tls: true
     annotations:
+        cert-manager.io/cluster-issuer: "prod-issuer"
         kubernetes.io/ingress-allow-http: "false" 
         kubernetes.io/ingress.class: "nginx"
-        cert-manager.io/cluster-issuer: "prod-issuer"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
     hostname: secrets.k8s.tylercash.dev

@@ -114,6 +114,7 @@ gatus:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
       nginx.org/websocket-services: gatus
+      nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
     hosts:
       - health.k8s.tylercash.dev
     tls:

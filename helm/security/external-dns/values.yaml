@@ -1,0 +1,5 @@
+external-dns:
+  serviceMonitor:
+    enabled: true
+  domainFilters:
+  - k8s.tylercash.dev

@@ -10,6 +10,7 @@ vaultwarden:
         hajimari.io/group: "Security"
         kubernetes.io/ingress-allow-http: "false" 
         kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
         - host: bitwarden.k8s.tylercash.dev
           paths:
