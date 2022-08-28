@@ -66,6 +66,8 @@ kube-prometheus-stack:
           matchers:
             - alertname =~ "InfoInhibitor|Watchdog"
         - receiver: 'opsgenie'
+          matchers:
+          - severity =~ "warning|critical"
       receivers:
       - name: 'null'
       - name: 'opsgenie'
@@ -73,7 +75,6 @@ kube-prometheus-stack:
         update_alerts: true
       templates:
       - '/etc/alertmanager/config/*.tmpl'
-    
     ingress:
       enabled: true
       annotations:
