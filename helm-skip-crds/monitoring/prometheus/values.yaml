@@ -33,7 +33,8 @@ kube-prometheus-stack:
                 storage: 50Gi
     config:
       route:
-        receiver: opsgenie
+        routes:
+        - receiver: opsgenie
       receivers:
       - name: opsgenie
         opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
