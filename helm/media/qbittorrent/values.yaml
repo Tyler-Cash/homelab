@@ -122,8 +122,8 @@ qbittorrent:
       size: 250Gi
   resources:
     limits:
-      cpu: 900m
-      memory: 1Gi
+      cpu: 1500m
+      memory: 2Gi
     requests:
-      cpu: 500m
-      memory: 700Mi
+      cpu: 1000m
+      memory: 1.5Gi
