@@ -56,11 +56,11 @@ kube-prometheus-stack:
           equal:
             - 'namespace'
       route:
-        group_by: ['namespace']
+        group_by: [alertname]
+        receiver: opsgenie_normal_receiver
         group_wait: 30s
         group_interval: 5m
         repeat_interval: 12h
-        receiver: 'null'
         routes:
         - receiver: 'opsgenie'
           matchers:
@@ -69,9 +69,7 @@ kube-prometheus-stack:
       - name: 'opsgenie'
         opsgenie_configs:
         - opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
-          update_alerts: true
-          message: '{{.CommonAnnotations.summary}}'
-          description: '{{.CommonAnnotations.description}}'
+          tags: 'Prometheus'
       templates:
       - '/etc/alertmanager/config/*.tmpl'
     ingress:
