@@ -10,3 +10,5 @@ nginx-ingress:
         client-max-body-size: 8m
         proxy-read-timeout: "300"
         proxy-send-timeout: "300"
+    service:
+      externalTrafficPolicy: Local
