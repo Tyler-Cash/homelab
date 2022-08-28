@@ -84,7 +84,7 @@ kube-prometheus-stack:
       grafana_net:
         url: https://grafana.net
       server:
-        domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ .Values.ingress.hosts | first }}{{ end }}"
+        domain: "https://grafana.k8s.tylercash.dev"
       auth:
         signout_redirect_url = https://authentik.k8s.tylercash.dev/application/o/grafana/end-session/
       auth.generic_oauth:
