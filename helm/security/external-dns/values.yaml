@@ -7,6 +7,7 @@ external-dns:
   txtPrefix: prefix.
   extraArgs:
   - --aws-prefer-cname
+  logLevel: debug
   env:
   - name: CF_API_EMAIL
     value: tyler@tylercash.dev
