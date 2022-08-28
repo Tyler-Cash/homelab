@@ -88,8 +88,10 @@ kube-prometheus-stack:
         root_url: "https://grafana.k8s.tylercash.dev/"
       auth:
         signout_redirect_url: https://authentik.k8s.tylercash.dev/application/o/grafana/end-session/
+        oauth_auto_login: true
+        disable_login_form: true
       auth.generic_oauth:
-        name: authentik
+        name: Authentik
         enabled: true
         allow_sign_up: true
         client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
