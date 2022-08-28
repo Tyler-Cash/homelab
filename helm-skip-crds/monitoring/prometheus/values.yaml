@@ -85,7 +85,7 @@ kube-prometheus-stack:
         url: https://grafana.net
       server:
         domain: "grafana.k8s.tylercash.dev"
-        root_url: "https://%(domain)s:%(http_port)s/grafana/"
+        root_url: "https://grafana.k8s.tylercash.dev:443/"
         serve_from_sub_path: true
       auth:
         signout_redirect_url = https://authentik.k8s.tylercash.dev/application/o/grafana/end-session/
