@@ -10,6 +10,7 @@ jellyfin:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: "prod-issuer"
+        external-dns.alpha.kubernetes.io/hostname: jellyfin.k8s.tylercash.dev
         hajimari.io/enable: "true"
         hajimari.io/group: "Media"
         kubernetes.io/ingress-allow-http: "false" 
