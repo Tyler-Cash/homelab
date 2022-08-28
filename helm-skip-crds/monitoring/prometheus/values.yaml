@@ -7,11 +7,11 @@ kube-prometheus-stack:
       podAntiAffinity: soft
       resources:
         limits:
-          cpu: 400m
-          memory: 700Mi
-        requests:
-          cpu: 300m
+          cpu: 200m
           memory: 400Mi
+        requests:
+          cpu: 100m
+          memory: 300Mi
       volumeMounts:
       - name: opsgenie-secret
         mountPath: "/etc/secrets"
