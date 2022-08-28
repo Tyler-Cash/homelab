@@ -65,6 +65,39 @@ kube-prometheus-stack:
   grafana:
     fullNameOverride: grafana
     defaultDashboardsTimezone: Australia/Sydney
+    extraSecretMounts:
+    - name: auth-generic-oauth-secret-mount
+      secretName: auth-generic-oauth-secret
+      defaultMode: 0440
+      mountPath: /etc/secrets/auth_generic_oauth
+      readOnly: true
+    grafana.ini:
+      paths:
+        data: /var/lib/grafana/
+        logs: /var/log/grafana
+        plugins: /var/lib/grafana/plugins
+        provisioning: /etc/grafana/provisioning
+      analytics:
+        check_for_updates: true
+      log:
+        mode: console
+      grafana_net:
+        url: https://grafana.net
+      server:
+        domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ .Values.ingress.hosts | first }}{{ end }}"
+      auth:
+        signout_redirect_url = https://authentik.k8s.tylercash.dev/application/o/grafana/end-session/
+        oauth_auto_login = true
+      auth.generic_oauth:
+        name = authentik
+        enabled = true
+        client_id = $__file{/etc/secrets/auth_generic_oauth/client_id}
+        client_secret = $__file{/etc/secrets/auth_generic_oauth/client_secret}
+        scopes = openid email profile
+        auth_url = https://authentik.k8s.tylercash.dev/application/o/authorize/
+        token_url = https://authentik.k8s.tylercash.dev/application/o/token/
+        api_url = https://authentik.k8s.tylercash.dev/application/o/userinfo/
+        role_attribute_path = contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-write') && 'Editor' || contains(groups[*], 'grafana-read') && 'Viewer'
     ingress:
       enabled: true
       annotations:
