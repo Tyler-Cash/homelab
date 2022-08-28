@@ -87,7 +87,6 @@ kube-prometheus-stack:
         domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ .Values.ingress.hosts | first }}{{ end }}"
       auth:
         signout_redirect_url = https://authentik.k8s.tylercash.dev/application/o/grafana/end-session/
-        oauth_auto_login = true
       auth.generic_oauth:
         name = authentik
         enabled = true
