@@ -32,13 +32,45 @@ kube-prometheus-stack:
               requests:
                 storage: 50Gi
     config:
+      global:
+        resolve_timeout: 5m
+      inhibit_rules:
+        - source_matchers:
+            - 'severity = critical'
+          target_matchers:
+            - 'severity =~ warning|info'
+          equal:
+            - 'namespace'
+            - 'alertname'
+        - source_matchers:
+            - 'severity = warning'
+          target_matchers:
+            - 'severity = info'
+          equal:
+            - 'namespace'
+            - 'alertname'
+        - source_matchers:
+            - 'alertname = InfoInhibitor'
+          target_matchers:
+            - 'severity = info'
+          equal:
+            - 'namespace'
       route:
+        group_by: ['namespace']
+        group_wait: 30s
+        group_interval: 5m
+        repeat_interval: 12h
+        receiver: 'null'
         routes:
-        - receiver: opsgenie
+        - receiver: 'null'
+          matchers:
+            - alertname =~ "InfoInhibitor|Watchdog"
+        - receiver: 'opsgenie'
       receivers:
-      - name: opsgenie
-        opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
-        update_alerts: true
+      - name: 'null'
+      - name: 'opsgenie'
+      templates:
+      - '/etc/alertmanager/config/*.tmpl'
     
     ingress:
       enabled: true
