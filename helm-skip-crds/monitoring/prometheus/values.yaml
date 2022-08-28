@@ -62,17 +62,14 @@ kube-prometheus-stack:
         repeat_interval: 12h
         receiver: 'null'
         routes:
-        - receiver: 'null'
-          matchers:
-            - alertname =~ "InfoInhibitor|Watchdog"
         - receiver: 'opsgenie'
           matchers:
           - severity =~ "warning|critical"
       receivers:
-      - name: 'null'
       - name: 'opsgenie'
-        opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
-        update_alerts: true
+        opsgenie_configs:
+          opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
+          update_alerts: true
       templates:
       - '/etc/alertmanager/config/*.tmpl'
     ingress:
