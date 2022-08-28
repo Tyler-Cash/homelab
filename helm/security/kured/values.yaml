@@ -6,7 +6,7 @@ kured:
     startTime: "03:00"
     endTime: "10:00"
     preferNoScheduleTaint: "weave.works/kured-node-reboot"
-    drainGracePeriod: 5m
+    drainGracePeriod: 300
     drainTimeout: 7m
     annotateNodes: true
 
