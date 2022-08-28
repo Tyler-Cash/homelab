@@ -5,11 +5,11 @@ external-dns:
   txtPrefix: prefix.
   logLevel: debug
   env:
-  - name: CF_ZONE_API_TOKEN
+  - name: CF_API_EMAIL
     valueFrom:
       secretKeyRef:
         name: cloudflare-secrets
-        key: zone-id
+        key: email
   - name: CF_API_KEY
     valueFrom:
       secretKeyRef:
