@@ -3,7 +3,8 @@ external-dns:
     enabled: true
   provider: cloudflare
   txtPrefix: prefix.
-  logLevel: debug
+  extraArgs:
+  - --aws-prefer-cname
   env:
   - name: CF_API_EMAIL
     valueFrom:
