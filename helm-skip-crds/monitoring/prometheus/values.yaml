@@ -85,24 +85,21 @@ kube-prometheus-stack:
         url: https://grafana.net
       server:
         domain: "grafana.k8s.tylercash.dev"
-        root_url: "https://grafana.k8s.tylercash.dev:443/"
-        serve_from_sub_path: true
+        root_url: "https://grafana.k8s.tylercash.dev/"
       auth:
-        signout_redirect_url = https://authentik.k8s.tylercash.dev/application/o/grafana/end-session/
+        signout_redirect_url: https://authentik.k8s.tylercash.dev/application/o/grafana/end-session/
       auth.generic_oauth:
-        name = authentik
-        enabled = true
-        allow_sign_up = true
-        client_id = $__file{/etc/secrets/auth_generic_oauth/client_id}
-        client_secret = $__file{/etc/secrets/auth_generic_oauth/client_secret}
-        email_attribute_path=email    
-        email_attribute_name=email
-        scopes = openid email profile
-        auth_url = https://authentik.k8s.tylercash.dev/application/o/authorize/
-        token_url = https://authentik.k8s.tylercash.dev/application/o/token/
-        api_url = https://authentik.k8s.tylercash.dev/application/o/userinfo/
-        tls_skip_verify_insecure = true
-        role_attribute_path = contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-write') && 'Editor' || contains(groups[*], 'grafana-read') && 'Viewer'
+        name: authentik
+        enabled: true
+        allow_sign_up: true
+        client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
+        client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
+        scopes: openid email profile
+        auth_url: https://authentik.k8s.tylercash.dev/application/o/authorize/
+        token_url: https://authentik.k8s.tylercash.dev/application/o/token/
+        api_url: https://authentik.k8s.tylercash.dev/application/o/userinfo/
+        tls_skip_verify_insecure: true
+        role_attribute_path: contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-write') && 'Editor' || contains(groups[*], 'grafana-read') && 'Viewer'
     ingress:
       enabled: true
       annotations:
