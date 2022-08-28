@@ -1,8 +1,6 @@
 external-dns:
   serviceMonitor:
     enabled: true
-  domainFilters:
-  - k8s.tylercash.dev
   provider: cloudflare
   txtPrefix: prefix.
   extraArgs:
