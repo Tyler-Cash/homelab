@@ -58,18 +58,71 @@ kube-prometheus-stack:
       route:
         group_by: [alertname]
         receiver: opsgenie_normal_receiver
-        group_wait: 30s
-        group_interval: 5m
-        repeat_interval: 12h
+        group_wait: 10s
+        group_interval: 10s
+        repeat_interval: 15m
         routes:
-        - receiver: 'opsgenie'
-          matchers:
-          - severity =~ "warning|critical"
+        - receiver: opsgenie_critical_receiver
+          match:
+            severity: critical
+            alerting: opsgenie
+          routes:
+          - receiver: opsgenie_statuspage_critical_receiver
+            match:
+              status_page: update
+        - receiver: opsgenie_warning_receiver
+          match:
+            severity: warning
+            alerting: opsgenie
+          routes:
+          - receiver: opsgenie_statuspage_warning_receiver
+            match:
+              status_page: update
+        - receiver: opsgenie_normal_receiver
+          match:
+            severity: normal
+            alerting: opsgenie
+          routes:
+          - receiver: opsgenie_statuspage_normal_receiver
+            match:
+              status_page: update
       receivers:
-      - name: 'opsgenie'
+      - name: opsgenie_critical_receiver
         opsgenie_configs:
-        - opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
+        - priority: P1
           tags: 'Prometheus'
+          message: '{{.CommonAnnotations.summary}}'
+          description: '{{.CommonAnnotations.description}}'
+      - name: opsgenie_warning_receiver
+        opsgenie_configs:
+        - priority: P2
+          tags: 'Prometheus'
+          message: '{{.CommonAnnotations.summary}}'
+          description: '{{.CommonAnnotations.description}}'
+      - name: opsgenie_normal_receiver
+        opsgenie_configs:
+        - priority: P3
+          tags: 'Prometheus'
+          message: '{{.CommonAnnotations.summary}}'
+          description: '{{.CommonAnnotations.description}}'
+      - name: opsgenie_statuspage_critical_receiver
+        opsgenie_configs:
+        - priority: P1
+          tags: 'Prometheus,Statuspage'
+          message: '{{.CommonAnnotations.summary}}'
+          description: '{{.CommonAnnotations.description}}'
+      - name: opsgenie_statuspage_warning_receiver
+        opsgenie_configs:
+        - priority: P2
+          tags: 'Prometheus,Statuspage'
+          message: '{{.CommonAnnotations.summary}}'
+          description: '{{.CommonAnnotations.description}}'
+      - name: opsgenie_statuspage_normal_receiver
+        opsgenie_configs:
+        - priority: P3
+          tags: 'Prometheus,Statuspage'
+          message: '{{.CommonAnnotations.summary}}'
+          description: '{{.CommonAnnotations.description}}'
       templates:
       - '/etc/alertmanager/config/*.tmpl'
     ingress:
