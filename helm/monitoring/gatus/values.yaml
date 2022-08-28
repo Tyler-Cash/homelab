@@ -1,4 +1,6 @@
 gatus:
+  env:
+    TZ: "Australia/Sydney"
   config:
     storage:
       type: sqlite
