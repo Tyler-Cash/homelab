@@ -31,8 +31,22 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 50Gi
-      templates:
-      - '/etc/alertmanager/config/*.tmpl'
+    config:
+      route:
+        receiver: "null"
+        group_by:
+        - namespace
+        continue: false
+        routes:
+        - receiver: "null"
+          matchers:
+          - alertname=~"InfoInhibitor|Watchdog"
+          continue: false
+        group_wait: 30s
+        group_interval: 5m
+        repeat_interval: 12h
+      receivers:
+      - name: "null"
     ingress:
       enabled: true
       annotations:
