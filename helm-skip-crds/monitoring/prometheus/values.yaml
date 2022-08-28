@@ -68,8 +68,10 @@ kube-prometheus-stack:
       receivers:
       - name: 'opsgenie'
         opsgenie_configs:
-          opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
+        - opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
           update_alerts: true
+          message: '{{.CommonAnnotations.summary}}'
+          description: '{{.CommonAnnotations.description}}'
       templates:
       - '/etc/alertmanager/config/*.tmpl'
     ingress:
