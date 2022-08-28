@@ -12,6 +12,16 @@ kube-prometheus-stack:
         requests:
           cpu: 300m
           memory: 400Mi
+      volumeMounts:
+      - name: opsgenie-secret
+        mountPath: "/etc/secrets"
+        readOnly: true
+      volumes:
+      - name: opsgenie-secret
+        secret:
+          secretName: opsgenie-secret
+          items:
+          - key: alert-manager-k8s
       storage:
         volumeClaimTemplate:
           spec:
@@ -20,6 +30,14 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 50Gi
+    config:
+      route:
+        receiver: opsgenie
+      receivers:
+      - name: opsgenie
+        opsgenie_api_key_file: /etc/secrets/alert-manager-k8s
+        update_alerts: true
+    
     ingress:
       enabled: true
       annotations:
@@ -104,40 +122,6 @@ kube-prometheus-stack:
       requests:
         cpu: 100m
         memory: 100Mi
-  thanosRuler:
-    thanosRulerSpec:
-      podAntiAffinity: soft
-      resources:
-        limits:
-          cpu: 500m
-          memory: 600Mi
-        requests:
-          cpu: 300m
-          memory: 400Mi
-      storage:
-        volumeClaimTemplate:
-          spec:
-            storageClassName: ceph-block
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 50Gi
-  thanos:
-    fullNameOverride: thanos
-    ingress:
-      enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: "prod-issuer"
-        hajimari.io/enable: "true"
-        hajimari.io/group: "Monitoring"
-        kubernetes.io/ingress-allow-http: "false" 
-        kubernetes.io/ingress.class: "nginx"
-      hosts:
-        - thanos.k8s.tylercash.dev
-      tls:
-        - secretName: thanos-letsencrypt-certificate
-          hosts:
-            - thanos.k8s.tylercash.dev
   kubeEtcd:
     enabled: true
     endpoints:
