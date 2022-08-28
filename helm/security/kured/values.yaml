@@ -3,8 +3,11 @@ kured:
 
   configuration:
     timeZone: Australia/Sydney
+    startTime: "03:00"
+    endTime: "10:00"
     preferNoScheduleTaint: "weave.works/kured-node-reboot"
-    drainTimeout: "20m"
+    drainGracePeriod: 5m
+    drainTimeout: 7m
     annotateNodes: true
 
   metrics:
