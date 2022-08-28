@@ -12,3 +12,6 @@ nginx-ingress:
         proxy-send-timeout: "300"
     service:
       externalTrafficPolicy: Local
+      internal:
+        enabled: true
+        externalTrafficPolicy: "Local"
