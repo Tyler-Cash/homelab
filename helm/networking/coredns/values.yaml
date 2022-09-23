@@ -1,4 +1,9 @@
 coredns:
+  prometheus:
+    service:
+      enabled: true
+    monitor:
+      enabled: true
   isClusterService: false
   serviceType: LoadBalancer
   service:
