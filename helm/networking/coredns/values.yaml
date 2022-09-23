@@ -4,6 +4,7 @@ coredns:
       enabled: true
     monitor:
       enabled: true
+      namespace: "monitoring"
   isClusterService: false
   serviceType: LoadBalancer
   service:
