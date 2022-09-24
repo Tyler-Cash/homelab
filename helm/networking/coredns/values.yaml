@@ -47,6 +47,12 @@ coredns:
       parameters: . /etc/resolv.conf tls://1.0.0.1 tls://1.1.1.1
     - name: k8s_external
       parameters: home.tylercash.dev
+    - name: hosts
+      parameters: /blacklist/hosts.blacklist
+      configBlock: |-
+        reload 3600s
+        no_reverse
+        fallthrough
     - name: cache
       parameters: 30
     - name: loop
