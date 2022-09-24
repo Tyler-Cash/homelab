@@ -13,7 +13,7 @@ spec:
             image: busybox:1.28
             imagePullPolicy: IfNotPresent
             volumeMounts:
-            - name: coredns-blacklist
+            - name: pvc-076f7268-5a61-495b-b1fa-d1713e22e8da
               mountPath: /blacklist
             command: 
             - /bin/sh
