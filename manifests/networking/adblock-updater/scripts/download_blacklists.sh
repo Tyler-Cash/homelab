@@ -1,5 +1,4 @@
 #!/bin/bash
-sleep 30000
 # Taken from https://news.ycombinator.com/item?id=21238213
 HOSTS_FILE="/tmp/hosts.blacklist"
 destination="/blacklist"
