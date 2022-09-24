@@ -20,8 +20,8 @@ spec:
             - -c
             - curl https://raw.githubusercontent.com/Tyler-Cash/k3s-argo/master/manifests/networking/adblock-updater/scripts/download_blacklists.sh | /bin/sh
           restartPolicy: OnFailure
-        volumes:
-        - name: coredns-blacklist
-          persistentVolumeClaim:
-            claimName: coredns-blacklist
-            readOnly: false
+          volumes:
+          - name: coredns-blacklist
+            persistentVolumeClaim:
+              claimName: coredns-blacklist
+              readOnly: false
