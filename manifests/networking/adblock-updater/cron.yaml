@@ -13,7 +13,7 @@ spec:
             image: busybox:1.28
             imagePullPolicy: IfNotPresent
             volumeMounts:
-            - name: networking/coredns-blacklist
+            - name: coredns-blacklist
               mountPath: /blacklist
             command: 
             - /bin/sh
