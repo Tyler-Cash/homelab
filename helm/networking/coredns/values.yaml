@@ -6,7 +6,6 @@ coredns:
   - name: coredns-blacklist
     persistentVolumeClaim:
       claimName: coredns-blacklist
-  
   resources:
     limits:
       cpu: 400m
