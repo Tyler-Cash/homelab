@@ -3,7 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: coredns-blacklist
 spec:
-  volumeName: coredns-blacklist
   storageClassName: "ceph-filesystem"
   accessModes:
   - ReadWriteMany
