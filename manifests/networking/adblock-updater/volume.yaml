@@ -3,5 +3,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: coredns-blacklist-pvc
 spec:
-  storageClassName: "ceph-filesystem" # Empty string must be explicitly set otherwise default StorageClass will be set
+  storageClassName: "ceph-filesystem"
   volumeName: coredns-blacklist
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
