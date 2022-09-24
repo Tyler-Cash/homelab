@@ -1,4 +1,7 @@
 coredns:
+  extraVolumes:
+  - name: coredns-blacklist
+    emptyDir: {}
   prometheus:
     service:
       enabled: true
