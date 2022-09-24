@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: coredns-blacklist-pvc
+spec:
+  storageClassName: "ceph-filesystem" # Empty string must be explicitly set otherwise default StorageClass will be set
+  volumeName: coredns-blacklist
