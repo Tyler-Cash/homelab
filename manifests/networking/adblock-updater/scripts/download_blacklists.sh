@@ -73,8 +73,7 @@ sed \
 -e 's/^/0.0.0.0 /g' | \
 awk '!a[$0]++' | \
 sed \
--e '/gamovideo.com/d' \
--e '/openload.co/d' > "${HOSTS_FILE}"
+-e '/tylercash.dev/d' > "${HOSTS_FILE}"
 
 rm -rf "${HOSTS_FILES}"
 

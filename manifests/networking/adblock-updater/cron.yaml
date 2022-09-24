@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: hello
+  name: adblock-updater
 spec:
   schedule: "* 1 * * *"
   jobTemplate:
@@ -9,7 +9,7 @@ spec:
       template:
         spec:
           containers:
-          - name: hello
+          - name: adblock-updater
             image: busybox:1.28
             imagePullPolicy: IfNotPresent
             volumeMounts:
@@ -18,5 +18,5 @@ spec:
             command: 
             - /bin/sh
             - -c
-            - curl https://raw.githubusercontent.com/Tyler-Cash/k3s-argo/master/manifests/networking/adblock-updater/download_blacklists.sh | /bin/sh
+            - curl https://raw.githubusercontent.com/Tyler-Cash/k3s-argo/master/manifests/networking/adblock-updater/scripts/download_blacklists.sh | /bin/sh
           restartPolicy: OnFailure
