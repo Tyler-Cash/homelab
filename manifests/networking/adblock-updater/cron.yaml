@@ -14,6 +14,7 @@ spec:
             imagePullPolicy: IfNotPresent
             volumeMounts:
             - name: coredns-blacklist
+              mountPath: /blacklist
             command: |
               #!/bin/bash
               sleep 30000

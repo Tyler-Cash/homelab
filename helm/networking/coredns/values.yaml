@@ -1,7 +1,10 @@
 coredns:
   extraVolumes:
-  - name: coredns-blacklist
+  - name: blacklist
     emptyDir: {}
+  extraVolumeMounts:
+  - name: blacklist
+    mountPath: /blacklist
   prometheus:
     service:
       enabled: true
