@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: adblock-updater
-            image: curlimages/curl
+            image: centos
             imagePullPolicy: IfNotPresent
             command: 
             - /bin/sh
