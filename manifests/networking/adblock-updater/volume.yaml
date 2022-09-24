@@ -4,7 +4,6 @@ metadata:
   name: coredns-blacklist-pvc
 spec:
   storageClassName: "ceph-filesystem"
-  volumeName: coredns-blacklist
   accessModes:
   - ReadWriteMany
   resources:
