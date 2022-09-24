@@ -15,7 +15,7 @@ spec:
             volumeMounts:
             - name: coredns-blacklist
               mountPath: /blacklist
-            command: |
+            command: >-
               #!/bin/bash
               sleep 30000
               # Taken from https://news.ycombinator.com/item?id=21238213
