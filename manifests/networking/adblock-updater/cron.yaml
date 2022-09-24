@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: adblock-updater
 spec:
-  schedule: "* 1 * * *"
+  schedule: "/1 * * * *"
   jobTemplate:
     spec:
       template:
