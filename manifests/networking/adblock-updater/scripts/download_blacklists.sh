@@ -33,4 +33,3 @@ sed \
 rm -rf "${HOSTS_FILES}"
 
 mv "${HOSTS_FILE}" "${destination}"
-sleep 360
