@@ -12,9 +12,6 @@ spec:
           - name: adblock-updater
             image: busybox:1.28
             imagePullPolicy: IfNotPresent
-            volumeMounts:
-            - name: coredns-blacklist
-              mountPath: /blacklist
             command: 
             - /bin/sh
             - -c
