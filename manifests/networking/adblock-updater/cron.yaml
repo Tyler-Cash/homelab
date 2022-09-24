@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: adblock-updater
-            image: busybox:1.28
+            image: alpine
             imagePullPolicy: IfNotPresent
             command: 
             - /bin/sh
