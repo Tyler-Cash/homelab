@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: adblock-updater
-            image: alpine
+            image: ubuntu
             imagePullPolicy: IfNotPresent
             command: 
             - /bin/sh
