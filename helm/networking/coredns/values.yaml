@@ -2,11 +2,18 @@ coredns:
   extraVolumeMounts:
   - name: coredns-blacklist
     mountPath: /blacklist
-  
   extraVolumes:
   - name: coredns-blacklist
     persistentVolumeClaim:
       claimName: coredns-blacklist
+  
+  resources:
+    limits:
+      cpu: 400m
+      memory: 700Mi
+    requests:
+      cpu: 250m
+      memory: 400Mi
   prometheus:
     service:
       enabled: true
