@@ -4,6 +4,9 @@ kube-prometheus-stack:
   alertmanager:
     fullNameOverride: alertmanager
     alertmanagerSpec:
+      useExistingSecret: true
+      secrets:
+        - alertmanager-config
       podAntiAffinity: soft
       resources:
         limits:
@@ -12,17 +15,6 @@ kube-prometheus-stack:
         requests:
           cpu: 100m
           memory: 300Mi
-      volumeMounts:
-      - name: opsgenie-secret
-        mountPath: "/etc/secrets"
-        readOnly: true
-      volumes:
-      - name: opsgenie-secret
-        secret:
-          secretName: opsgenie-secret
-          items:
-          - key: alert-manager-k8s
-            path: alert-manager-k8s
       storage:
         volumeClaimTemplate:
           spec:
@@ -31,22 +23,6 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 50Gi
-    config:
-      route:
-        receiver: "null"
-        group_by:
-        - namespace
-        continue: false
-        routes:
-        - receiver: "null"
-          matchers:
-          - alertname=~"InfoInhibitor|Watchdog"
-          continue: false
-        group_wait: 30s
-        group_interval: 5m
-        repeat_interval: 12h
-      receivers:
-      - name: "null"
     ingress:
       enabled: true
       annotations:
