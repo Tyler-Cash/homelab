@@ -5,8 +5,7 @@ kube-prometheus-stack:
     fullNameOverride: alertmanager
     alertmanagerSpec:
       useExistingSecret: true
-      secrets:
-        - alertmanager-config
+      configSecret: alertmanager-config
       podAntiAffinity: soft
       resources:
         limits:
