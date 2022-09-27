@@ -29,7 +29,6 @@ download "https://hosts-file.net/ad_servers.txt"
 download "https://v.firebog.net/hosts/Easylist.txt"
 download "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts;showintro=0"
 download "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/UncheckyAds/hosts"
-download "https://www.squidblacklist.org/downloads/dg-ads.acl"
 ## tracking & telemetry domains
 download "https://v.firebog.net/hosts/Easyprivacy.txt"
 download "https://v.firebog.net/hosts/Prigent-Ads.txt"
@@ -49,15 +48,9 @@ download "https://v.firebog.net/hosts/Prigent-Malware.txt"
 download "https://v.firebog.net/hosts/Prigent-Phishing.txt"
 download "https://phishing.army/download/phishing_army_blocklist_extended.txt"
 download "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt"
-download "https://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt"
-download "https://ransomwaretracker.abuse.ch/downloads/CW_C2_DOMBL.txt"
-download "https://ransomwaretracker.abuse.ch/downloads/LY_C2_DOMBL.txt"
-download "https://ransomwaretracker.abuse.ch/downloads/TC_C2_DOMBL.txt"
-download "https://ransomwaretracker.abuse.ch/downloads/TL_C2_DOMBL.txt"
 download "https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist"
 download "https://v.firebog.net/hosts/Shalla-mal.txt"
 download "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Risk/hosts"
-download "https://www.squidblacklist.org/downloads/dg-malicious.acl"
 
 cat "${HOSTS_FILES}"/* | \
 sed \
