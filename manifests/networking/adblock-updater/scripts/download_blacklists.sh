@@ -48,7 +48,6 @@ download "https://v.firebog.net/hosts/Prigent-Malware.txt"
 download "https://v.firebog.net/hosts/Prigent-Phishing.txt"
 download "https://phishing.army/download/phishing_army_blocklist_extended.txt"
 download "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt"
-download "https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist"
 download "https://v.firebog.net/hosts/Shalla-mal.txt"
 download "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Risk/hosts"
 
