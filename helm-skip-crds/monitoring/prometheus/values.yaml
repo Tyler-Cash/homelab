@@ -150,8 +150,8 @@ kube-prometheus-stack:
   kubeEtcd:
     enabled: true
     endpoints:
-    - 10.0.0.82
     - 10.0.0.83
+    - 10.0.0.84
     - 10.0.0.85
     service:
       enabled: true
@@ -161,8 +161,8 @@ kube-prometheus-stack:
 kubeScheduler:
   enabled: true
   endpoints:
-  - 10.0.0.82
   - 10.0.0.83
+  - 10.0.0.84
   - 10.0.0.85
   service:
     enabled: true
@@ -174,8 +174,8 @@ kubeScheduler:
 kubeProxy:
   enabled: true
   endpoints:
-  - 10.0.0.82
   - 10.0.0.83
+  - 10.0.0.84
   - 10.0.0.85
 
 kubeStateMetrics:
