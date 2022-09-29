@@ -1,5 +1,5 @@
 ---
-bazarr:
+app-template:
   env:
     TZ: "Australia/Sydney"
   service:
