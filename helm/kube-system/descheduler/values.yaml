@@ -14,7 +14,10 @@ descheduler:
       memory: 64M
     limits:
       memory: 143M
-
+  serviceMonitor:
+    enabled: true
+    namespace: monitoring
+  
   deschedulerPolicy:
     strategies:
       RemoveDuplicates:
