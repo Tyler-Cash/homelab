@@ -1,4 +1,9 @@
-prowlarr:
+---
+app-template:
+  image:
+    repository: ghcr.io/onedr0p/prowlarr-develop
+    tag: 0.4.6.1969
+    pullPolicy: IfNotPresent
   env:
     TZ: "Australia/Sydney"
   ingress:
