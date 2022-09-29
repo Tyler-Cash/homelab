@@ -22,6 +22,8 @@ bazarr:
           paths:
             - path: /
               pathType: Prefix
+              service:
+                port: 80
       tls:
         - secretName: bazarr-letsencrypt-certificate
           hosts:
