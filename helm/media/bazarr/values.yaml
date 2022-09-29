@@ -1,7 +1,16 @@
 ---
-bazarr:
+app-template:
+  image:
+    repository: ghcr.io/onedr0p/bazarr
+    tag: 1.1.1
+    pullPolicy: IfNotPresent
   env:
     TZ: "Australia/Sydney"
+  service:
+    main:
+      ports:
+        http:
+          port: 6767
   ingress:
     main:
       enabled: true
@@ -17,6 +26,8 @@ bazarr:
           paths:
             - path: /
               pathType: Prefix
+              service:
+                port: 6767
       tls:
         - secretName: bazarr-letsencrypt-certificate
           hosts:
