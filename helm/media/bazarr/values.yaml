@@ -2,6 +2,11 @@
 bazarr:
   env:
     TZ: "Australia/Sydney"
+  service:
+    main:
+      ports:
+        http:
+          port: 6767
   ingress:
     main:
       enabled: true
