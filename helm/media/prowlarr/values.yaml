@@ -1,16 +1,6 @@
----
-app-template:
+prowlarr:
   env:
     TZ: "Australia/Sydney"
-  image:
-    repository: ghcr.io/onedr0p/prowlarr-develop
-    tag: 0.4.6.1969
-    pullPolicy: IfNotPresent
-  service:
-    main:
-      ports:
-        http:
-          port: 9696
   ingress:
     main:
       enabled: true
@@ -25,8 +15,6 @@ app-template:
           paths:
             - path: /
               pathType: Prefix
-              service:
-                port: 9696
       tls:
         - secretName: prowlarr-letsencrypt-certificate
           hosts:
