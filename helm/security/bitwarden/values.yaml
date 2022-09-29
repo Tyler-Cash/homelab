@@ -1,4 +1,4 @@
-vaultwarden:
+app-template:
   env:
     TZ: "Australia/Sydney"
   ingress:
