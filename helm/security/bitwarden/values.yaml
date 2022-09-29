@@ -1,6 +1,18 @@
 app-template:
+  image:
+    repository: vaultwarden/server
+    pullPolicy: IfNotPresent
+    tag: 1.25.2
   env:
     TZ: "Australia/Sydney"
+  service:
+    main:
+      ports:
+        http:
+          port: 80
+        websocket:
+          enabled: true
+          port: 3012
   ingress:
     main:
       enabled: true
@@ -16,18 +28,20 @@ app-template:
           paths:
             - path: /
               pathType: Prefix
+              service:
+                port: http
+            - path: /notifications/hub/negotiate
+              pathType: Prefix
+              service:
+                port: http
+            - path: /notifications/hub
+              pathType: Prefix
+              service:
+                port: websocket
       tls:
         - secretName: bitwarden-letsencrypt-certificate
           hosts:
             - bitwarden.k8s.tylercash.dev
-  deployment:
-    initContainers:
-      - name: volume-permissions
-        image: busybox:1.35.0
-        command: ["sh", "-c", "chmod -Rv 600 /config/*"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
   persistence:
     config:
       enabled: true
