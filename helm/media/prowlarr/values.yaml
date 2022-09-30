@@ -28,7 +28,7 @@ prowlarr:
             - path: /
               pathType: Prefix
               service:
-                port: 6767
+                port: 9696
       tls:
         - secretName: prowlarr-letsencrypt-certificate
           hosts:
