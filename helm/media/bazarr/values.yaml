@@ -1,5 +1,9 @@
 ---
-bazarr:
+app-template:
+  image:
+    repository: ghcr.io/onedr0p/bazarr
+    tag: 1.1.1
+    pullPolicy: IfNotPresent
   env:
     TZ: "Australia/Sydney"
   service:
