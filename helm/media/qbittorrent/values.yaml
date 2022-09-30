@@ -85,7 +85,6 @@ app-template:
   settings:
     automaticPortSetup: false
 
-
   service:
     main:
       ports:

@@ -1,6 +1,18 @@
-radarr:
+app-template:
+  image:
+    repository: ghcr.io/onedr0p/qbittorrent
+    tag: 4.4.5
+    pullPolicy: IfNotPresent
+
   env:
     TZ: "Australia/Sydney"
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8080
+
   ingress:
     main:
       enabled: true
@@ -16,15 +28,19 @@ radarr:
           paths:
             - path: /
               pathType: Prefix
+              service:
+                port: 7878
       tls:
         - secretName: radarr-letsencrypt-certificate
           hosts:
             - radarr.k8s.tylercash.dev
+
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "Always"
+
   persistence:
     config:
       enabled: true
@@ -42,8 +58,10 @@ radarr:
       enabled: true
       type: pvc
       existingClaim: jellyfin-movies
+
   metrics:
     enabled: true
+
   resources:
     limits:
       cpu: 500m
