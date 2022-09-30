@@ -1,6 +1,18 @@
-sonarr:
+app-template:
+  image:
+    repository: ghcr.io/onedr0p/sonarr
+    tag: 3.0.9.1549
+    pullPolicy: IfNotPresent
+
   env:
     TZ: "Australia/Sydney"
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8989
+
   ingress:
     main:
       enabled: true
@@ -16,15 +28,19 @@ sonarr:
           paths:
             - path: /
               pathType: Prefix
+              service:
+                port: 8989
       tls:
         - secretName: sonarr-letsencrypt-certificate
           hosts:
             - sonarr.k8s.tylercash.dev
+
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "Always"
+
   persistence:
     config:
       enabled: true
@@ -44,8 +60,7 @@ sonarr:
       accessMode: ReadWriteMany
       size: 10Gi
       retain: true
-  metrics:
-    enabled: true
+
   resources:
     limits:
       cpu: 900m
