@@ -1,4 +1,5 @@
-qbittorrent:
+app-template:
+
   env:
     TZ: "Australia/Sydney"
     QBT_BitTorrent__Session__AlternativeGlobalDLSpeedLimit: "8000"
@@ -76,8 +77,17 @@ qbittorrent:
     QBT_Preferences__WebUI__SessionTimeout: "3600"
     QBT_Preferences__WebUI__TrustedReverseProxiesList: ""
     QBT_Preferences__WebUI__UseUPnP: "false"
+
   settings:
     automaticPortSetup: false
+
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8080
+
   ingress:
     main:
       enabled: true
@@ -96,15 +106,19 @@ qbittorrent:
           paths:
             - path: /
               pathType: Prefix
+              service:
+                port: 8080
       tls:
         - secretName: qbittorrent-letsencrypt-certificate
           hosts:
             - qbittorrent.k8s.tylercash.dev
+            
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "Always"
+
   persistence:
     config:
       enabled: true
@@ -121,6 +135,7 @@ qbittorrent:
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
       size: 250Gi
+
   resources:
     limits:
       cpu: 1500m
