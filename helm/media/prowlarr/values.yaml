@@ -1,4 +1,4 @@
-prowlarr:
+app-template:
   image:
     repository: ghcr.io/onedr0p/prowlarr-develop
     tag: 0.4.6.1969
@@ -62,7 +62,7 @@ prowlarr:
           - -c
           - test -w /config/config.xml &&
             test -w /backups/prowlarr/scheduled/
-            
+
   resources:
     limits:
       cpu: 500m
