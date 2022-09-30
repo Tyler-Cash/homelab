@@ -1,4 +1,8 @@
 app-template:
+  image:
+    repository: ghcr.io/onedr0p/qbittorrent
+    tag: 4.4.5
+    pullPolicy: IfNotPresent
 
   env:
     TZ: "Australia/Sydney"
