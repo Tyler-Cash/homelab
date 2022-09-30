@@ -1,6 +1,18 @@
 prowlarr:
+  image:
+    repository: ghcr.io/onedr0p/prowlarr-develop
+    tag: 0.4.6.1969
+    pullPolicy: IfNotPresent
+
+  service:
+    main:
+      ports:
+        http:
+          port: 9696
+
   env:
     TZ: "Australia/Sydney"
+
   ingress:
     main:
       enabled: true
