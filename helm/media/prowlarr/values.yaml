@@ -33,6 +33,7 @@ prowlarr:
         - secretName: prowlarr-letsencrypt-certificate
           hosts:
             - prowlarr.k8s.tylercash.dev
+
   persistence:
     config:
       enabled: true
@@ -41,13 +42,16 @@ prowlarr:
       enabled: true
       type: pvc
       existingClaim: sonarr-backups
+
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "Always"
+
   metrics:
     enabled: true
+
   probes:
     liveness:
       spec:
@@ -58,6 +62,7 @@ prowlarr:
           - -c
           - test -w /config/config.xml &&
             test -w /backups/prowlarr/scheduled/
+            
   resources:
     limits:
       cpu: 500m

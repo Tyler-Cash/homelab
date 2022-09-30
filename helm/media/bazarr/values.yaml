@@ -4,13 +4,16 @@ app-template:
     repository: ghcr.io/onedr0p/bazarr
     tag: 1.1.1
     pullPolicy: IfNotPresent
+
   env:
     TZ: "Australia/Sydney"
+
   service:
     main:
       ports:
         http:
           port: 6767
+          
   ingress:
     main:
       enabled: true
@@ -32,11 +35,13 @@ app-template:
         - secretName: bazarr-letsencrypt-certificate
           hosts:
             - bazarr.k8s.tylercash.dev
+
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "Always"
+
   persistence:
     config:
       enabled: true
@@ -54,6 +59,7 @@ app-template:
       enabled: true
       type: pvc
       existingClaim: sonarr-backups
+
   resources:
     limits:
       cpu: 100m
