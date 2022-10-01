@@ -3,8 +3,11 @@ app-template:
     repository: vaultwarden/server
     pullPolicy: IfNotPresent
     tag: 1.25.2
+    
   env:
     TZ: "Australia/Sydney"
+    DATA_FOLDER: "config"
+
   service:
     main:
       ports:
@@ -13,6 +16,7 @@ app-template:
         websocket:
           enabled: true
           port: 3012
+
   ingress:
     main:
       enabled: true
@@ -42,12 +46,14 @@ app-template:
         - secretName: bitwarden-letsencrypt-certificate
           hosts:
             - bitwarden.k8s.tylercash.dev
+
   persistence:
     config:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
       size: 10Gi
+
   resources:
     limits:
       cpu: 100m
