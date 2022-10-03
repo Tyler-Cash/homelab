@@ -298,16 +298,7 @@ rook-ceph-cluster:
         csi.storage.k8s.io/node-stage-secret-namespace: storage
         csi.storage.k8s.io/fstype: ext4
   
-  cephFileSystemVolumeSnapshotClass:
-    enabled: true
-    name: ceph-filesystem-snapshot
-    isDefault: true
-    deletionPolicy: Delete
-    annotations: {}
-    labels: {}
-    parameters:
-
-cephBlockPoolsVolumeSnapshotClass:
+  cephBlockPoolsVolumeSnapshotClass:
     enabled: true
     name: ceph-block-snapshot
     isDefault: true
