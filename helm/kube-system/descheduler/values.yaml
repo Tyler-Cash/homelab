@@ -28,10 +28,10 @@ descheduler:
   resources:
     requests:
       cpu: 100m
-      memory: 256Mi
+      memory: 80Mi
     limits:
-      cpu: 150m
-      memory: 300Mi
+      cpu: 100m
+      memory: 100Mi
 
   serviceMonitor:
     enabled: true
