@@ -1,2 +1,3 @@
 k8s-gateway:
+  replicaCount: 2
   domain: k8s.tylercash.dev
