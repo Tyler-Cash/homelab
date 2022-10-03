@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: csi-snapshotter-crds
+  namespace: argocd
+spec:
+  project: default
+  source:
+    path: client/config/crd/
+    repoURL: https://github.com/kubernetes-csi/external-snapshotter.git
+    targetRevision: v6.1.0
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - Replace=true
+    automated:
+      prune: true
+      selfHeal: true
