@@ -195,7 +195,7 @@ rook-ceph-cluster:
     storageClass:
       enabled: true
       name: ceph-block-ec
-      isDefault: true
+      isDefault: false
       reclaimPolicy: Delete
       allowVolumeExpansion: true
       mountOptions: []
