@@ -1,4 +1,8 @@
 kasten:
+  grafana.enabled: false
+
+  prometheus.server.enabled: false
+
   ingress:
     enabled: true
     annotations:
