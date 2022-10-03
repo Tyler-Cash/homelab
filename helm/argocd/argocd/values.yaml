@@ -9,9 +9,6 @@ argo-cd:
     autoscaling:
       enabled: true
       minReplicas: 2
-    env:
-      - name: ARGOCD_API_SERVER_REPLICAS
-        value: '2'
     extraArgs:
       - --insecure
     ingress:
