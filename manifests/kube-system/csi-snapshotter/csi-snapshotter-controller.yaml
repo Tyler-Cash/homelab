@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: csi-snapshotter-crds
+  name: csi-snapshotter-controller
   namespace: argocd
 spec:
   project: default
