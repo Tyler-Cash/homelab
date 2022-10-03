@@ -137,6 +137,7 @@ rook-ceph-cluster:
         csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
         csi.storage.k8s.io/node-stage-secret-namespace: storage
         csi.storage.k8s.io/fstype: ext4
+
   - name: ceph-blockpool-1rep
     spec:
       deviceClass: ssd
@@ -146,6 +147,55 @@ rook-ceph-cluster:
     storageClass:
       enabled: true
       name: ceph-block-1rep
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      mountOptions: []
+      parameters:
+        imageFormat: "2"
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: storage
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: storage
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: storage
+        csi.storage.k8s.io/fstype: ext4
+
+  - name: ceph-block-metadata
+    spec:
+      deviceClass: ssd
+      failureDomain: host
+      replicated:
+        size: 3
+    storageClass:
+      enabled: true
+      name: ceph-block-metadata
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      mountOptions: []
+      parameters:
+        imageFormat: "2"
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: storage
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: storage
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: storage
+        csi.storage.k8s.io/fstype: ext4
+
+  - name: ceph-block-ec
+    spec:
+      deviceClass: hdd
+      failureDomain: host
+      erasureCoded:
+        dataChunks: 2
+        codingChunks: 1
+    storageClass:
+      enabled: true
+      name: ceph-block-ec
+      isDefault: true
       reclaimPolicy: Delete
       allowVolumeExpansion: true
       mountOptions: []
@@ -250,7 +300,7 @@ rook-ceph-cluster:
   
   cephFileSystemVolumeSnapshotClass:
     enabled: true
-    name: ceph-filesystem
+    name: ceph-filesystem-snapshot
     isDefault: true
     deletionPolicy: Delete
     annotations: {}
@@ -259,10 +309,11 @@ rook-ceph-cluster:
 
 cephBlockPoolsVolumeSnapshotClass:
     enabled: true
-    name: ceph-block
+    name: ceph-block-snapshot
     isDefault: true
     deletionPolicy: Delete
     annotations: {}
     labels: {}
     parameters:
+      pool: ceph-block-ec
       csi.storage.k8s.io/snapshotter-secret-namespace: storage
