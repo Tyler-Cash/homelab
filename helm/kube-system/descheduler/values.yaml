@@ -4,22 +4,51 @@ descheduler:
 
   leaderElection:
     enabled: true
+    leaseDuration: 15s
+    renewDeadline: 10s
+    retryPeriod: 2s
+    resourceLock: "leases"
+    resourceName: "descheduler"
+    resourceNamescape: "kube-system"
+
+  affinity:
+   podAntiAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+       - labelSelector:
+           matchExpressions:
+             - key: app.kubernetes.io/name
+               operator: In
+               values:
+                 - descheduler
+         topologyKey: "kubernetes.io/hostname"
 
   podAnnotations:
     configmap.reloader.stakater.com/reload: "descheduler"
 
   resources:
     requests:
-      cpu: 15m
-      memory: 64M
+      cpu: 100m
+      memory: 256Mi
     limits:
-      memory: 143M
+      cpu: 150m
+      memory: 300Mi
+
   serviceMonitor:
     enabled: true
     namespace: monitoring
   
   deschedulerPolicy:
     strategies:
+      PodLifeTime:
+        enabled: true
+        params:
+          podLifeTime:
+            maxPodLifeTimeSeconds: 300
+            states:
+            - Pending
+            - PodInitializing
+            - ContainerCreating
+
       RemoveDuplicates:
         enabled: true
 
@@ -52,11 +81,11 @@ descheduler:
             includingInitContainers: true
             excludeOwnerKinds:
               - "Job"
-            minPodLifetimeSeconds: 3600
+            minPodLifetimeSeconds: 300
 
       RemovePodsHavingTooManyRestarts:
         enabled: true
         params:
           podsHavingTooManyRestarts:
-            podRestartThreshold: 100
+            podRestartThreshold: 5
             includingInitContainers: true
