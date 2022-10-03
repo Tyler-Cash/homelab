@@ -303,8 +303,7 @@ rook-ceph-cluster:
     name: ceph-block-snapshot
     isDefault: true
     deletionPolicy: Delete
-    annotations:
-      k10.kasten.io/is-snapshot-class: "true"
+    annotations: {}
     labels: {}
     parameters:
       pool: ceph-block-ec
