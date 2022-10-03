@@ -1,9 +1,9 @@
 apiVersion: v2
-name: rook-ceph-cluster
+name: kasten
 type: application
 version: 1.0.0
 appVersion: "1.0.0"
 dependencies:
-- name: rook-ceph-cluster
-  version: v1.10.2
-  repository: https://charts.rook.io/release
+- name: kasten
+  version: 5.0.9
+  repository: https://charts.kasten.io/
