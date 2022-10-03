@@ -1,6 +1,6 @@
 descheduler:
   kind: Deployment
-  replicas: 3
+  replicas: 2
 
   leaderElection:
     enabled: true
