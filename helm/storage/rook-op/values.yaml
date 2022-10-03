@@ -3,8 +3,8 @@ rook-ceph:
     enabled: true
   resources:
     limits:
-      cpu: "400m"
+      cpu: "800m"
       memory: "450Mi"
     requests:
-      cpu: "300m"
+      cpu: "500m"
       memory: "300Mi"
