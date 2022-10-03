@@ -1,4 +1,4 @@
-kasten:
+k10:
   grafana.enabled: false
 
   prometheus.server.enabled: false
