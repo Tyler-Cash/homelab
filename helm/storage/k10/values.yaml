@@ -9,8 +9,8 @@ kasten:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
     host:
-      name: kasten.k8s.tylercash.dev
-      path: ""
+      name: k10.k8s.tylercash.dev
+      path: "/"
     tls:
       enabled: true
-      secretName: kasten-k8s-tylercash-dev-tls
+      secretName: k10-k8s-tylercash-dev-tls
