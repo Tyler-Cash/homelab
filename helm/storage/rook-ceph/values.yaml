@@ -4,6 +4,9 @@ rook-ceph-cluster:
     [global]
     # Default of 0.05 is too aggressive for my cluster. (seconds)
     mon clock drift allowed = 0.1
+    [mon]
+    mon_compact_on_start = true
+    mon_data_avail_warn = 10
   monitoring:
     enabled: true
     createPrometheusRules: true
