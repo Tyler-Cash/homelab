@@ -61,18 +61,12 @@ rook-ceph-cluster:
           operator: Exists
     resources:
       mgr:
-        limits:
-          cpu: "1500m"
-          memory: "1Gi"
         requests:
-          cpu: "800m"
-          memory: "512Mi"
+          cpu: "250m"
+          memory: "600Mi"
       mon:
-        limits:
-          cpu: "1500m"
-          memory: "1Gi"
         requests:
-          cpu: "600m"
+          cpu: "150m"
           memory: "500Mi"
       osd:
         requests:
@@ -93,23 +87,14 @@ rook-ceph-cluster:
           cpu: "100m"
           memory: "40Mi"
       crashcollector:
-        limits:
-          cpu: "200m"
-          memory: "60Mi"
         requests:
           cpu: "50m"
           memory: "60Mi"
       logcollector:
-        limits:
-          cpu: "500m"
-          memory: "1Gi"
         requests:
           cpu: "100m"
           memory: "100Mi"
       cleanup:
-        limits:
-          cpu: "500m"
-          memory: "1Gi"
         requests:
           cpu: "500m"
           memory: "100Mi"
@@ -231,9 +216,6 @@ rook-ceph-cluster:
         activeCount: 1
         activeStandby: true
         resources:
-          limits:
-            cpu: "2000m"
-            memory: "3Gi"
           requests:
             cpu: "800m"
             memory: "2Gi"
@@ -274,9 +256,6 @@ rook-ceph-cluster:
       metadataServer:
         activeCount: 1
         resources:
-          limits:
-            cpu: "1000m"
-            memory: "3Gi"
           requests:
             cpu: "500m"
             memory: "2Gi"
