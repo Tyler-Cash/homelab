@@ -2,6 +2,9 @@ rook-ceph:
   monitoring:
     enabled: true
   resources:
+    limits:
+      cpu: "1000m"
+      memory: "500Mi"
     requests:
       cpu: "500m"
       memory: "300Mi"
