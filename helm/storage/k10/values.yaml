@@ -1,7 +1,10 @@
 k10:
-  grafana.enabled: false
+  grafana:
+    enabled: false
 
-  prometheus.server.enabled: false
+  prometheus:
+    server:
+      enabled: false
 
   ingress:
     enabled: true
