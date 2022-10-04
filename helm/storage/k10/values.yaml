@@ -11,9 +11,10 @@ k10:
       kanister-sidecar:
     jobs-svc:
       jobs-svc:
+      upgrade-init:
 
   ingress:
-    enabled: true
+    create: true
     annotations:
       cert-manager.io/cluster-issuer: "prod-issuer"
       hajimari.io/enable: "true"
