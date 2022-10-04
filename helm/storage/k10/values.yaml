@@ -12,6 +12,11 @@ k10:
     jobs-svc:
       jobs-svc:
       upgrade-init:
+  
+  auth:
+    basicAuth:
+      enabled: true
+      htpasswd: "admin:admin"
 
   ingress:
     create: true
