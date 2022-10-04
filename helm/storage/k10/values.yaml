@@ -27,7 +27,7 @@ k10:
       kubernetes.io/ingress-allow-http: "false" 
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
-    host: k10.k8s.tylercash.dev
+    host: katen.k8s.tylercash.dev
     tls:
       enabled: true
-      secretName: k10-k8s-tylercash-dev-tls
+      secretName: katen-k8s-tylercash-dev-tls
