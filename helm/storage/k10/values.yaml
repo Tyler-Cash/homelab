@@ -6,6 +6,12 @@ k10:
     server:
       enabled: false
 
+  resources:
+    catalog-svc:
+      kanister-sidecar:
+    jobs-svc:
+      jobs-svc:
+
   ingress:
     enabled: true
     annotations:
