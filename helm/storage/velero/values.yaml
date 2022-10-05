@@ -29,6 +29,10 @@ velero:
       config:
         region: australia-southeast1
     
+    volumeSnapshotLocation:
+      name: default-snapshot
+      provider: gcp
+
   credentials:
     useSecret: true
     existingSecret: velero-cloud-secrets
