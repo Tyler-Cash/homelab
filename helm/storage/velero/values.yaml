@@ -28,14 +28,6 @@ velero:
       accessMode: ReadWrite
       config:
         region: australia-southeast1
-
-    volumeSnapshotLocation:
-      name: default
-      provider: gcp
-      config:
-        region: australia-southeast1
-        incremental: true
-        snapshotLocation: velero/snapshots/
     
   credentials:
     useSecret: true
