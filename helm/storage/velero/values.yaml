@@ -68,7 +68,7 @@ velero:
 
   schedules:
     schedule-daily:
-      schedule: "0-59 * * * *"
+      schedule: "25 * * * *"
       template:
         labelSelector:
           matchLabels:
