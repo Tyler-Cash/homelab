@@ -10,6 +10,7 @@ velero:
   
   deployRestic: true
   restic:
+    privileged: true
     resources:
       requests:
         memory: 215Mi
