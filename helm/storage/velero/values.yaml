@@ -9,6 +9,11 @@ velero:
           name: plugins
   
   deployRestic: true
+  restic:
+    resources:
+      requests:
+        memory: 215Mi
+        cpu: 15m
   configuration:
     extraEnvVars:
       TZ: "Australia/Sydney"
