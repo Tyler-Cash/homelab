@@ -1,0 +1,96 @@
+velero:
+  priorityClassName: system-cluster-critical
+  initContainers:
+    - name: velero-plugin-for-gcp
+      image: velero/velero-plugin-for-gcp:v1.5.1
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
+  
+  deployRestic: true
+  configuration:
+    extraEnvVars:
+      TZ: "Australia/Sydney"
+    defaultVolumesToRestic: true
+
+    backupStorageLocation:
+      name: default
+      provider: gcp
+      bucket: rook-backups
+      prefix: velero/backups/
+      default: true
+      accessMode: ReadWrite
+      config:
+        region: australia-southeast1
+        s3Url: https://storage.googleapis.com
+        serviceAccount: k8s-homelab-velero@k8s-home-364612.iam.gserviceaccount.com
+
+    volumeSnapshotLocation:
+      name: default
+      provider: gcp
+      config:
+        region: australia-southeast1
+        incremental: true
+        snapshotLocation: velero/snapshots/
+    
+  credentials:
+    useSecret: true
+    existingSecret: velero-cloud-secrets
+
+  metrics:
+    serviceMonitor:
+      enabled: true
+      namespace: monitoring
+
+
+    prometheusRule:
+      enabled: true
+      namespace: monitoring
+      spec:
+      - alert: VeleroBackupPartialFailures
+        annotations:
+          message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+        expr: |-
+          velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+        for: 15m
+        labels:
+          severity: critical
+      - alert: VeleroBackupFailures
+        annotations:
+          message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+        expr: |-
+          velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+        for: 15m
+        labels:
+          severity: critical
+
+
+  schedules:
+    schedule-daily:
+      schedule: "0 6 * * *"
+      template:
+        labelSelector:
+          matchLabels:
+            velero.io/schedule: daily
+        ttl: "120h"
+        includedNamespaces:
+          - "*"
+    schedule-weekly:
+      schedule: "0 0 * * 0"
+      template:
+        labelSelector:
+          matchLabels:
+            velero.io/schedule: weekly
+        ttl: "120h"
+        includedNamespaces:
+          - "*"
+    schedule-monthly:
+      schedule: "0 0 1 * *"
+      template:
+        labelSelector:
+          matchLabels:
+            velero.io/schedule: monthly
+        ttl: "120h"
+        includedNamespaces:
+          - "*"
