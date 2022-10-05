@@ -28,8 +28,6 @@ velero:
       accessMode: ReadWrite
       config:
         region: australia-southeast1
-        s3Url: https://storage.googleapis.com
-        serviceAccount: k8s-homelab-velero@k8s-home-364612.iam.gserviceaccount.com
 
     volumeSnapshotLocation:
       name: default
