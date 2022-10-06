@@ -1,6 +1,14 @@
 velero:
+  installCRDs: true
+  upgradeCRDs: true
   priorityClassName: system-cluster-critical
   initContainers:
+    - name: velero-plugin-for-csi
+      image: velero/velero-plugin-for-csi:v0.3.1
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
     - name: velero-plugin-for-gcp
       image: velero/velero-plugin-for-gcp:v1.5.1
       imagePullPolicy: IfNotPresent
@@ -15,10 +23,12 @@ velero:
       requests:
         memory: 215Mi
         cpu: 15m
+
   configuration:
+    features: EnableCSI
+    defaultVolumesToRestic: true
     extraEnvVars:
       TZ: "Australia/Sydney"
-    defaultVolumesToRestic: true
 
     backupStorageLocation:
       name: default
