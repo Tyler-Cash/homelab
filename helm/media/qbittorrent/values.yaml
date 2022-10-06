@@ -6,7 +6,7 @@ app-template:
 
   controller:
     annotations:
-    - backup.velero.io/backup-volumes-excludes=qbittorrent-cache,qbittorrent-share
+      backup.velero.io/backup-volumes-excludes: qbittorrent-cache,qbittorrent-share
 
   env:
     TZ: "Australia/Sydney"

@@ -2,7 +2,7 @@
 jellyfin:
   controller:
     annotations:
-    - backup.velero.io/backup-volumes-excludes=jellyfin-cache,jellyfin-tv,jellyfin-movies,jellyfin-transcodes
+      backup.velero.io/backup-volumes-excludes: jellyfin-cache,jellyfin-tv,jellyfin-movies,jellyfin-transcodes
   image:
     repository: ghcr.io/confusedpolarbear/jellyfin-intro-skipper
     tag: 83fc2cf4fe
