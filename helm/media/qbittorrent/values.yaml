@@ -4,6 +4,10 @@ app-template:
     tag: 4.4.5
     pullPolicy: IfNotPresent
 
+  controller:
+    annotations:
+    - backup.velero.io/backup-volumes-excludes=qbittorrent-cache,qbittorrent-share
+
   env:
     TZ: "Australia/Sydney"
     QBT_BitTorrent__Session__AlternativeGlobalDLSpeedLimit: "8000"
