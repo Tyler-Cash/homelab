@@ -33,8 +33,6 @@ velero:
       prefix: velero/backups/
       default: true
       accessMode: ReadWrite
-      config:
-        region: australia-southeast1
     
     volumeSnapshotLocation:
       name: default-snapshot
