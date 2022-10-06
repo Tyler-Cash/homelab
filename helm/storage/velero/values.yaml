@@ -10,6 +10,12 @@ velero:
       volumeMounts:
         - mountPath: /target
           name: plugins
+    - name: velero-plugin-for-csi
+      image: velero/velero-plugin-for-csi:v0.3.1
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
   
   deployRestic: true
   restic:
@@ -36,7 +42,7 @@ velero:
     
     volumeSnapshotLocation:
       name: default-snapshot
-      provider: gcp
+      provider: csi
 
   credentials:
     useSecret: true
