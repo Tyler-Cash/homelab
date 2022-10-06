@@ -13,6 +13,7 @@ velero:
   
   deployRestic: true
   restic:
+    podVolumePath: /var/lib/kubelet/pods
     privileged: true
     resources:
       requests:
