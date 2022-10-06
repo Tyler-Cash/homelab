@@ -36,7 +36,7 @@ velero:
       name: default
       provider: gcp
       bucket: rook-backups
-      prefix: velero/backups/
+      prefix: velero/
       default: true
       accessMode: ReadWrite
     
