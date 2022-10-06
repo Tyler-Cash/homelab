@@ -4,9 +4,8 @@ app-template:
     tag: 4.4.5
     pullPolicy: IfNotPresent
 
-  controller:
-    annotations:
-      backup.velero.io/backup-volumes-excludes: qbittorrent-cache,qbittorrent-share
+  podAnnotations:
+    backup.velero.io/backup-volumes-excludes: qbittorrent-cache,qbittorrent-share
 
   env:
     TZ: "Australia/Sydney"
