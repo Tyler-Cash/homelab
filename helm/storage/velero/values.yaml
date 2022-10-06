@@ -1,6 +1,7 @@
 velero:
   installCRDs: true
   upgradeCRDs: true
+  namespace: storage
   priorityClassName: system-cluster-critical
   initContainers:
     - name: velero-plugin-for-csi
