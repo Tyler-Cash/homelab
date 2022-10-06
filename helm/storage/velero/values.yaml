@@ -78,7 +78,7 @@ velero:
 
   schedules:
     schedule-daily:
-      schedule: "32 * * * *"
+      schedule: "0 5 * * *"
       template:
         labelSelector:
           matchLabels:
@@ -87,7 +87,7 @@ velero:
         includedNamespaces:
           - "*"
     schedule-weekly:
-      schedule: "0 0 * * 0"
+      schedule: "0 3 * * 0"
       template:
         labelSelector:
           matchLabels:
@@ -96,7 +96,7 @@ velero:
         includedNamespaces:
           - "*"
     schedule-monthly:
-      schedule: "0 0 1 * *"
+      schedule: "0 3 1 * *"
       template:
         labelSelector:
           matchLabels:
