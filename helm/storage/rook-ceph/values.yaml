@@ -34,9 +34,6 @@ rook-ceph-cluster:
     storage:
       useAllNodes: true
       useAllDevices: true
-      dashboard:
-        enabled: true
-        ssl: false
     annotations:
       all:
         prometheus.io/scrape: "true"
