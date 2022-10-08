@@ -9,15 +9,13 @@ authentik:
         key: secret_key
         name: authentik-secrets
 
-    env:
-      AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
+  env:
+    AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
 
   authentik:
     postgresql:
       host: home-authentik
     redis:
-      # -- set the redis hostname to talk to
-      # @default -- `{{ .Release.Name }}-redis-master`
       host: 'authentik-redis-headless'
 
   ingress:
