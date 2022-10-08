@@ -8,12 +8,13 @@ authentik:
       secretKeyRef:
         key: secret_key
         name: authentik-secrets
-  env:
-    AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
-    AUTHENTIK_REDIS__HOST: authentik-redis-headless
+
   authentik:
     postgresql:
       host: home-authentik
+    env:
+      AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
+      AUTHENTIK_REDIS__HOST: authentik-redis-headless
   ingress:
     enabled: true
     annotations:
