@@ -8,7 +8,7 @@ metadata:
     rook_cluster: storage
 spec:
   ports:
-    - name: dashboard
+    - name: https-dashboard
       port: 7000
       protocol: TCP
       targetPort: 7000
