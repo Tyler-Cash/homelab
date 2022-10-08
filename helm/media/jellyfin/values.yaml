@@ -1,12 +1,21 @@
----
 jellyfin:
+
   podAnnotations:
     backup.velero.io/backup-volumes-excludes: jellyfin-cache,jellyfin-tv,jellyfin-movies,jellyfin-transcodes
+
   image:
     repository: ghcr.io/confusedpolarbear/jellyfin-intro-skipper
     tag: 83fc2cf4fe
+
   env:
     TZ: "Australia/Sydney"
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8096
+
   ingress:
     main:
       enabled: true
@@ -28,11 +37,13 @@ jellyfin:
         - secretName: jellyfin-letsencrypt-certificate
           hosts:
             - jellyfin.k8s.tylercash.dev
+
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "Always"
+
   persistence:
     config:
       enabled: true
@@ -58,8 +69,10 @@ jellyfin:
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
       size: 2048Gi
+
   metrics:
     enabled: true
+
   probes:
     liveness:
       spec:
