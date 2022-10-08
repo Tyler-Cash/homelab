@@ -36,7 +36,6 @@ rook-ceph-cluster:
       useAllDevices: true
     dashboard:
       enabled: true
-      port: 8555
       ssl: true
     annotations:
       all:
