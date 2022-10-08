@@ -15,13 +15,10 @@ jellyfin:
         external-dns.alpha.kubernetes.io/hostname: jellyfin.k8s.tylercash.dev
         hajimari.io/enable: "true"
         hajimari.io/group: "Media"
-        kubernetes.io/ingress-allow-http: "false" 
         kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
         nginx.org/websocket-services: "jellyfin"
-        nginx.ingress.kubernetes.io/configuration-snippet: |
-          more_set_headers "Content-Security-Policy: default-src https: data: blob: http://image.tmdb.org; style-src 'self' 'unsafe-inline' https://fallenbagel.github.io ; script-src 'self' 'unsafe-inline' https://www.gstatic.com/cv/js/sender/v1/cast_sender.js https://www.youtube.com blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; frame-ancestors 'self';"
       hosts:
         - host: jellyfin.k8s.tylercash.dev
           paths:
