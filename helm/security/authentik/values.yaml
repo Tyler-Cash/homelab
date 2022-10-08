@@ -39,6 +39,9 @@ authentik:
 
   redis:
     enabled: true
+    architecture: replication
+    sentinel:
+      enabled: true
 
   prometheus:
     serviceMonitor:
