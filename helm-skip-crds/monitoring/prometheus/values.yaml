@@ -71,47 +71,96 @@ kube-prometheus-stack:
   grafana:
     fullNameOverride: grafana
     defaultDashboardsTimezone: Australia/Sydney
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+        - name: 'storage'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/storage
+        - name: 'security'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/security
+        - name: 'argo'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/argo
+        - name: 'monitoring'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/monitoring
+        - name: 'networking'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/networking
     dashboards:
-      ceph-cluster:
-        url: https://grafana.com/api/dashboards/2842/revisions/1/download
-        datasource: Prometheus
-        token: ''
-      ceph-pools:
-        url: https://grafana.com/api/dashboards/5342/revisions/1/download
-        datasource: Prometheus
-        token: ''
-      ceph-osds:
-        url: https://grafana.com/api/dashboards/5336/revisions/1/download
-        datasource: Prometheus
-        token: ''
-      authentik:
-        url: https://grafana.com/api/dashboards/14837/revisions/1/download
-        datasource: Prometheus
-        token: ''
-      mysql:
-        url: https://grafana.com/api/dashboards/6239/revisions/1/download
-        datasource: Prometheus
-        token: ''
-      postgres:
-        url: https://grafana.com/api/dashboards/9628/revisions/1/download
-        datasource: Prometheus
-        token: ''
-      argocd:
-        url: https://github.com/argoproj/argo-cd/blob/master/examples/dashboard.json
-        datasource: Prometheus
-        token: ''
-      cert-manager:
-        url: https://grafana.com/api/dashboards/11001/revisions/1/download
-        datasource: Prometheus
-        token: ''
-      nginx:
-        url: https://grafana.com/api/dashboards/9614/revisions/1/download
-        datasource: Prometheus
-        token: ''
-      resource-usage:
-        url: https://grafana.com/api/dashboards/13125/revisions/1/download
-        datasource: Prometheus
-        token: ''
+      storage:
+        ceph-cluster:
+          gnetId: 2842
+          revision: 1
+          datasource: Prometheus
+        ceph-pools:
+          gnetId: 5342
+          revision: 1
+          datasource: Prometheus
+        ceph-osds:
+          gnetId: 5336
+          revision: 1
+          datasource: Prometheus
+        postgres:
+          gnetId: 9628
+          revision: 1
+          datasource: Prometheus
+        mysql:
+          gnetId: 6239
+          revision: 1
+          datasource: Prometheus
+      security:
+        authentik:
+          gnetId: 14837
+          revision: 1
+          datasource: Prometheus
+        cert-manager:
+          gnetId: 11001
+          revision: 1
+          datasource: Prometheus
+      argo:
+        argo-cd:
+          url: https://github.com/argoproj/argo-cd/blob/master/examples/dashboard.json
+          datasource: Prometheus
+          token: ''
+      networking:
+        nginx:
+          gnetId: 9614
+          revision: 1
+          datasource: Prometheus
+      monitoring:
+        resource-usage:
+          gnetId: 13125
+          revision: 1
+          datasource: Prometheus
     extraSecretMounts:
     - name: auth-generic-oauth-secret-mount
       secretName: auth-generic-oauth-secret
