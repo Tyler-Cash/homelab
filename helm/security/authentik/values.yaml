@@ -19,7 +19,7 @@ authentik:
     postgresql:
       host: home-authentik
     redis:
-      host: 'authentik-redis-headless'
+      host: authentik-redis-headless
 
   ingress:
     enabled: true
@@ -48,8 +48,6 @@ authentik:
   redis:
     enabled: true
     architecture: replication
-    sentinel:
-      enabled: true
 
   prometheus:
     serviceMonitor:
