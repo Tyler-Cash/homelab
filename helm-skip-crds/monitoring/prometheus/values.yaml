@@ -40,6 +40,47 @@ kube-prometheus-stack:
   grafana:
     fullNameOverride: grafana
     defaultDashboardsTimezone: Australia/Sydney
+    dashboards:
+      ceph-cluster:
+        url: https://grafana.com/api/dashboards/2842/revisions/1/download
+        datasource: Prometheus
+        token: ''
+      ceph-pools:
+        url: https://grafana.com/api/dashboards/5342/revisions/1/download
+        datasource: Prometheus
+        token: ''
+      ceph-osds:
+        url: https://grafana.com/api/dashboards/5336/revisions/1/download
+        datasource: Prometheus
+        token: ''
+      authentik:
+        url: https://grafana.com/api/dashboards/14837/revisions/1/download
+        datasource: Prometheus
+        token: ''
+      mysql:
+        url: https://grafana.com/api/dashboards/6239/revisions/1/download
+        datasource: Prometheus
+        token: ''
+      postgres:
+        url: https://grafana.com/api/dashboards/9628/revisions/1/download
+        datasource: Prometheus
+        token: ''
+      argocd:
+        url: https://github.com/argoproj/argo-cd/blob/master/examples/dashboard.json
+        datasource: Prometheus
+        token: ''
+      cert-manager:
+        url: https://grafana.com/api/dashboards/11001/revisions/1/download
+        datasource: Prometheus
+        token: ''
+      nginx:
+        url: https://grafana.com/api/dashboards/9614/revisions/1/download
+        datasource: Prometheus
+        token: ''
+      resource-usage:
+        url: https://grafana.com/api/dashboards/13125/revisions/1/download
+        datasource: Prometheus
+        token: ''
     extraSecretMounts:
     - name: auth-generic-oauth-secret-mount
       secretName: auth-generic-oauth-secret
