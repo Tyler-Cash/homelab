@@ -34,6 +34,10 @@ rook-ceph-cluster:
     storage:
       useAllNodes: true
       useAllDevices: true
+    dashboard:
+      enabled: true
+      port: 8555
+      ssl: true
     annotations:
       all:
         prometheus.io/scrape: "true"
