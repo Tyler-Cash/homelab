@@ -10,7 +10,7 @@ authentik:
         name: authentik-secrets
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
-    AUTHENTIK_REDIS__HOST: authentik-redis
+    AUTHENTIK_REDIS__HOST: authentik-redis-headless
   authentik:
     postgresql:
       host: home-authentik
