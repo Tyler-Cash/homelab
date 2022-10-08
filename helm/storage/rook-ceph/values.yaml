@@ -20,8 +20,6 @@ rook-ceph-cluster:
         kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        nginx.ingress.kubernetes.io/server-snippet: |
-          proxy_ssl_verify off;
       host:
         name: ceph.k8s.tylercash.dev
         path: ""
