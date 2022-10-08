@@ -12,13 +12,11 @@ jellyfin:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: "prod-issuer"
-        external-dns.alpha.kubernetes.io/hostname: jellyfin.k8s.tylercash.dev
-        hajimari.io/enable: "true"
-        hajimari.io/group: "Media"
         kubernetes.io/ingress.class: "nginx"
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
         nginx.org/websocket-services: "jellyfin"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
         - host: jellyfin.k8s.tylercash.dev
           paths:
