@@ -1,0 +1,48 @@
+ingress-nginx:
+  controller:
+    config:
+      client-max-body-size: 8m
+      proxy-read-timeout: "300"
+      proxy-send-timeout: "300"
+
+    watchIngressWithoutClass: true
+    ingressClassByName: true
+
+    service:
+      externalTrafficPolicy: Local
+      internal:
+        enabled: true
+        externalTrafficPolicy: "Local"
+
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 1
+      type: RollingUpdate
+
+    replicaCount: 2
+
+    minAvailable: 2
+
+    metrics:
+      port: 10254
+      portName: metrics
+      enabled: true
+
+      service:
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "10254"
+
+      serviceMonitor:
+        enabled: true
+        namespace: "monitoring"
+        namespaceSelector:
+          any: true
+        scrapeInterval: 30s
+        targetLabels: []
+        relabelings: []
+        metricRelabelings: []
+
+      prometheusRule:
+        enabled: false
+        namespace: "monitoring"
