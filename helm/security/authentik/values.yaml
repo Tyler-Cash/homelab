@@ -1,4 +1,7 @@
 authentik:
+  replicas: 2
+  worker:
+    replicas: 2
   envValueFrom:
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
