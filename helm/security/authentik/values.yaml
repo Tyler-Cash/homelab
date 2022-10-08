@@ -19,7 +19,7 @@ authentik:
     postgresql:
       host: home-authentik
     redis:
-      host: authentik-redis-headless
+      host: authentik-redis-master
 
   ingress:
     enabled: true
