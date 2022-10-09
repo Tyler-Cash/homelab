@@ -74,6 +74,8 @@ coredns:
       parameters: . /etc/resolv.conf tls://1.0.0.1 tls://1.1.1.1
     - name: forward
       parameters: k8s.tylercash.dev dns://10.0.0.30
+      configBlock: |-
+        fallthrough
     - name: loop
     - name: reload
     - name: loadbalance
