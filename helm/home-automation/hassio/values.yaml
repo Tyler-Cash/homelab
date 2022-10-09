@@ -29,7 +29,8 @@ app-template:
             - path: /
               pathType: Prefix
       tls:
-        - hosts:
+        - secretName: hassio-letsencrypt-certificate
+          hosts:
             - *host
 
   probes:
