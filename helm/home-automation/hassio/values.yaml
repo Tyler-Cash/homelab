@@ -55,7 +55,7 @@ app-template:
           kubernetes.io/ingress.class: nginx
           nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
           nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
-          nginx.org/websocket-services: hassio
+          nginx.org/websocket-services: hassio-codeserver
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
         hosts:
           - host: &vs-host "hassio-code.k8s.tylercash.dev"
@@ -63,7 +63,7 @@ app-template:
               - path: /
                 pathType: Prefix
         tls:
-        - secretName: hassio-letsencrypt-certificate
+        - secretName: hassio-code-letsencrypt-certificate
           hosts:
           - *vs-host
       volumeMounts:
