@@ -1,4 +1,10 @@
 cert-manager:
+  podDnsPolicy: "None"
+  podDnsConfig:
+    nameservers:
+      - "1.1.1.1"
+      - "8.8.8.8"
+
   resources:
     limits:
       cpu: "30m"
@@ -6,6 +12,7 @@ cert-manager:
     requests:
       cpu: "10m"
       memory: "32Mi"
+
   webhook.resources:
     limits:
       cpu: "30m"
@@ -13,6 +20,7 @@ cert-manager:
     requests:
       cpu: "10m"
       memory: "32Mi"
+
   cainjector.resources:
     limits:
       cpu: "30m"
@@ -20,6 +28,7 @@ cert-manager:
     requests:
       cpu: "10m"
       memory: "32Mi"
+
   ingressShim:
     defaultIssuerName: "prod-issuer"
     defaultIssuerKind: "ClusterIssuer"
