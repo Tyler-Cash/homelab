@@ -1,0 +1,61 @@
+app-template:
+  image:
+    repository: ghcr.io/onedr0p/home-assistant
+    tag: 2022.10.1@sha256:466c74a92ccb87b5a40b32306f03c7236c4b0874c35161ca6bbdbd7022976f4f
+
+  env:
+    TZ: "Australia/Sydney"
+
+  service:
+    main:
+      type: LoadBalancer
+      ports:
+        http:
+          port: 8123
+
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: prod-issuer
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
+        nginx.org/websocket-services: jellyfin
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
+      hosts:
+        - host: &host "hassio.k8s.tylercash.dev"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+
+  probes:
+    liveness:
+      enabled: false
+    readiness:
+      enabled: false
+    startup:
+      enabled: false
+    
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 10Gi
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+    limits:
+      memory: 750Mi
