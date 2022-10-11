@@ -35,7 +35,7 @@ argo-cd:
           type: OIDC
           id: authentik
           config:
-            issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
+            issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd/"
             clientID: $argocd-secrets:client_id
             clientSecret: $argocd-secrets:client_secret
             insecureEnableGroups: true
