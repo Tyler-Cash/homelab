@@ -32,6 +32,7 @@ argo-cd:
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
     config:
       dex.config: |
+        oidc.tls.insecure.skip.verify: true
         connectors:
         - config:
             issuer: https://authentik.k8s.tylercash.dev/application/o/argocd/
