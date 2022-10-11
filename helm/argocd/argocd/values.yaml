@@ -28,8 +28,25 @@ argo-cd:
         - hosts:
           - argocd.k8s.tylercash.dev
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
-
-
+    config:
+      dex.config: |
+        connectors:
+        - config:
+            issuer: https://authentik.k8s.tylercash.dev/application/o/argocd/
+            clientID: $argocd-secrets:clientID
+            clientSecret: $argocd-secrets:clientSecret
+            insecureEnableGroups: true
+            scopes:
+              - openid
+              - profile
+              - email
+              - groups
+          name: authentik
+          type: oidc
+          id: authentik
+    rbacConfig:
+      policy.csv: |
+        g, argo-admin, role:admin
   repoServer:
     autoscaling:
       enabled: true
