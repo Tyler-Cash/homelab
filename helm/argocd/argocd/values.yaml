@@ -33,7 +33,6 @@ argo-cd:
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
       dex.config: |
-        oidc.tls.insecure.skip.verify: true
         connectors:
         - name: authentik
           type: oidc
