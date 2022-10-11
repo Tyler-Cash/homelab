@@ -10,107 +10,106 @@ gatus:
         interval: 20s
         url: http://bazarr.media.svc.cluster.local:6767/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 1500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 1500"
 
       - name: bitwarden
         url: http://bitwarden-vaultwarden.security.svc.cluster.local/
 
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: gotify
         url: http://gotify.monitoring.svc.cluster.local/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 1000'
-          
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 1000"
+
       - name: jellyfin
         url: http://jellyfin.media.svc.cluster.local:8096/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: prowlarr
         url: http://prowlarr.media.svc.cluster.local:9696/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: radarr
         url: http://radarr.media.svc.cluster.local:7878/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 2000'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 2000"
 
       - name: sonarr
         url: http://sonarr.media.svc.cluster.local:8989/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: k8s-master
         url: tcp://10.0.0.10:6443
         conditions:
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 1000'
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: argo
         url: http://argocd-server.argocd.svc.cluster.local/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: prometheus
         url: http://prometheus-prometheus.monitoring.svc.cluster.local:9090/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: alert-manager
         url: http://prometheus-alertmanager.monitoring.svc.cluster.local:9093/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: grafana
         url: http://prometheus-grafana.monitoring.svc.cluster.local/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: ceph
         url: https://ceph.k8s.tylercash.dev/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
 
       - name: qbittorrent
         url: http://qbittorrent.media.svc.cluster.local:8080/
         conditions:
-          - '[STATUS] == 200'
-          - '[CONNECTED] == true'
-          - '[RESPONSE_TIME] < 500'
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 500"
   ingress:
     enabled: true
     annotations:
       cert-manager.io/cluster-issuer: "prod-issuer"
-      hajimari.io/enable: "true"
       hajimari.io/group: "Monitoring"
-      kubernetes.io/ingress-allow-http: "false" 
+      kubernetes.io/ingress-allow-http: "false"
       kubernetes.io/ingress.class: "nginx"
       nginx.org/websocket-services: gatus
       nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"

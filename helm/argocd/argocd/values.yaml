@@ -9,17 +9,15 @@ argo-cd:
     autoscaling:
       enabled: true
       minReplicas: 2
-    extraArgs:
-      - --insecure
     ingress:
       enabled: true
-      hosts: 
+      hosts:
         - argocd.k8s.tylercash.dev
       annotations:
         cert-manager.io/cluster-issuer: "prod-issuer"
-        hajimari.io/enable: "true"
-        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress-allow-http: "false"
         kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         nginx.ingress.kubernetes.io/proxy-buffer-size: 64k
         nginx.ingress.kubernetes.io/proxy-buffers-number: "8"
         nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
@@ -28,7 +26,7 @@ argo-cd:
         nginx.org/websocket-services: "argocd-server"
       tls:
         - hosts:
-          - argocd.k8s.tylercash.dev
+            - argocd.k8s.tylercash.dev
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
     config:
       url: https://argocd.k8s.tylercash.dev

@@ -30,36 +30,35 @@ kube-prometheus-stack:
       route:
         receiver: zenduty
         group_by:
-        - alertname
+          - alertname
         continue: false
         routes:
-        - receiver: "null"
-          match:
-            alertname: Watchdog
-          continue: false
-        - receiver: zenduty
-          match_re:
-            pod: (.*)
-          continue: false
+          - receiver: "null"
+            match:
+              alertname: Watchdog
+            continue: false
+          - receiver: zenduty
+            match_re:
+              pod: (.*)
+            continue: false
         group_wait: 5m
         group_interval: 10s
         repeat_interval: 1h
       inhibit_rules:
-      - source_match:
-          severity: critical
-        target_match:
-          severity: warning
-        equal:
-        - alertname
-        - dev
-        - instance
+        - source_match:
+            severity: critical
+          target_match:
+            severity: warning
+          equal:
+            - alertname
+            - dev
+            - instance
     ingress:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: "prod-issuer"
-        hajimari.io/enable: "true"
         hajimari.io/group: "Monitoring"
-        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress-allow-http: "false"
         kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
@@ -75,46 +74,46 @@ kube-prometheus-stack:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
-        - name: 'storage'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: false
-          editable: false
-          options:
-            path: /var/lib/grafana/dashboards/storage
-        - name: 'security'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: false
-          editable: false
-          options:
-            path: /var/lib/grafana/dashboards/security
-        - name: 'argo'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: false
-          editable: false
-          options:
-            path: /var/lib/grafana/dashboards/argo
-        - name: 'monitoring'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: false
-          editable: false
-          options:
-            path: /var/lib/grafana/dashboards/monitoring
-        - name: 'networking'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: false
-          editable: false
-          options:
-            path: /var/lib/grafana/dashboards/networking
+          - name: "storage"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/storage
+          - name: "security"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/security
+          - name: "argo"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/argo
+          - name: "monitoring"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/monitoring
+          - name: "networking"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/networking
     dashboards:
       storage:
         ceph-cluster:
@@ -150,7 +149,7 @@ kube-prometheus-stack:
         argo-cd:
           url: https://github.com/argoproj/argo-cd/blob/master/examples/dashboard.json
           datasource: Prometheus
-          token: ''
+          token: ""
       networking:
         nginx:
           gnetId: 9614
@@ -162,11 +161,11 @@ kube-prometheus-stack:
           revision: 1
           datasource: Prometheus
     extraSecretMounts:
-    - name: auth-generic-oauth-secret-mount
-      secretName: auth-generic-oauth-secret
-      defaultMode: 0440
-      mountPath: /etc/secrets/auth_generic_oauth
-      readOnly: true
+      - name: auth-generic-oauth-secret-mount
+        secretName: auth-generic-oauth-secret
+        defaultMode: 0440
+        mountPath: /etc/secrets/auth_generic_oauth
+        readOnly: true
     grafana.ini:
       paths:
         data: /var/lib/grafana/
@@ -203,9 +202,8 @@ kube-prometheus-stack:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: "prod-issuer"
-        hajimari.io/enable: "true"
         hajimari.io/group: "Monitoring"
-        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress-allow-http: "false"
         kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
@@ -246,9 +244,8 @@ kube-prometheus-stack:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: "prod-issuer"
-        hajimari.io/enable: "true"
         hajimari.io/group: "Monitoring"
-        kubernetes.io/ingress-allow-http: "false" 
+        kubernetes.io/ingress-allow-http: "false"
         kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
@@ -271,9 +268,9 @@ kube-prometheus-stack:
   kubeEtcd:
     enabled: true
     endpoints:
-    - 10.0.0.83
-    - 10.0.0.84
-    - 10.0.0.85
+      - 10.0.0.83
+      - 10.0.0.84
+      - 10.0.0.85
     service:
       enabled: true
       port: 2381
@@ -282,9 +279,9 @@ kube-prometheus-stack:
 kubeScheduler:
   enabled: true
   endpoints:
-  - 10.0.0.83
-  - 10.0.0.84
-  - 10.0.0.85
+    - 10.0.0.83
+    - 10.0.0.84
+    - 10.0.0.85
   service:
     enabled: true
   serviceMonitor:
@@ -295,9 +292,9 @@ kubeScheduler:
 kubeProxy:
   enabled: true
   endpoints:
-  - 10.0.0.83
-  - 10.0.0.84
-  - 10.0.0.85
+    - 10.0.0.83
+    - 10.0.0.84
+    - 10.0.0.85
 
 kubeStateMetrics:
   enabled: true
