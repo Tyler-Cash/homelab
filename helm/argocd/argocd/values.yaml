@@ -33,9 +33,10 @@ argo-cd:
         connectors:
         - config:
             issuer: https://authentik.k8s.tylercash.dev/application/o/argocd/
-            clientID: $argocd-secrets:clientID
-            clientSecret: $argocd-secrets:clientSecret
+            clientID: $argocd-secrets:client_id
+            clientSecret: $argocd-secrets:client_secret
             insecureEnableGroups: true
+            getUserInfo: true
             scopes:
               - openid
               - profile
