@@ -56,3 +56,11 @@ argo-cd:
 
   applicationSet:
     replicas: 2
+
+  dex:
+    enabled: true
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        namespace: monitoring
