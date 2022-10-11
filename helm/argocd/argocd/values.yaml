@@ -32,17 +32,17 @@ argo-cd:
       dex.config: |
         connectors:
         - config:
-            issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
-            clientID: $argocd-secrets:client_id
-            clientSecret: $argocd-secrets:client_secret
-            insecureEnableGroups: true
-            scopes:
-              - openid
-              - profile
-              - email
-              - groups
+          issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
+          clientID: $argocd-secrets:client_id
+          clientSecret: $argocd-secrets:client_secret
+          insecureEnableGroups: true
+          scopes:
+            - openid
+            - profile
+            - email
+            - groups
           name: authentik
-          type: oidc
+          type: OIDC
           id: authentik
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
