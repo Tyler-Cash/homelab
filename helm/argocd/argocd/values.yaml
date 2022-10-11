@@ -31,7 +31,7 @@ argo-cd:
           - argocd.k8s.tylercash.dev
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
     config:
-      url: https://argocd.k8s.tylercash.dev/
+      url: https://argocd.k8s.tylercash.dev
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
       dex.config: |
