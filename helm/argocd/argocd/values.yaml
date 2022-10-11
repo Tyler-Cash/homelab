@@ -34,10 +34,7 @@ argo-cd:
         oidc.tls.insecure.skip.verify: true
       dex.config: |
         connectors:
-          - name: authentik
-            type: oidc
-            id: authentik
-            config:
+          - config:
               issuer: https://authentik.k8s.tylercash.dev/application/o/argocd/
               clientID: $argocd-secrets:client_id
               clientSecret: $argocd-secrets:client_secret
@@ -47,6 +44,9 @@ argo-cd:
                 - profile
                 - email
                 - groups
+            name: authentik
+            type: oidc
+            id: authentik
     rbacConfig:
       policy.csv: |
         g, argo-admin, role:admin
