@@ -32,21 +32,21 @@ argo-cd:
       url: https://argocd.k8s.tylercash.dev
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
-      dex.config: 
+      dex.config: |
         connectors:
-        - name: authentik
-          type: oidc
-          id: authentik
-          config:
-            issuer: https://authentik.k8s.tylercash.dev/application/o/argocd/
-            clientID: $argocd-secrets:client_id
-            clientSecret: $argocd-secrets:client_secret
-            insecureEnableGroups: true
-            scopes:
-              - openid
-              - profile
-              - email
-              - groups
+          - name: authentik
+            type: oidc
+            id: authentik
+            config:
+              issuer: https://authentik.k8s.tylercash.dev/application/o/argocd/
+              clientID: $argocd-secrets:client_id
+              clientSecret: $argocd-secrets:client_secret
+              insecureEnableGroups: true
+              scopes:
+                - openid
+                - profile
+                - email
+                - groups
     rbacConfig:
       policy.csv: |
         g, argo-admin, role:admin
