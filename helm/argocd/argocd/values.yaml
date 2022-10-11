@@ -32,7 +32,7 @@ argo-cd:
       url: https://argocd.k8s.tylercash.dev
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
-      dex.config: |
+      dex.config: 
         connectors:
         - name: authentik
           type: oidc
