@@ -42,8 +42,6 @@ argo-cd:
             clientID: $argocd-secrets:client_id
             clientSecret: $argocd-secrets:client_secret
             insecureEnableGroups: true
-            getUserInfo: true
-            basicAuthUnsupported: true
             scopes:
               - openid
               - profile
