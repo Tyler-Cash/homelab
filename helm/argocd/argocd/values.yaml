@@ -31,19 +31,20 @@ argo-cd:
     config:
       dex.config: |
         connectors:
-        - config:
-          issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
-          clientID: $argocd-secrets:client_id
-          clientSecret: $argocd-secrets:client_secret
-          insecureEnableGroups: true
-          scopes:
-            - openid
-            - profile
-            - email
-            - groups
-          name: authentik
+        - name: authentik
           type: OIDC
           id: authentik
+          config:
+            issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
+            clientID: $argocd-secrets:client_id
+            clientSecret: $argocd-secrets:client_secret
+            insecureEnableGroups: true
+            scopes:
+              - openid
+              - profile
+              - email
+              - groups
+            
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
     rbacConfig:
