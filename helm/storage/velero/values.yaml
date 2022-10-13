@@ -78,7 +78,7 @@ velero:
 
   schedules:
     schedule-hourly:
-      schedule: "35 * * * *"
+      schedule: "40 * * * *"
       template:
         labelSelector:
           matchLabels:
