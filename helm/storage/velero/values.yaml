@@ -23,7 +23,7 @@ velero:
     privileged: true
     resources:
       requests:
-        memory: 215Mi
+        memory: 0Mi
         cpu: 15m
 
   configuration:
