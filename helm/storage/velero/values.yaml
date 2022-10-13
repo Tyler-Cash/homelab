@@ -77,18 +77,30 @@ velero:
 
 
   schedules:
+    schedule-hourly:
+      schedule: "35 * * * *"
+      template:
+        labelSelector:
+          matchLabels:
+            velero.io/schedule: hourly
+        ttl: "2160h"
+        defaultVolumesToRestic: true
+        includedNamespaces:
+          - "*"
     schedule-weekly:
-      schedule: "0 3 * * 0"
+      schedule: "0 * * * 0"
       template:
         labelSelector:
           matchLabels:
             velero.io/schedule: weekly
         ttl: "2160h"
+        defaultVolumesToRestic: true
         includedNamespaces:
           - "*"
     schedule-monthly:
       schedule: "0 4 * * WED"
       template:
+        defaultVolumesToRestic: true
         labelSelector:
           matchLabels:
             velero.io/schedule: monthly
