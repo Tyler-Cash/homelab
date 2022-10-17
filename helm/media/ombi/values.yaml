@@ -37,7 +37,8 @@ app-template:
   persistence:
     config:
       enabled: true
-      existingClaim: config
+      storageClass: ceph-block
+      size: 10Gi
       mountPath: /config
 
   env:
