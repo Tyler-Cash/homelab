@@ -2,6 +2,9 @@ sealed-secrets:
   fullnameOverride: sealed-secrets-controller
   namespaceOverride: security
   clusterDomain: k8s.tylercash.dev
+  args:
+  - "--update-status"
+
   resources:
     limits:
       cpu: "300m"
@@ -9,6 +12,7 @@ sealed-secrets:
     requests:
       cpu: "100m"
       memory: "160Mi"
+
   ingress:
     enabled: true
     tls: true
@@ -18,3 +22,11 @@ sealed-secrets:
         kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
     hostname: secrets.k8s.tylercash.dev
+
+  metrics:
+    serviceMonitor:
+      enabled: true
+      namespace: "monitoring"
+    dashboards:
+      create: true
+      namespace: "monitoring"
