@@ -1,0 +1,50 @@
+app-template:
+  image:
+    repository: lscr.io/linuxserver/ombi
+    tag: 4.22.5
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3579
+
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: prod-issuer
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
+      hosts:
+        - host: &host "ombi.k8s.tylercash.dev"
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                port: 8096
+      tls:
+        - secretName: ombi-letsencrypt-certificate
+          hosts:
+            - *host
+
+  podSecurityContext:
+    fsGroup: 568
+    fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    config:
+      enabled: true
+      existingClaim: config
+      mountPath: /config
+
+  env:
+    PUID: "568"
+    PGID: "568"
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
