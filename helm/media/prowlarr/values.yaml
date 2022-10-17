@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/onedr0p/prowlarr-develop
-    tag: 0.4.6.1969
+    tag: 0.4.7.2016
     pullPolicy: IfNotPresent
 
   service:
