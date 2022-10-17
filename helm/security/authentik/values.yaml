@@ -34,7 +34,7 @@ authentik:
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
     AUTHENTIK_EMAIL__PORT: "587"
-    AUTHENTIK_EMAIL__USE_SSL: "true"
+    AUTHENTIK_EMAIL__USE_TLS: "true"
 
   authentik:
     postgresql:
