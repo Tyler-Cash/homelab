@@ -11,6 +11,26 @@ authentik:
       secretKeyRef:
         key: secret_key
         name: authentik-secrets
+    AUTHENTIK_EMAIL__FROM:
+      secretKeyRef:
+        key: from
+        name: authentik-email
+    AUTHENTIK_EMAIL__HOST:
+      secretKeyRef:
+        key: host
+        name: authentik-email
+    AUTHENTIK_EMAIL__PASSWORD:
+      secretKeyRef:
+        key: password
+        name: authentik-email
+    AUTHENTIK_EMAIL__PORT:
+      secretKeyRef:
+        key: port
+        name: authentik-email
+    AUTHENTIK_EMAIL__USERNAME:
+      secretKeyRef:
+        key: username
+        name: authentik-email
 
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
