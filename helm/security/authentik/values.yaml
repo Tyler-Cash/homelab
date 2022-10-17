@@ -4,7 +4,7 @@ authentik:
   worker:
     replicas: 2
 
-  # Check that env variable isn't provided in normal env map. Sync will fail if it's duplicated 
+  # Check that env variable isn't provided in normal env map. Sync will fail if it's duplicated
   envValueFrom:
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
@@ -33,8 +33,8 @@ authentik:
 
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
-    AUTHENTIK_EMAIL__PORT: "587"
-    AUTHENTIK_EMAIL__USE_TLS: "true"
+    AUTHENTIK_EMAIL__PORT: "465"
+    AUTHENTIK_EMAIL__USE_SSL: "true"
 
   authentik:
     postgresql:
