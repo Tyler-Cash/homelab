@@ -7,10 +7,6 @@ authentik:
       secretKeyRef:
         key: password
         name: authentik.home-authentik.credentials.postgresql.acid.zalan.do
-    AUTHENTIK_SECRET_KEY:
-      secretKeyRef:
-        key: secret_key
-        name: authentik-secrets
     AUTHENTIK_EMAIL__FROM:
       secretKeyRef:
         key: from
