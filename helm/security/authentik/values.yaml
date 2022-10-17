@@ -4,6 +4,7 @@ authentik:
   worker:
     replicas: 2
 
+  # Check that env variable isn't provided in normal env map. Sync will fail if it's duplicated 
   envValueFrom:
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
