@@ -25,10 +25,6 @@ authentik:
       secretKeyRef:
         key: password
         name: authentik-email
-    AUTHENTIK_EMAIL__PORT:
-      secretKeyRef:
-        key: port
-        name: authentik-email
     AUTHENTIK_EMAIL__USERNAME:
       secretKeyRef:
         key: username
@@ -36,7 +32,8 @@ authentik:
 
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
-    AUTHENTIK_EMAIL__FROM: ""
+    AUTHENTIK_EMAIL__PORT: "587"
+    AUTHENTIK_EMAIL__USE_SSL: "true"
 
   authentik:
     postgresql:
