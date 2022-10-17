@@ -1,12 +1,18 @@
 authentik:
   replicas: 2
+
   worker:
     replicas: 2
+
   envValueFrom:
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
         key: password
         name: authentik.home-authentik.credentials.postgresql.acid.zalan.do
+    AUTHENTIK_SECRET_KEY:
+      secretKeyRef:
+        key: secret_key
+        name: authentik-secrets
     AUTHENTIK_EMAIL__FROM:
       secretKeyRef:
         key: from
@@ -30,6 +36,7 @@ authentik:
 
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
+    AUTHENTIK_EMAIL__FROM: ""
 
   authentik:
     postgresql:
