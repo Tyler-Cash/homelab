@@ -2,8 +2,6 @@ sealed-secrets:
   fullnameOverride: sealed-secrets-controller
   namespaceOverride: security
   clusterDomain: k8s.tylercash.dev
-  args:
-  - "--update-status"
 
   resources:
     limits:
