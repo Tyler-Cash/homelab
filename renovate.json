@@ -8,14 +8,14 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
-      "excludePackageNames": ["rook-ceph", "rook-ceph-cluster", "qbittorrent"],
+      "excludePackageNames": ["rook-ceph", "rook-ceph-cluster"],
       "matchCurrentVersion": "!/^0/",
       "automergeType": "branch",
       "automerge": true
     },
     {
       "matchUpdateTypes": ["major"],
-      "excludePackageNames": ["rook-ceph", "rook-ceph-cluster", "argo-cd", "qbittorrent"],
+      "excludePackageNames": ["rook-ceph", "rook-ceph-cluster", "argo-cd"],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
     }
