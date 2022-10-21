@@ -11,6 +11,13 @@
   ],
   "packageRules": [
     {
+      "matchPackageNames": [
+        "rook-ceph",
+        "rook-ceph-cluster"
+      ],
+      "groupName": "rook"
+    },
+    {
       "matchUpdateTypes": ["minor", "patch"],
       "excludePackageNames": ["rook-ceph", "rook-ceph-cluster"],
       "matchCurrentVersion": "!/^0/",
