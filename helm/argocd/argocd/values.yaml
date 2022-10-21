@@ -30,6 +30,18 @@ argo-cd:
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
     config:
       exec.enabled: "true"
+      resource.exclusions: |
+        - apiGroups:
+            - kyverno.io
+          kinds:
+            - AdmissionReport
+            - BackgroundScanReport
+            - ClusterAdmissionReport
+            - ClusterBackgroundScanReport
+          clusters:
+            - '*'
+      resource.compareoptions: |
+        ignoreAggregatedRoles: true
       dex.config: |
         connectors:
         - name: authentik

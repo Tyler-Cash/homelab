@@ -1,0 +1,2 @@
+kyverno-crds:
+  namespace: security
