@@ -23,4 +23,4 @@ spec:
         patchStrategicMerge:
           metadata:
             annotations:
-              +(external-dns.alpha.kubernetes.io/target): ingress.k8s.tylercash.dev
+              +(external-dns.alpha.kubernetes.io/target): ingress.tylercash.dev

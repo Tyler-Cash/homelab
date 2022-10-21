@@ -1,0 +1,13 @@
+external-dns:
+  serviceMonitor:
+    enabled: true
+  provider: cloudflare
+  txtPrefix: prefix.k8s.
+  extraArgs:
+  - --annotation-filter=external-dns.home.arpa/enabled in (true)
+  env:
+  - name: CF_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-credentials
+        key: CF_API_TOKEN

@@ -40,7 +40,7 @@ spec:
                   - mountPath: /etc/localtime
                     name: timezone
                     readOnly: true
-                    subPath: &timezone Europe/Amsterdam
+                    subPath: &timezone Australia/Sydney
                   - mountPath: /usr/share/zoneinfo
                     name: timezone
                     readOnly: true

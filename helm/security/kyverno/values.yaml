@@ -1,7 +1,6 @@
 kyverno:
   namespace: security
   installCRDs: false
-  createSelfSignedCert: true
 
   serviceMonitor:
     enabled: true

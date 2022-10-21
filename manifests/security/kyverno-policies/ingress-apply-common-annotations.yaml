@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: ingress-apply-common-annotations
+  annotations:
+    policies.kyverno.io/title: Apply Ingress Whitelist Annotations
+    policies.kyverno.io/subject: Ingress
+    policies.kyverno.io/description: >-
+      This policy creates annotations on ingresses. When
+      the `external-dns.home.arpa/enabled` annotation is not
+      set it applies the nginx annotations for use with only
+      internal application access.
+spec:
+  rules:
+    - name: whitelist
+      match:
+        any:
+          - resources:
+              kinds: ["Ingress"]
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(cert-manager.io/cluster-issuer): "prod-issuer"
+              +(kubernetes.io/ingress-allow-http): "false"
+              +(kubernetes.io/ingress.class): "nginx"
+              +(nginx.ingress.kubernetes.io/proxy-read-timeout): "36000"
+              +(nginx.ingress.kubernetes.io/proxy-send-timeout): "36000"
