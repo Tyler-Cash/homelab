@@ -13,7 +13,7 @@ k10:
       enabled: true
       restartPod: true # Enable this value to force a restart of the authentication service pod
       dashboardURL: "https://kasten.k8s.tylercash.dev/" #The URL for accessing K10's dashboard
-      host: "ak-outpost-jellyfin-provider.security.svc.cluster.local:636"
+      host: "ak-outpost-kasten-provider.security.svc.cluster.local:389"
       insecureSkipVerifySSL: true
       bindDN: "cn=kasten,ou=system,dc=tylercash,dc=dev"
       bindPWSecretName: "kasten-secrets"
