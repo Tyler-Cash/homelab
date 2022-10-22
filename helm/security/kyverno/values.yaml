@@ -1,7 +1,7 @@
 kyverno:
   namespace: security
   installCRDs: false
-
+  replicaCount: 3
   serviceMonitor:
     enabled: true
     namespace: monitoring
