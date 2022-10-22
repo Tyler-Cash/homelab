@@ -5,3 +5,108 @@ rook-ceph:
     requests:
       cpu: "500m"
       memory: "300Mi"
+
+  csi:
+    csiRBDProvisionerResource: |
+      - name : csi-provisioner
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-resizer
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-attacher
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-snapshotter
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-rbdplugin
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-omap-generator
+        resource:
+          requests:
+            memory: 512Mi
+            cpu: 250m
+      - name : liveness-prometheus
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 50m
+    # CEPH CSI RBD plugin resource requirement list, Put here list of resource
+    # requests and limits you want to apply for plugin pod
+    csiRBDPluginResource: |
+      - name : driver-registrar
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 50m
+      - name : csi-rbdplugin
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : liveness-prometheus
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 50m
+    csiCephFSProvisionerResource: |
+      - name : csi-provisioner
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-resizer
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-attacher
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-snapshotter
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+      - name : csi-cephfsplugin
+        resource:
+          requests:
+            memory: 512Mi
+            cpu: 250m
+      - name : liveness-prometheus
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 50m
+    # CEPH CSI CephFS plugin resource requirement list, Put here list of resource
+    # requests and limits you want to apply for plugin pod
+    csiCephFSPluginResource: |
+      - name : driver-registrar
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 50m
+      - name : csi-cephfsplugin
+        resource:
+          requests:
+            memory: 512Mi
+            cpu: 250m
+      - name : liveness-prometheus
+        resource:
+          requests:
+            memory: 128Mi
+            cpu: 50m

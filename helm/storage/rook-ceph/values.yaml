@@ -60,7 +60,7 @@ rook-ceph-cluster:
       mgr:
         requests:
           cpu: "250m"
-          memory: "600Mi"
+          memory: "512Mi"
       mon:
         requests:
           cpu: "150m"
@@ -70,16 +70,10 @@ rook-ceph-cluster:
           cpu: "300m"
           memory: "1.5Gi"
       prepareosd:
-        limits:
-          cpu: "500m"
-          memory: "400Mi"
         requests:
           cpu: "500m"
           memory: "50Mi"
       mgr-sidecar:
-        limits:
-          cpu: "500m"
-          memory: "100Mi"
         requests:
           cpu: "100m"
           memory: "40Mi"
@@ -214,8 +208,8 @@ rook-ceph-cluster:
           activeStandby: true
           resources:
             requests:
-              cpu: "800m"
-              memory: "2Gi"
+              cpu: "100m"
+              memory: "128Mi"
           priorityClassName: system-cluster-critical
       storageClass:
         enabled: true
@@ -254,8 +248,8 @@ rook-ceph-cluster:
           activeCount: 1
           resources:
             requests:
-              cpu: "500m"
-              memory: "2Gi"
+              cpu: "100m"
+              memory: "128Mi"
           priorityClassName: system-cluster-critical
       storageClass:
         enabled: true
