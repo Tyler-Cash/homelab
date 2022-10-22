@@ -317,7 +317,7 @@ rook-ceph-cluster:
       csi.storage.k8s.io/snapshotter-secret-namespace: storage
 
   cephFileSystemVolumeSnapshotClass:
-    enabled: false
+    enabled: true
     name: ceph-filesystem
     isDefault: true
     deletionPolicy: Delete
