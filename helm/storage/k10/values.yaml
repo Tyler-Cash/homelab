@@ -9,3 +9,6 @@ k10:
     basicAuth:
       enabled: true
       htpasswd: admin:admin
+  prometheus:
+    server:
+      enabled: false
