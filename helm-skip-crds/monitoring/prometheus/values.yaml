@@ -70,47 +70,52 @@ kube-prometheus-stack:
   grafana:
     fullNameOverride: grafana
     defaultDashboardsTimezone: Australia/Sydney
+    sidecar:
+      dashboards:
+        enabled: true
+        provider:
+          disableDelete: true
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
           - name: "storage"
             orgId: 1
-            folder: ""
+            folder: "storage"
             type: file
-            disableDeletion: false
+            disableDeletion: true
             editable: false
             options:
               path: /var/lib/grafana/dashboards/storage
           - name: "security"
             orgId: 1
-            folder: ""
+            folder: "security"
             type: file
-            disableDeletion: false
+            disableDeletion: true
             editable: false
             options:
               path: /var/lib/grafana/dashboards/security
           - name: "argo"
             orgId: 1
-            folder: ""
+            folder: "argo"
             type: file
-            disableDeletion: false
+            disableDeletion: true
             editable: false
             options:
               path: /var/lib/grafana/dashboards/argo
           - name: "monitoring"
             orgId: 1
-            folder: ""
+            folder: "monitoring"
             type: file
-            disableDeletion: false
+            disableDeletion: true
             editable: false
             options:
               path: /var/lib/grafana/dashboards/monitoring
           - name: "networking"
             orgId: 1
-            folder: ""
+            folder: "networking"
             type: file
-            disableDeletion: false
+            disableDeletion: true
             editable: false
             options:
               path: /var/lib/grafana/dashboards/networking
