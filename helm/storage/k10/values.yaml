@@ -1,0 +1,7 @@
+k10:
+  ingress:
+    create: true
+    host: k10.k8s.tylercash.dev
+    tls:
+      enabled: true
+      secretName: k10-k8s-tylercash-dev
