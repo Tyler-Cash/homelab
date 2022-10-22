@@ -12,3 +12,5 @@ k10:
   prometheus:
     server:
       enabled: false
+  grafana:
+    enabled: false
