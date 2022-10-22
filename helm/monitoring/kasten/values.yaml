@@ -5,8 +5,10 @@ k10:
     tls:
       enabled: true
       secretName: kasten-k8s-tylercash-dev
+
   auth:
-    k10AdminGroups: kasten-admin
+    k10AdminGroups: 
+    - kasten-admin
     oidcAuth:
       enabled: true
       providerURL: "https://authentik.k8s.tylercash.dev/application/o/authorize/"
@@ -18,6 +20,7 @@ k10:
       groupClaim: "groups"
       groupPrefix: ""
       logoutURL: "https://authentik.k8s.tylercash.dev/if/session-end/kasten/"
+
   prometheus:
     server:
       enabled: false
