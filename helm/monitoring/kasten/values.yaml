@@ -11,9 +11,6 @@ k10:
     - kasten-admin
     oidcAuth:
       enabled: true
-      prompt: "select_account"
-      usernameClaim: "email"
-      groupClaim: "groups"
       secretName: kasten-secrets
 
   prometheus:
