@@ -1,34 +1,4 @@
 k10:
-  ingress:
-    create: true
-    host: kasten.k8s.tylercash.dev
-    tls:
-      enabled: true
-      secretName: kasten-k8s-tylercash-dev
-
-  auth:
-    k10AdminGroups: 
-    - kasten-admin
-    ldap:
-      enabled: true
-      restartPod: true # Enable this value to force a restart of the authentication service pod
-      dashboardURL: "https://kasten.k8s.tylercash.dev/" #The URL for accessing K10's dashboard
-      host: "ak-outpost-kasten-provider.security.svc.cluster.local:389"
-      insecureSkipVerifySSL: true
-      bindDN: "cn=kasten,ou=system,dc=tylercash,dc=dev"
-      bindPWSecretName: "kasten-secrets"
-      userSearch:
-        baseDN: "dc=tylercash,dc=dev"
-        filter: "(memberOf=cn=kasten*)"
-        username: "cn"
-        idAttr: "cn"
-        emailAttr: "mail"
-        nameAttr: "displayName"
-        preferredUsernameAttr: "cn"
-      groupSearch:
-        baseDN: "dc=tylercash,dc=dev"
-        filter: "(cn=kasten*)"
-        nameAttr: "cn"
   prometheus:
     server:
       enabled: false
