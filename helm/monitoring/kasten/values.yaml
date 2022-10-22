@@ -11,15 +11,10 @@ k10:
     - kasten-admin
     oidcAuth:
       enabled: true
-      providerURL: "https://authentik.k8s.tylercash.dev/application/o/authorize/"
-      redirectURL: "https://kasten.k8s.tylercash.dev/k10/#/"
-      scopes: "openid profile email groups"
       prompt: "select_account"
       usernameClaim: "email"
-      usernamePrefix: "oidc_"
       groupClaim: "groups"
-      groupPrefix: ""
-      logoutURL: "https://authentik.k8s.tylercash.dev/if/session-end/kasten/"
+      secretName: kasten-secrets
 
   prometheus:
     server:
