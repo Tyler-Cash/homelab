@@ -9,10 +9,26 @@ k10:
   auth:
     k10AdminGroups: 
     - kasten-admin
-    oidcAuth:
+    ldap:
       enabled: true
-      secretName: kasten-secrets
-
+      restartPod: true # Enable this value to force a restart of the authentication service pod
+      dashboardURL: "https://kasten.k8s.tylercash.dev/" #The URL for accessing K10's dashboard
+      host: "ak-outpost-jellyfin-provider.security.svc.cluster.local:636"
+      insecureSkipVerifySSL: true
+      bindDN: "cn=kasten,ou=system,dc=tylercash,dc=dev"
+      bindPWSecretName: "kasten-secrets"
+      userSearch:
+        baseDN: "dc=tylercash,dc=dev"
+        filter: "(memberOf=cn=kasten*)"
+        username: "cn"
+        idAttr: "cn"
+        emailAttr: "mail"
+        nameAttr: "displayName"
+        preferredUsernameAttr: "cn"
+      groupSearch:
+        baseDN: "dc=tylercash,dc=dev"
+        filter: "(cn=kasten*)"
+        nameAttr: "cn"
   prometheus:
     server:
       enabled: false
