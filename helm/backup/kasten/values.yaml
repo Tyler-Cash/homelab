@@ -1,4 +1,16 @@
 k10:
+  ingress:
+    create: true
+    host: kasten.k8s.tylercash.dev
+    tls:
+      enabled: true
+      secretName: kasten-k8s-tylercash-dev
+
+  auth:
+    basicAuth:
+      enabled: true
+      htpasswd: admin:$2y$10$yLDuiZ0rHY6Lys7mcRGwNesRuE0cLocg2xaYP0dQHz12Sz/48Yy7G
+      
   prometheus:
     server:
       enabled: false
