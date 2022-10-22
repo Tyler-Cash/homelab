@@ -1,14 +1,23 @@
 k10:
   ingress:
     create: true
-    host: k10.k8s.tylercash.dev
+    host: kasten.k8s.tylercash.dev
     tls:
       enabled: true
-      secretName: k10-k8s-tylercash-dev
+      secretName: kasten-k8s-tylercash-dev
   auth:
-    basicAuth:
+    k10AdminGroups: kasten-admin
+    oidcAuth:
       enabled: true
-      htpasswd: admin:admin
+      providerURL: "https://authentik.k8s.tylercash.dev/application/o/authorize/"
+      redirectURL: "https://kasten.k8s.tylercash.dev/k10/#/"
+      scopes: "openid profile email groups"
+      prompt: "select_account"
+      usernameClaim: "email"
+      usernamePrefix: "oidc_"
+      groupClaim: "groups"
+      groupPrefix: ""
+      logoutURL: "https://authentik.k8s.tylercash.dev/if/session-end/kasten/"
   prometheus:
     server:
       enabled: false
