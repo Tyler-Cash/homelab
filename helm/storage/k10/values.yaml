@@ -5,3 +5,7 @@ k10:
     tls:
       enabled: true
       secretName: k10-k8s-tylercash-dev
+  auth:
+    basicAuth:
+      enabled: true
+      htpasswd: admin:admin
