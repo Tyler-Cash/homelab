@@ -315,3 +315,13 @@ rook-ceph-cluster:
     parameters:
       pool: ceph-block-ec
       csi.storage.k8s.io/snapshotter-secret-namespace: storage
+
+  cephFileSystemVolumeSnapshotClass:
+    enabled: false
+    name: ceph-filesystem
+    isDefault: true
+    deletionPolicy: Delete
+    annotations:
+      k10.kasten.io/is-snapshot-class: "true"
+    labels: {}
+    parameters: {}
