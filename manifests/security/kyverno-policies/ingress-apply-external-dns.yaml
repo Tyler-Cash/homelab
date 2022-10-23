@@ -12,7 +12,7 @@ metadata:
       application access.
 spec:
   rules:
-    - name: external-dns
+    - name: apply-external-dns
       match:
         any:
           - resources:
