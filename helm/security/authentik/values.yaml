@@ -44,7 +44,7 @@ authentik:
   ingress:
     enabled: true
     annotations:
-      external-dns.home.arpa/enabled: true
+      external-dns.home.arpa/enabled: "true"
       nginx.org/websocket-services: "authentik"
     hosts:
       - host: authentik.k8s.tylercash.dev

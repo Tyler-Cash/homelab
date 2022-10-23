@@ -20,7 +20,7 @@ app-template:
     main:
       enabled: true
       annotations:
-        external-dns.home.arpa/enabled: true
+        external-dns.home.arpa/enabled: "true"
       hosts:
         - host: jellyfin.k8s.tylercash.dev
           paths:
