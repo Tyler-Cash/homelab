@@ -12,7 +12,7 @@ metadata:
       internal application access.
 spec:
   rules:
-    - name: whitelist
+    - name: apply-common-nginx-annotations
       match:
         any:
           - resources:
