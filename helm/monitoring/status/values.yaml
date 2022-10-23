@@ -11,14 +11,14 @@ gatus:
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: Authentik
         url: https://authentik.k8s.tylercash.dev/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: Kubernetes Cluster
         url: tcp://10.0.0.10:6443
