@@ -1,10 +1,12 @@
 external-dns:
   serviceMonitor:
     enabled: true
+  policy: sync
   provider: cloudflare
   txtPrefix: prefix.k8s.
   extraArgs:
   - --annotation-filter=external-dns.home.arpa/enabled in (true)
+  - --domain-filter=.k8s.tylercash.dev
   env:
   - name: CF_API_TOKEN
     valueFrom:
