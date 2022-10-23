@@ -20,6 +20,8 @@ app-template:
   ingress:
     main:
       enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
       hosts:
         - host: bazarr.k8s.tylercash.dev
           paths:
