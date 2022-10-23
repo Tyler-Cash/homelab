@@ -15,7 +15,7 @@ gatus:
           - "[RESPONSE_TIME] < 1500"
 
       - name: bitwarden
-        url: http://bitwarden-vaultwarden.security.svc.cluster.local/
+        url: http://bitwarden.security.svc.cluster.local/
 
         conditions:
           - "[STATUS] == 200"
@@ -64,7 +64,7 @@ gatus:
           - "[RESPONSE_TIME] < 1000"
 
       - name: argo
-        url: http://argocd-server.argocd.svc.cluster.local/
+        url: https://argocd.k8s.tylercash.dev/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
