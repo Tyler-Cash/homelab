@@ -33,7 +33,6 @@ authentik:
 
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
-    AUTHENTIK_EMAIL__PORT: "587"
 
   authentik:
     postgresql:
