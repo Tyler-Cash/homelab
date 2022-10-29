@@ -11,7 +11,7 @@ metadata:
       they won't hit limitations of kubectl client
 spec:
   rules:
-    - name: whitelist
+    - name: crd-sync-annotation
       match:
         any:
           - resources:
