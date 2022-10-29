@@ -1,0 +1,23 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: crds-apply-sync-annotations
+  annotations:
+    policies.kyverno.io/title: Apply CRD Annotations
+    policies.kyverno.io/subject: CustomResourceDefinitions
+    policies.kyverno.io/description: >-
+      This policy creates annotations on CRDs.
+      The added CRD forces ArgoCD to sync them in a way
+      they won't hit limitations of kubectl client
+spec:
+  rules:
+    - name: whitelist
+      match:
+        any:
+          - resources:
+              kinds: ["CustomResourceDefinitions"]
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(argocd.argoproj.io/sync-options): ServerSideApply=true
