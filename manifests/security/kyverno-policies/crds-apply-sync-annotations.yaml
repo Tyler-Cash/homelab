@@ -4,7 +4,7 @@ metadata:
   name: crds-apply-sync-annotations
   annotations:
     policies.kyverno.io/title: Apply CRD Annotations
-    policies.kyverno.io/subject: CustomResourceDefinitions
+    policies.kyverno.io/subject: CustomResourceDefinition
     policies.kyverno.io/description: >-
       This policy creates annotations on CRDs.
       The added CRD forces ArgoCD to sync them in a way
@@ -15,7 +15,7 @@ spec:
       match:
         any:
           - resources:
-              kinds: ["CustomResourceDefinitions"]
+              kinds: ["CustomResourceDefinition"]
       mutate:
         patchStrategicMerge:
           metadata:
