@@ -4,8 +4,12 @@ gatus:
     namespace: monitoring
 
   service:
-    port: 8080
-    
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+    annotations: {}
+    labels: {}
+
   config:
     storage:
       type: sqlite
