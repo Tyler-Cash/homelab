@@ -1,6 +1,6 @@
 gatus:
-  metrics:
-    true
+  serviceMonitor:
+    enabled: true
     
   config:
     storage:
