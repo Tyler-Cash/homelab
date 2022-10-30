@@ -45,11 +45,6 @@ app-template:
       enabled: true
       storageClass: ceph-block
       size: 10Gi
-    scripts:
-      enabled: true
-      storageClass: emptyDir
-      accessMode: ReadWriteOnce
-      size: 50Mi
     tv:
       enabled: true
       type: pvc
@@ -72,5 +67,7 @@ app-template:
     get-clean-subs-script:
       name: get-clean-subs-script
       image: busybox:1.28
-      command: ['sh', '-c', "curl -o /scripts/sub-clean.sh https://gist.githubusercontent.com/Tyler-Cash/f77c2bda3e17a1d098543de216454812/raw/8071fc8d7fb9cb61ea4ffac7118c4a9614e6d764/sub-clean.sh"]
-
+      command: ['sh', '-c', "curl -o /config/sub-clean.sh https://gist.githubusercontent.com/Tyler-Cash/f77c2bda3e17a1d098543de216454812/raw/8071fc8d7fb9cb61ea4ffac7118c4a9614e6d764/sub-clean.sh"]
+      volumeMounts:
+      - name: config
+        mountPath: "/config"
