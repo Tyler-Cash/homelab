@@ -1,6 +1,4 @@
 gotify:
-  env:
-    TZ: "Australia/Sydney"
   ingress:
     main:
       enabled: true

@@ -1,6 +1,7 @@
 gatus:
-  env:
-    TZ: "Australia/Sydney"
+  metrics:
+    true
+    
   config:
     storage:
       type: sqlite

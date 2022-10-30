@@ -4,9 +4,6 @@ app-template:
     tag: 3.0.9.1549
     pullPolicy: IfNotPresent
 
-  env:
-    TZ: "Australia/Sydney"
-
   podAnnotations:
     backup.velero.io/backup-volumes-excludes: jellyfin-cache,jellyfin-tv,jellyfin-movies,jellyfin-transcodes
 

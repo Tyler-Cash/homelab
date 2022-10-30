@@ -1,6 +1,7 @@
 gatus:
-  env:
-    TZ: "Australia/Sydney"
+  metrics:
+    true
+    
   config:
     storage:
       type: sqlite
@@ -85,7 +86,7 @@ gatus:
           - "[RESPONSE_TIME] < 500"
 
       - name: grafana
-        url: http://prometheus-grafana.monitoring.svc.cluster.local/
+        url: http://grafana.monitoring.svc.cluster.local/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"

@@ -8,7 +8,6 @@ app-template:
     backup.velero.io/backup-volumes-excludes: qbittorrent-cache,qbittorrent-share
 
   env:
-    TZ: "Australia/Sydney"
     QBT_BitTorrent__Session__AlternativeGlobalDLSpeedLimit: "8000"
     QBT_BitTorrent__Session__AlternativeGlobalUPSpeedLimit: "1000"
     QBT_BitTorrent__Session__BandwidthSchedulerEnabled: "true"

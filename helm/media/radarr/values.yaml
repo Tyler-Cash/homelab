@@ -7,9 +7,6 @@ app-template:
   podAnnotations:
     backup.velero.io/backup-volumes-excludes: jellyfin-cache,jellyfin-tv,jellyfin-movies,jellyfin-transcodes
 
-  env:
-    TZ: "Australia/Sydney"
-
   service:
     main:
       ports:

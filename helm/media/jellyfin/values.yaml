@@ -7,9 +7,6 @@ app-template:
     repository: ghcr.io/confusedpolarbear/jellyfin-intro-skipper
     tag: 83fc2cf4fe
 
-  env:
-    TZ: "Australia/Sydney"
-
   service:
     main:
       ports:

@@ -10,9 +10,6 @@ app-template:
         http:
           port: 9696
 
-  env:
-    TZ: "Australia/Sydney"
-
   ingress:
     main:
       enabled: true
