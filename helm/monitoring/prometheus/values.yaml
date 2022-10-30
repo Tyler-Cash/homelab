@@ -233,6 +233,13 @@ kube-prometheus-stack:
       podMonitorSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
       ruleSelectorNilUsesHelmValues: false
+      additionalScrapeConfigs:
+      - job_name: gatus
+        scrape_interval: 10s
+        static_configs:
+          - targets:
+              - gatus.monitoring.svc.cluster.local:8080
+              - status.monitoring.svc.cluster.local:8080
       resources:
         limits:
           cpu: 2500m
@@ -248,6 +255,7 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 250Gi
+
     ingress:
       enabled: true
       annotations:
