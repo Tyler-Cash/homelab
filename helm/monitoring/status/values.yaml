@@ -2,6 +2,9 @@ gatus:
   serviceMonitor:
     enabled: true
     namespace: monitoring
+
+  service:
+    port: 8080
     
   config:
     storage:
@@ -41,6 +44,7 @@ gatus:
       - secretName: status-letsencrypt-certificate
         hosts:
           - status.k8s.tylercash.dev
+
   persistence:
     enabled: true
     storageClass: ceph-block
