@@ -1,6 +1,7 @@
 gatus:
   serviceMonitor:
     enabled: true
+    namespace: monitoring
     
   config:
     storage:
