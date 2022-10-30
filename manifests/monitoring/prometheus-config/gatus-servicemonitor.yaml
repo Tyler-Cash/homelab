@@ -14,7 +14,7 @@ spec:
     - honorLabels: true
       interval: 1m
       path: /metrics
-      port: 80
+      port: "80"
       scheme: http
       scrapeTimeout: 30s
   jobLabel: status
