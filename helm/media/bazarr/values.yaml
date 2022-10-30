@@ -48,6 +48,7 @@ app-template:
     scripts:
       enabled: true
       storageClass: emptyDir
+      accessMode: ReadWriteOnce
       size: 50Mi
     tv:
       enabled: true
