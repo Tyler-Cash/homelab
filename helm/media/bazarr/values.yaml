@@ -66,7 +66,7 @@ app-template:
   initContainers:
     get-clean-subs-script:
       name: get-clean-subs-script
-      image: busybox:1.28
+      image: curlimages/curl:7.86.0
       command: ['sh', '-c', "curl -o /config/sub-clean.sh https://gist.githubusercontent.com/Tyler-Cash/f77c2bda3e17a1d098543de216454812/raw/8071fc8d7fb9cb61ea4ffac7118c4a9614e6d764/sub-clean.sh"]
       volumeMounts:
       - name: config
