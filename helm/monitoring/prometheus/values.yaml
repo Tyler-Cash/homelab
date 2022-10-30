@@ -239,7 +239,7 @@ kube-prometheus-stack:
         static_configs:
           - targets:
               - gatus.monitoring.svc.cluster.local:8080
-              - status.monitoring.svc.cluster.local:8080
+              - status-gatus.monitoring.svc.cluster.local:8080
       resources:
         limits:
           cpu: 2500m
