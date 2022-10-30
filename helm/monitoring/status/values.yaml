@@ -1,11 +1,4 @@
 gatus:
-  serviceMonitor:
-    enabled: true
-    namespace: monitoring
-
-  service:
-    portName: 80
-
   config:
     storage:
       type: sqlite

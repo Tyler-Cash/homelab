@@ -1,7 +1,4 @@
 gatus:
-  serviceMonitor:
-    enabled: true
-    
   config:
     storage:
       type: sqlite
