@@ -10,7 +10,7 @@ gatus:
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: bitwarden
         url: http://bitwarden.security.svc.cluster.local/
@@ -18,7 +18,7 @@ gatus:
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: gotify
         url: http://gotify.monitoring.svc.cluster.local/
@@ -32,14 +32,14 @@ gatus:
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: prowlarr
         url: http://prowlarr.media.svc.cluster.local:9696/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: radarr
         url: http://radarr.media.svc.cluster.local:7878/
@@ -53,7 +53,7 @@ gatus:
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: k8s-master
         url: tcp://10.0.0.10:6443
@@ -66,42 +66,42 @@ gatus:
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: prometheus
         url: http://prometheus-prometheus.monitoring.svc.cluster.local:9090/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: alert-manager
         url: http://prometheus-alertmanager.monitoring.svc.cluster.local:9093/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: grafana
         url: http://grafana.k8s.tylercash.dev/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: ceph
         url: https://ceph.k8s.tylercash.dev/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
 
       - name: qbittorrent
         url: http://qbittorrent.media.svc.cluster.local:8080/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 500"
+          - "[RESPONSE_TIME] < 1000"
   ingress:
     enabled: true
     annotations:
