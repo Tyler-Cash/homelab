@@ -87,7 +87,7 @@ gatus:
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+          - "[RESPONSE_TIME] < 1500"
 
       - name: ceph
         url: https://ceph.k8s.tylercash.dev/
