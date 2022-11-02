@@ -83,7 +83,7 @@ gatus:
           - "[RESPONSE_TIME] < 500"
 
       - name: grafana
-        url: http://grafana.monitoring.svc.cluster.local/
+        url: http://grafana.k8s.tylercash.dev/
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
