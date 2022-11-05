@@ -1,0 +1,59 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Policy
+metadata:
+  name: policy-backup-all-pvcs
+  namespace: backup
+spec:
+  comment: ""
+  paused: false
+  actions:
+    - action: backup
+      backupParameters:
+        filters:
+          includeResources:
+            - group: ""
+              version: ""
+              resource: persistentvolumeclaims
+              name: ""
+              matchExpressions: []
+          excludeResources:
+            - group: ""
+              version: ""
+              resource: ""
+              name: jellyfin-transcodes
+              matchExpressions: []
+            - group: ""
+              version: ""
+              resource: ""
+              name: jellyfin-tv
+              matchExpressions: []
+            - group: ""
+              version: ""
+              resource: ""
+              name: jellyfin-movies
+              matchExpressions: []
+            - group: ""
+              version: ""
+              resource: ""
+              name: jellyfin-cache
+              matchExpressions: []
+            - group: ""
+              version: ""
+              resource: ""
+              name: qbittorrent-cache
+              matchExpressions: []
+            - group: ""
+              version: ""
+              resource: ""
+              name: qbittorrent-share
+              matchExpressions: []
+  presetRef:
+    name: hourly-backup-with-daily-export
+    namespace: backup
+  selector:
+    matchExpressions:
+      - key: k10.kasten.io/appNamespace
+        operator: In
+        values:
+          - "*"
+          - kasten-io-cluster
