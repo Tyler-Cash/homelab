@@ -17,36 +17,12 @@ spec:
               name: ""
               matchExpressions: []
           excludeResources:
-            - group: ""
-              version: ""
-              resource: ""
-              name: jellyfin-transcodes
-              matchExpressions: []
-            - group: ""
-              version: ""
-              resource: ""
-              name: jellyfin-tv
-              matchExpressions: []
-            - group: ""
-              version: ""
-              resource: ""
-              name: jellyfin-movies
-              matchExpressions: []
-            - group: ""
-              version: ""
-              resource: ""
-              name: jellyfin-cache
-              matchExpressions: []
-            - group: ""
-              version: ""
-              resource: ""
-              name: qbittorrent-cache
-              matchExpressions: []
-            - group: ""
-              version: ""
-              resource: ""
-              name: qbittorrent-share
-              matchExpressions: []
+            - name: jellyfin-transcodes
+            - name: jellyfin-tv
+            - name: jellyfin-movies
+            - name: jellyfin-cache
+            - name: qbittorrent-cache
+            - name: qbittorrent-share
   presetRef:
     name: hourly-backup-with-daily-export
     namespace: backup
