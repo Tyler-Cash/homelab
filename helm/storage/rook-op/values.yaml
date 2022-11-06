@@ -6,6 +6,7 @@ rook-ceph:
       cpu: "500m"
       memory: "300Mi"
 
+  logLevel: DEBUG
   csi:
     csiRBDProvisionerResource: |
       - name : csi-provisioner
