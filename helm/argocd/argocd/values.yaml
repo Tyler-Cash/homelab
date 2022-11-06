@@ -3,12 +3,10 @@ argo-cd:
     enabled: true
 
   controller:
-    replicas: 1
+    replicas: 2
 
   server:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
+    replicas: 2
     ingress:
       enabled: true
       hosts:
@@ -64,12 +62,10 @@ argo-cd:
       policy.csv: |
         g, argo-admin, role:admin
   repoServer:
-    autoscaling:
-      enabled: true
-      minReplicas: 2
+    replicas: 2
 
   applicationSet:
-    replicas: 2
+    replicaCount: 2
 
   dex:
     enabled: true
