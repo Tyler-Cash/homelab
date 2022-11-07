@@ -27,8 +27,6 @@ rook-ceph-cluster:
             - ceph.k8s.tylercash.dev
           secretName: ceph-home-tylercash-dev-tls
   cephClusterSpec:
-    continueUpgradeAfterChecksEvenIfNotHealthy: true
-    skipUpgradeChecks: true
     removeOSDsIfOutAndSafeToRemove: true
     storage:
       useAllNodes: true
