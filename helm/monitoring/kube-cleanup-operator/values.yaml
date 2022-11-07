@@ -1,4 +1,5 @@
 kube-cleanup-operator:
+  replicas: 3
   rbac:
     create: true
     global: true
