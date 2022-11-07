@@ -6,7 +6,7 @@ kube-cleanup-operator:
   args:
     - --delete-failed-after=0
     - --delete-successful-after=0
-    - --delete-pending-pods-after=7m
-    - --delete-evicted-pods-after=7m
-    - --delete-orphaned-pods-after=7m
+    - --delete-pending-pods-after=1m
+    - --delete-evicted-pods-after=1m
+    - --delete-orphaned-pods-after=1m
     - --legacy-mode=false
