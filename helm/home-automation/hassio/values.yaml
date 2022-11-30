@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/onedr0p/home-assistant
-    tag: 2022.11.4@sha256:5c10a95f1aac8ab7100ed03381cf4c4629d8a7d715a8f71e5b6782f68111bef9
+    tag: 2022.11.5@sha256:e00ce0f60ee2738183c3b69959dcb7cbdc7d50b3b50b356b7fd282bf97d5835e
 
   env:
     TZ: &timezone Australia/Sydney
