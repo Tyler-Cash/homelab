@@ -40,6 +40,7 @@ app-template:
     fsGroupChangePolicy: "Always"
 
   persistence:
+  # TODO write script to initialize /config/metadata.db, or manually https://github.com/linuxserver/docker-calibre-web/issues/30#issuecomment-619478067
     config:
       enabled: true
       storageClass: ceph-block
