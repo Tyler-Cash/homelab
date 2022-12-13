@@ -40,12 +40,13 @@ app-template:
   persistence:
     config:
       enabled: true
-      existingClaim: calibre-web-config
+      storageClass: ceph-block
+      size: 10Gi
     media:
       enabled: true
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
-      size: 2048Gi
+      size: 10Gi
     cache:
       enabled: true
       type: emptyDir
