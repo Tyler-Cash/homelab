@@ -44,7 +44,7 @@ app-template:
       enabled: true
       storageClass: ceph-block
       size: 5Gi
-    share:
+    books:
       enabled: true
       type: pvc
       existingClaim: calibre-books
