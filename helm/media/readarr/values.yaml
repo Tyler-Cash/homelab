@@ -49,6 +49,10 @@ app-template:
       enabled: true
       type: pvc
       existingClaim: calibre-books
+    share:
+      enabled: true
+      type: pvc
+      existingClaim: qbittorrent-share
 
   resources:
     limits:
