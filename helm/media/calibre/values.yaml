@@ -34,7 +34,8 @@ app-template:
           paths:
             - path: /
       tls:
-        - hosts:
+        - secretName: calibre-letsencrypt-certificate
+          hosts:
             - *host
 
   persistence:
