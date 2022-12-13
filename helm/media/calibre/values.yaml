@@ -1,0 +1,57 @@
+app-template:
+  image:
+    repository: ghcr.io/bjw-s/calibre-web
+    tag: 0.6.19@sha256:fb7a26a0674ce8a08c7d7731d5621cc738134bf50bf0bda9b8c8e24280ba9c88
+
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+    supplementalGroups:
+      - 65539
+
+  enableServiceLinks: false
+
+  env:
+    CACHE_DIR: /cache
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8083
+
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+      hosts:
+        - host: &host calibre.k8s.tylercash.dev
+          paths:
+            - path: /
+      tls:
+        - hosts:
+            - *host
+
+  persistence:
+    config:
+      enabled: true
+      existingClaim: calibre-web-config
+    media:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteMany
+      size: 2048Gi
+    cache:
+      enabled: true
+      type: emptyDir
+      mountPath: /cache
+
+  resources:
+    requests:
+      cpu: 15m
+      memory: 249M
+    limits:
+      memory: 299M
