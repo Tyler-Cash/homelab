@@ -22,6 +22,15 @@ app-template:
         http:
           port: 8083
 
+  initContainers:
+    initialize-db:
+      name: initialize-db
+      image: ghcr.io/bjw-s/calibre-web:0.6.19@sha256:fb7a26a0674ce8a08c7d7731d5621cc738134bf50bf0bda9b8c8e24280ba9c88
+      command: ['sh', '-c', "export DB=/config/metadata.db ; if [ -f \"$DB\" ] ; then echo $DB already exists, skipping generation.; else echo $DB does not exists, generating...; /opt/calibre/calibredb restore_database --really-do-it --with-library /config && chown 568:568 $DB ; fi; "]
+      volumeMounts:
+      - name: config
+        mountPath: "/config"
+
   ingress:
     main:
       enabled: true
