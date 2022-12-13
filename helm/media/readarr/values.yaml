@@ -48,7 +48,7 @@ app-template:
     share:
       enabled: true
       type: pvc
-      existingClaim: calibre-media
+      existingClaim: calibre-books
 
   resources:
     limits:

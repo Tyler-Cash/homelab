@@ -43,7 +43,7 @@ app-template:
       enabled: true
       storageClass: ceph-block
       size: 10Gi
-    media:
+    books:
       enabled: true
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
