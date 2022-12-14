@@ -33,6 +33,9 @@ app-template:
         - host: &host calibre.k8s.tylercash.dev
           paths:
             - path: /
+              pathType: Prefix
+              service:
+                port: 8083
       tls:
         - secretName: calibre-letsencrypt-certificate
           hosts:

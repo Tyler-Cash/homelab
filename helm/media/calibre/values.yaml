@@ -23,6 +23,9 @@ app-template:
         - host: &host calibre-db.k8s.tylercash.dev
           paths:
             - path: /
+              pathType: Prefix
+              service:
+                port: 8080
       tls:
         - secretName: calibre-db-letsencrypt-certificate
           hosts:
