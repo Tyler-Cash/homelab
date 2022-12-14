@@ -11,7 +11,8 @@ app-template:
 
   env:
     CALIBRE_OVERRIDE_DATABASE_PATH: /config/metadata.db
-
+    PUID: 568
+    PGID: 568
   service:
     main:
       ports:
