@@ -3,16 +3,9 @@ app-template:
     repository: lscr.io/linuxserver/calibre
     tag: 6.9.0
 
-  podSecurityContext:
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
-
   env:
     CALIBRE_OVERRIDE_DATABASE_PATH: /config/metadata.db
-    PUID: 568
-    PGID: 568
+
   service:
     main:
       ports:
