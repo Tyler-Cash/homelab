@@ -1,7 +1,7 @@
 app-template:
   image:
-    repository: lscr.io/linuxserver/calibre
-    tag: 6.9.0
+    repository: ghcr.io/bjw-s/calibre-web
+    tag: 0.6.19@sha256:fb7a26a0674ce8a08c7d7731d5621cc738134bf50bf0bda9b8c8e24280ba9c88
 
   podSecurityContext:
     runAsUser: 568
@@ -9,14 +9,18 @@ app-template:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
 
+  enableServiceLinks: false
+
   env:
-    CALIBRE_OVERRIDE_DATABASE_PATH: /config/metadata.db
+    CACHE_DIR: /cache
 
   service:
     main:
       ports:
         http:
-          port: 8080
+          port: 8083
+
+
 
   ingress:
     main:
@@ -26,7 +30,7 @@ app-template:
         kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
-        - host: &host calibre-db.k8s.tylercash.dev
+        - host: &host calibre.k8s.tylercash.dev
           paths:
             - path: /
       tls:
@@ -37,10 +41,20 @@ app-template:
   persistence:
     config:
       enabled: true
-      storageClass: ceph-block
-      size: 10Gi
+      type: pvc
+      existingClaim: calibre-config
     books:
       enabled: true
-      storageClass: ceph-filesystem-hdd
-      accessMode: ReadWriteMany
-      size: 10Gi
+      type: pvc
+      existingClaim: calibre-books
+    cache:
+      enabled: true
+      type: emptyDir
+      mountPath: /cache
+
+  resources:
+    requests:
+      cpu: 15m
+      memory: 249M
+    limits:
+      memory: 299M
