@@ -19,6 +19,8 @@ app-template:
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
+    supplementalGroups:
+    - 65539
 
   ingress:
     main:
