@@ -4,6 +4,7 @@ app-template:
     tag: 6.9.0
 
   env:
+    UID: 911
     CALIBRE_OVERRIDE_DATABASE_PATH: /config/metadata.db
 
   service:
