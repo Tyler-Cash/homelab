@@ -24,7 +24,7 @@ app-template:
           paths:
             - path: /
       tls:
-        - secretName: calibre-letsencrypt-certificate
+        - secretName: calibre-db-letsencrypt-certificate
           hosts:
             - *host
 
