@@ -5,7 +5,7 @@ app-template:
 
   env:
     PUID: "568"
-    PGID: "568"
+    PGID: "65539"
     CALIBRE_OVERRIDE_DATABASE_PATH: /config/metadata.db
 
   service:
