@@ -18,16 +18,16 @@ app-template:
       annotations:
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
-        - host: calibre-db.k8s.tylercash.dev
+        - host: calibre2.k8s.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
               service:
                 port: 8080
       tls:
-        - secretName: calibre-db-letsencrypt-certificate
+        - secretName: calibre2-letsencrypt-certificate
           hosts:
-            - calibre-db.k8s.tylercash.dev
+            - calibre2.k8s.tylercash.dev
 
   persistence:
     config:
