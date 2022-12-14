@@ -3,12 +3,6 @@ app-template:
     repository: ghcr.io/bjw-s/calibre-web
     tag: 0.6.19@sha256:fb7a26a0674ce8a08c7d7731d5621cc738134bf50bf0bda9b8c8e24280ba9c88
 
-  podSecurityContext:
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
-
   enableServiceLinks: false
 
   env:
