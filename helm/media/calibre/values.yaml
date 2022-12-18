@@ -15,10 +15,10 @@ app-template:
           port: 8080
 
   podSecurityContext:
-    runAsUser: 568
+    runAsUser: 911
     runAsGroup: 568
     fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
+    fsGroupChangePolicy: "Always"
     supplementalGroups:
       - 65539
 
