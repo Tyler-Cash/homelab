@@ -13,10 +13,10 @@ app-template:
       ports:
         http:
           port: 8083
-    content-server:
+    webserver:
       enabled: true
       ports:
-        content-server:
+        webserver:
           enabled: true
           port: 9090
           protocol: TCP
