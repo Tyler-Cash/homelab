@@ -6,6 +6,8 @@ app-template:
   env:
     PUID: 1000
     PGID: 1000
+    CALIBRE_CONFIG_DIRECTORY: "/config"
+
     CALIBRE_OVERRIDE_DATABASE_PATH: /config/metadata.db
 
   service:
@@ -13,14 +15,6 @@ app-template:
       ports:
         http:
           port: 8080
-
-  podSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 568
-    fsGroup: 568
-    fsGroupChangePolicy: "Always"
-    supplementalGroups:
-      - 65539
 
   ingress:
     main:
