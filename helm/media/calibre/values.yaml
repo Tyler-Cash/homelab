@@ -5,6 +5,7 @@ app-template:
 
   env:
     CALIBRE_OVERRIDE_DATABASE_PATH: /config/metadata.db
+    PGID: 65539
 
   service:
     main:
@@ -13,10 +14,12 @@ app-template:
           port: 8080
 
   podSecurityContext:
-    runAsUser: 911
+    runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
+    supplementalGroups:
+      - 65539
 
   ingress:
     main:
