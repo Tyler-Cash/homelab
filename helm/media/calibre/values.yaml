@@ -39,7 +39,8 @@ app-template:
   persistence:
     config:
       enabled: true
-      storageClass: ceph-block
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteMany
       size: 10Gi
     books:
       enabled: true
