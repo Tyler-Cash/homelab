@@ -4,7 +4,7 @@ app-template:
     tag: 6.10.0
 
   env:
-    PUID: 911
+    PUID: 568
     PGID: 568
     CALIBRE_OVERRIDE_DATABASE_PATH: /config/metadata.db
 
