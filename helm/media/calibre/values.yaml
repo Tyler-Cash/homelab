@@ -15,7 +15,16 @@ app-template:
       ports:
         http:
           port: 8080
-
+    webserver:
+      enabled: true
+      ports:
+        webserver:
+          enabled: true
+          port: 9090
+          protocol: TCP
+          targetPort: 9090
+      type: ClusterIP
+      
   ingress:
     main:
       enabled: true
