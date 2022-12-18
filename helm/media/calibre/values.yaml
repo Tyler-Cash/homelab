@@ -17,6 +17,7 @@ app-template:
   podSecurityContext:
     runAsUser: 911
     runAsGroup: 568
+    fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
 
   ingress:
