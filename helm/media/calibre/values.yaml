@@ -15,7 +15,7 @@ app-template:
           port: 8080
 
   podSecurityContext:
-    runAsUser: 911
+    runAsUser: 1000
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "Always"
