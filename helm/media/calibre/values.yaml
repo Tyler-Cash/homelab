@@ -12,6 +12,12 @@ app-template:
         http:
           port: 8080
 
+  podSecurityContext:
+    runAsUser: 911
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
   ingress:
     main:
       enabled: true
