@@ -50,3 +50,4 @@ app-template:
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
       size: 10Gi
+      mountPath: /config/Calibre Library/

@@ -46,6 +46,7 @@ app-template:
       enabled: true
       type: pvc
       existingClaim: calibre-books
+      mountPath: /config/Calibre Library/
     cache:
       enabled: true
       type: emptyDir
