@@ -38,15 +38,10 @@ app-template:
             - *host
 
   persistence:
-    config:
-      enabled: true
-      type: pvc
-      existingClaim: calibre-config
     books:
       enabled: true
       type: pvc
       existingClaim: calibre-books
-      mountPath: /config/Calibre Library/
     cache:
       enabled: true
       type: emptyDir

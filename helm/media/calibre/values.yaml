@@ -40,14 +40,8 @@ app-template:
             - calibre-db.k8s.tylercash.dev
 
   persistence:
-    config:
-      enabled: true
-      storageClass: ceph-filesystem-hdd
-      accessMode: ReadWriteMany
-      size: 10Gi
     books:
       enabled: true
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
       size: 10Gi
-      mountPath: /config/Calibre Library/
