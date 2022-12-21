@@ -226,7 +226,7 @@ kube-prometheus-stack:
   prometheus:
     fullNameOverride: prometheus
     prometheusSpec:
-      retention: 150d
+      retention: 60d
       retentionSize: "180GB"
       walCompression: true
       replicas: 1
