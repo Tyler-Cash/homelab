@@ -93,9 +93,14 @@ app-template:
 
   initContainers:
   - name: my-init
-    image: busybox:1.28
     command: [ 'sh', '-c', 'chown -R kah:kah /config/']
-
+    setup-perms:
+      name: setup-perms
+      image: busybox:1.28
+      command: ['sh', '-c', "chmod 770 -R /config/ && chown 568:568 -R /config/"]
+      volumeMounts:
+      - name: config
+        mountPath: "/config"
   resources:
     requests:
       cpu: 10m
