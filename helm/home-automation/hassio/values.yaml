@@ -92,8 +92,6 @@ app-template:
       size: 10Gi
 
   initContainers:
-  - name: my-init
-    command: [ 'sh', '-c', 'chown -R kah:kah /config/']
     setup-perms:
       name: setup-perms
       image: busybox:1.28
