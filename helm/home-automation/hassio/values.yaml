@@ -82,7 +82,7 @@ app-template:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
+    fsGroupChangePolicy: "Always"
 
   persistence:
     config:
