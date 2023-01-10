@@ -36,6 +36,10 @@ coredns:
       scheme: dns://
     port: 53
     plugins:
+    - name: log
+      parameters: .
+      configBlock: |-
+        class denial
     - name: errors
     - name: health
       configBlock: |-
