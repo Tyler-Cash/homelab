@@ -82,7 +82,9 @@ app-template:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
-    fsGroupChangePolicy: "Always"
+    fsGroupChangePolicy: "OnRootMismatch"
+    supplementalGroups:
+      - 100
 
   persistence:
     config:
@@ -91,14 +93,6 @@ app-template:
       accessMode: ReadWriteOnce
       size: 10Gi
 
-  initContainers:
-    setup-perms:
-      name: setup-perms
-      image: busybox:1.28
-      command: ['sh', '-c', "chmod 770 -R /config/ && chown 568:568 -R /config/"]
-      volumeMounts:
-      - name: config
-        mountPath: "/config"
   resources:
     requests:
       cpu: 10m
