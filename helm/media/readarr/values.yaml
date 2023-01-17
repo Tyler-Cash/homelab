@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/onedr0p/readarr-nightly
-    tag: 0.1.1.1504@sha256:72ce66bd40db62a2a9918a96bd12d5d8a02914ffcf2d75299416654185b38e1b
+    tag: 0.1.1.1527@sha256:b4fff21b84ba1778488e80d9fb9f3632694aa7bb8d2a948dcc3b2dc42bc0a57d
 
   env:
     READARR__PORT: &port 80
