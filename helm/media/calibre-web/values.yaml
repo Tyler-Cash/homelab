@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/bjw-s/calibre-web
-    tag: 0.6.19@sha256:3f84d4537fc8031afec5a0ce0f9e1a4f6950b1313e2d00c1576792197435e0fe
+    tag: 0.6.19@sha256:320316dd05119783b98b8b2ed30ee4823cacccf18f6b806337790f3e382a6a36
 
   enableServiceLinks: false
 
