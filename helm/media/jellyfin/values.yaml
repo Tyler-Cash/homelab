@@ -57,12 +57,12 @@ app-template:
       enabled: true
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
-      size: 2048Gi
+      size: 8Ti
     movies:
       enabled: true
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
-      size: 2048Gi
+      size: 8Ti
 
   metrics:
     enabled: true
