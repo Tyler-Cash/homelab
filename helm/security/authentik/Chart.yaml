@@ -5,5 +5,5 @@ version: 1.0.0
 appVersion: "1.0.0"
 dependencies:
 - name: authentik
-  version: 2022.12.4
+  version: 2023.1.2
   repository: https://charts.goauthentik.io/
