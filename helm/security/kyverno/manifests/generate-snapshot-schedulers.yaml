@@ -23,6 +23,8 @@ spec:
         apiVersion: snapscheduler.backube/v1
         name: daily-snapshot-schedule
         namespace: "{{request.object.metadata.name}}"
+        metadata:
+          name: daily-snapshot-schedule
         spec:
           disabled: false
           claimSelector:
