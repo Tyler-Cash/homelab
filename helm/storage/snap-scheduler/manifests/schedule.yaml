@@ -2,7 +2,7 @@
 apiVersion: snapscheduler.backube/v1
 kind: SnapshotSchedule
 metadata:
-  name: main
+  name: snapshot-schedule
   namespace: default
 spec:
   disabled: false
