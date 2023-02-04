@@ -18,20 +18,9 @@ spec:
           - kube-system
           - default
     generate:
-      data:
-        kind: SnapshotSchedule
-        apiVersion: snapscheduler.backube/v1
-        name: daily-snapshot-schedule
-        namespace: "{{request.object.metadata.name}}"
-        metadata:
-          name: daily-snapshot-schedule
-        spec:
-          disabled: false
-          claimSelector:
-            matchLabels:
-              snapshot.home.arpa/enabled: "true"
-          retention:
-            maxCount: 10
-          schedule: "0 5 * * *"
-          snapshotTemplate:
-            snapshotClassName: csi-ceph-blockpool
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      cloneList:
+        namespace: storage
+        kinds:
+          - SnapshotSchedule
