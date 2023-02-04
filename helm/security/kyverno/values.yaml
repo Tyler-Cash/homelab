@@ -6,4 +6,6 @@ kyverno:
     namespace: monitoring
   resources:
     limits:
-        memory: 0
+      memory: 0
+    requests:
+      memory: 0
