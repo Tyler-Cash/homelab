@@ -4,6 +4,7 @@ kyverno:
   serviceMonitor:
     enabled: true
     namespace: monitoring
+  replicaCount: 3
   resources:
     limits:
       memory: 0
