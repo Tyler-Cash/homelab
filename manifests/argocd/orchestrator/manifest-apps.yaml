@@ -32,7 +32,7 @@ spec:
         - group: '*'
           kind: '*'
           jqPathExpressions:
-          - .spec.template.spec.labels[] | select(.name == "kyverno.io/generated-by")
+            - .spec.template.spec.labels[] | select(.name == "kyverno.io/*")
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
