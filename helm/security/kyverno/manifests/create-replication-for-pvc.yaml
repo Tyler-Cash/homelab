@@ -35,4 +35,5 @@ spec:
               rcloneDestPath: "k8s-backups/{{request.object.metadata.name}}"
               rcloneConfig: "rclone-secret"
               copyMethod: Snapshot
-              accessModes: [ReadWriteOnce]
+              storageClassName: ceph-block-snapshot
+              
