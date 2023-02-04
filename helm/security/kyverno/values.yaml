@@ -4,3 +4,6 @@ kyverno:
   serviceMonitor:
     enabled: true
     namespace: monitoring
+  resources:
+    limits:
+        memory: 0
