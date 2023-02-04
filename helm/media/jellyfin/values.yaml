@@ -48,11 +48,15 @@ app-template:
       storageClass: ceph-block
       accessMode: ReadWriteOnce
       size: 10Gi
+      labels:
+        snapshot.home.arpa/enabled: "false"
     transcodes:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
       size: 50Gi
+      labels:
+        snapshot.home.arpa/enabled: "false"
     tv:
       enabled: true
       storageClass: ceph-filesystem-hdd
