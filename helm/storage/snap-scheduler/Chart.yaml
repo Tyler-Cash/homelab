@@ -1,0 +1,9 @@
+apiVersion: v2
+name: snap-scheduler
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+- name: snapscheduler
+  version: 3.2.0
+  repository: https://backube.github.io/helm-charts/
