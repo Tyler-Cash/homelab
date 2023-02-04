@@ -17,11 +17,9 @@ spec:
         any:
           - resources:
               kinds: ["PersistentVolumeClaim"]
-      exclude:
-        any:
-          - resources:
-              labels:
-                snapshot.home.arpa/enabled: "false"
+              selector:
+                matchLabels:
+                  snapshot.home.arpa/enabled: "false"
       mutate:
         patchStrategicMerge:
           metadata:
