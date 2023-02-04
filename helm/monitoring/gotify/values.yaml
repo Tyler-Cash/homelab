@@ -1,4 +1,4 @@
-gotify:
+app-template:
   image:
     repository: gotify/server
     pullPolicy: IfNotPresent
