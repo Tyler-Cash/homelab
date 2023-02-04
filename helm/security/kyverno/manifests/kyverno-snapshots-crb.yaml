@@ -3,7 +3,7 @@ kind: ClusterRoleBinding
 metadata:
   name: read-secrets-global
 subjects:
-- kind: user
+- kind: ServiceAccount
   name: kyverno
   apiGroup: rbac.authorization.k8s.io
 roleRef:
