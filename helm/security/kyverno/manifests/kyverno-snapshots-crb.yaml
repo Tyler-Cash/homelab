@@ -5,6 +5,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: kyverno
+  namespace: security
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
