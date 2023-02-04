@@ -9,12 +9,12 @@ spec:
       repoURL: https://github.com/Tyler-Cash/k3s-argo.git
       revision: HEAD
       directories:
-      - path: helm/*/*/manifests/
+      - path: helm/*/*/manifests
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
     metadata:
-      name: '{{path.basename}}-manifests'
+      name: '{{path[2]}}-manifests'
     spec:
       project: default
       source:
