@@ -9,4 +9,4 @@ metadata:
 rules:
 - apiGroups: ["snapscheduler.backube"]
   resources: ["snapshotschedules"]
-  verbs: ["get", "list", "watch"]
+  verbs: ["*"]
