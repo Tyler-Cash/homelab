@@ -17,6 +17,9 @@ spec:
         any:
           - resources:
               kinds: ["PersistentVolumeClaim"]
+      exclude:
+        any:
+          - resources:
               selector:
                 matchLabels:
                   snapshot.home.arpa/enabled: "false"
