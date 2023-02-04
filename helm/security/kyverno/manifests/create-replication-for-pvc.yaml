@@ -22,7 +22,7 @@ spec:
           kind: *kind
           metadata:
             name: *name
-            namespace: {{request.object.metadata.namespace}}
+            namespace: "{{request.object.metadata.namespace}}"
           spec:
             trigger:
               schedule: "0 * * * *"
