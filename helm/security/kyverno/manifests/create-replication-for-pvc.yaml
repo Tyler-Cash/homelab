@@ -35,5 +35,5 @@ spec:
               rcloneDestPath: "k8s-backups/{{request.object.metadata.name}}"
               rcloneConfig: "rclone-secret"
               copyMethod: Snapshot
-              storageClassName: ceph-block-snapshot
+              volumeSnapshotClassName: ceph-block-snapshot
               
