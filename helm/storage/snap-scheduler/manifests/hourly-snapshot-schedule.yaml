@@ -1,0 +1,15 @@
+---
+apiVersion: snapscheduler.backube/v1
+kind: SnapshotSchedule
+metadata:
+  name: hourly-snapshot-schedule
+spec:
+  disabled: false
+  claimSelector:
+    matchLabels:
+      snapshot.home.arpa/enabled: "true"
+  retention:
+    maxCount: 36
+  schedule: "@hourly"
+  snapshotTemplate:
+    snapshotClassName: csi-ceph-blockpool

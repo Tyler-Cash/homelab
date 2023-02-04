@@ -243,6 +243,9 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
+            selector:
+              matchLabels:
+                snapshot.home.arpa/enabled: "false"
             storageClassName: ceph-block
             accessModes: ["ReadWriteOnce"]
             resources:

@@ -2,15 +2,14 @@
 apiVersion: snapscheduler.backube/v1
 kind: SnapshotSchedule
 metadata:
-  name: snapshot-schedule
-  namespace: default
+  name: yearly-snapshot-schedule
 spec:
   disabled: false
   claimSelector:
     matchLabels:
       snapshot.home.arpa/enabled: "true"
   retention:
-    expires: 48h
-  schedule: "@daily"
+    maxCount: 3
+  schedule: "@yearly"
   snapshotTemplate:
     snapshotClassName: csi-ceph-blockpool

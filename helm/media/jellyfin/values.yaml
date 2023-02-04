@@ -58,11 +58,15 @@ app-template:
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
       size: 8Ti
+      labels:
+        snapshot.home.arpa/enabled: "false"
     movies:
       enabled: true
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
       size: 8Ti
+      labels:
+        snapshot.home.arpa/enabled: "false"
 
   metrics:
     enabled: true
