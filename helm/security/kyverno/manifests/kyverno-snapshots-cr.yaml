@@ -8,5 +8,8 @@ metadata:
     app: kyverno
 rules:
   - apiGroups: ["snapscheduler.backube"]
-    resources: ["snapshotschedules", "replicationsources"]
+    resources: ["snapshotschedules"]
+    verbs: ["*"]
+  - apiGroups: ["volsync.backube"]
+    resources: ["replicationsources"]
     verbs: ["*"]
