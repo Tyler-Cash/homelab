@@ -11,6 +11,12 @@ spec:
           - resources:
               kinds:
                 - PersistentVolumeClaim
+      exclude:
+        any:
+          - resources:
+              selector:
+                matchLabels:
+                  snapshot.home.arpa/enabled: "false"
       generate:
         namespace: "{{request.object.metadata.namespace}}"
         synchronize: true
