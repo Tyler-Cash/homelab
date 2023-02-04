@@ -7,6 +7,6 @@ metadata:
     app.kubernetes.io/name: kyverno
     app: kyverno
 rules:
-- apiGroups: ["snapscheduler.backube"]
-  resources: ["snapshotschedules"]
-  verbs: ["*"]
+  - apiGroups: ["snapscheduler.backube/v1"]
+    resources: ["snapshotschedules"]
+    verbs: ["*"]
