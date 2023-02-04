@@ -1,0 +1,34 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: create-replication-for-pvc
+spec:
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: create-replication-for-pvc
+      match:
+        any:
+          - resources:
+              kinds:
+                - PersistentVolumeClaim
+      generate:
+        namespace: "{{request.object.metadata.namespace}}"
+        synchronize: true
+        name: &name "{{request.object.metadata.name}}-replication-destination"
+        apiVersion: &api volsync.backube/v1alpha1
+        kind: &kind ReplicationSource
+        data:
+          apiVersion: *api
+          kind: &kind
+          metadata:
+            name: *name
+            namespace: {{request.object.metadata.namespace}}
+          spec:
+            trigger:
+              schedule: "0 * * * *"
+            rclone:
+              rcloneConfigSection: "drive"
+              rcloneDestPath: "k8s-backups/{{request.object.metadata.name}}"
+              rcloneConfig: "rclone-secret"
+              copyMethod: Snapshot
+              accessModes: [ReadWriteOnce]

@@ -1,0 +1,10 @@
+---
+version: "3"
+
+tasks:
+  create-rclone-secret:
+    desc: Pushe the rclone secret to each namespace in K8S (Should be happening in the cluster.... But for now....)
+    interactive: true
+    cmds:
+      - kubectl create secret -n storage generic rclone-secret --from-file=rclone.conf=${HOME}/.config/rclone/rclone.conf
+      - kubectl get secret rclone-secret -n storage -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid"])' | kubectl apply -n media -f -

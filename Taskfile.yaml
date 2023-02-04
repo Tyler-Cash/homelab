@@ -6,7 +6,7 @@ vars:
 
 includes:
   ro: .taskfiles/Rook/Tasks.yaml
-  # vs: .taskfiles/VolSync/Tasks.yml
+  k8s: .taskfiles/Kubernetes/Tasks.yaml
 
 tasks:
   default:
