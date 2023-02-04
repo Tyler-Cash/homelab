@@ -20,6 +20,8 @@ spec:
     generate:
       namespace: "{{request.object.metadata.name}}"
       synchronize: true
+      data:
+        labels: []
       cloneList:
         namespace: storage
         kinds:
