@@ -27,6 +27,7 @@ spec:
             name: *name
             namespace: "{{request.object.metadata.namespace}}"
           spec:
+            sourcePVC: "{{request.object.metadata.name}}"
             trigger:
               schedule: "0 * * * *"
             rclone:
