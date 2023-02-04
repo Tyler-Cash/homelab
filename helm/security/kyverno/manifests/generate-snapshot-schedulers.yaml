@@ -23,4 +23,4 @@ spec:
       cloneList:
         namespace: storage
         kinds:
-          - snapscheduler.backube/v1
+          - snapshotschedules.snapscheduler.backube
