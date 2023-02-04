@@ -1,0 +1,19 @@
+---
+version: "3"
+
+tasks:
+  toolbox:
+    desc: Exec into the Rook Ceph toolbox
+    interactive: true
+    cmds:
+      - kubectl -n storage exec -it deploy/rook-ceph-tools -- bash
+
+  del-toolbox:
+    desc: Delete the Rook Ceph toolbox
+    cmds:
+      - kubectl -n storage delete pod -l app=rook-ceph-tools
+
+  password:
+    desc: Retrieve the rook-ceph password
+    cmds:
+      - kubectl -n storage get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode

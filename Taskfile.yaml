@@ -1,0 +1,14 @@
+---
+version: '3'
+
+vars:
+  PROJECT_DIR: '{{.ROOT_DIR}}'
+
+includes:
+  ro: .taskfiles/Rook/Tasks.yaml
+  # vs: .taskfiles/VolSync/Tasks.yml
+
+tasks:
+  default:
+    silent: true
+    cmds: ['task -l']
