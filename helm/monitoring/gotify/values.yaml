@@ -16,6 +16,12 @@ app-template:
     GOTIFY_UPLOADEDIMAGESDIR: "data/images"
     GOTIFY_PLUGINSDIR: "data/plugins"
 
+  service:
+    main:
+      ports:
+        http:
+          port: &port 80
+
   ingress:
     main:
       enabled: true
@@ -33,6 +39,8 @@ app-template:
           paths:
             - path: /
               pathType: Prefix
+              service:
+                port: *port
       tls:
         - secretName: gotify-letsencrypt-certificate
           hosts:
