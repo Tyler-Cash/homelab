@@ -19,10 +19,12 @@ spec:
           - default
     generate:
       data:
-        apiVersion: snapscheduler.backube/v1
         kind: SnapshotSchedule
+        apiVersion: snapscheduler.backube/v1
+        name: daily-snapshot-schedule
+        namespace: "{{request.object.metadata.name}}"
         metadata:
-          name: daily-snapshot-schedule
+          name: 
         spec:
           disabled: false
           claimSelector:
