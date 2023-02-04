@@ -5,30 +5,30 @@ metadata:
 spec:
   generateExistingOnPolicyUpdate: true
   rules:
-  - name: generate-monthly-snapshots
-    match:
-      any:
-      - resources:
-          kinds:
-          - Namespace
-    generate:
-      namespace: "{{request.object.metadata.name}}"
-      synchronize: true
-      apiVersion: snapscheduler.backube/v1
-      kind: SnapshotSchedule
-      name: monthly-snapshot-schedule
-      data:
+    - name: generate-monthly-snapshots
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+      generate:
+        namespace: "{{request.object.metadata.name}}"
+        synchronize: true
         apiVersion: snapscheduler.backube/v1
         kind: SnapshotSchedule
-        metadata:
-          name: monthly-snapshot-schedule
-        spec:
-          disabled: false
-          claimSelector:
-            matchLabels:
-              snapshot.home.arpa/enabled: "true"
-          retention:
-            maxCount: 12
-          schedule: "@monthly"
-          snapshotTemplate:
-            snapshotClassName: csi-ceph-blockpool
+        name: monthly-snapshot-schedule
+        data:
+          apiVersion: snapscheduler.backube/v1
+          kind: SnapshotSchedule
+          metadata:
+            name: monthly-snapshot-schedule
+          spec:
+            disabled: false
+            claimSelector:
+              matchLabels:
+                snapshot.home.arpa/enabled: "true"
+            retention:
+              maxCount: 12
+            schedule: "@monthly"
+            snapshotTemplate:
+              snapshotClassName: ceph-block-snapshot
