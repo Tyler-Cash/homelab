@@ -24,6 +24,3 @@ spec:
         namespace: storage
         kinds:
           - snapscheduler.backube/v1
-        selector:
-          matchLabels:
-            allowedToBeCloned: "true"
