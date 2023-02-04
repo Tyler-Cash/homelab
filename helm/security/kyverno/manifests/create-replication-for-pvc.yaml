@@ -19,7 +19,7 @@ spec:
         kind: &kind ReplicationSource
         data:
           apiVersion: *api
-          kind: &kind
+          kind: *kind
           metadata:
             name: *name
             namespace: {{request.object.metadata.namespace}}
