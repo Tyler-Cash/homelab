@@ -29,7 +29,7 @@ spec:
           spec:
             sourcePVC: "{{request.object.metadata.name}}"
             trigger:
-              schedule: "0 * * * *"
+              schedule: "0 5 * * *"
             rclone:
               rcloneConfigSection: "drive"
               rcloneDestPath: "k8s-backups/{{request.object.metadata.name}}"
