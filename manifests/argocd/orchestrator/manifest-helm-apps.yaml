@@ -5,34 +5,34 @@ metadata:
   namespace: argocd
 spec:
   generators:
-  - git:
-      repoURL: https://github.com/Tyler-Cash/k3s-argo.git
-      revision: HEAD
-      directories:
-      - path: helm/*/*/manifests
+    - git:
+        repoURL: https://github.com/Tyler-Cash/k3s-argo.git
+        revision: HEAD
+        directories:
+          - path: helm/*/*/manifests
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
     metadata:
-      name: '{{path[2]}}-manifests'
+      name: "{{path[2]}}-manifests"
     spec:
       project: default
       source:
         repoURL: https://github.com/Tyler-Cash/k3s-argo.git
         targetRevision: HEAD
-        path: '{{path}}'
+        path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path[1]}}'
+        namespace: "{{path[1]}}"
       ignoreDifferences:
         - group: kyverno.io
           kind: ClusterPolicy
           jqPathExpressions:
-          - .spec.template.spec.labels[] | select(.name == "kyverno.io/generated-by")
-        - group: '*'
-          kind: '*'
-          managedFieldsManagers:
-          - kube-controller-manager
+            - .spec.template.spec.labels[] | select(.name == "kyverno.io/generated-by")
+        - group: "*"
+          kind: "*"
+          jqPathExpressions:
+            - .spec.template.spec.labels[] | select(.name == "kyverno.io/generated-by")
       syncPolicy:
         syncOptions:
           - CreateNamespace=true

@@ -28,11 +28,11 @@ spec:
         - group: kyverno.io
           kind: ClusterPolicy
           jqPathExpressions:
-          - .spec.template.spec.labels[] | select(.name == "kyverno.io/generated-by")
+            - .spec.rules[] | select(.name|test("autogen-."))
         - group: '*'
           kind: '*'
-          managedFieldsManagers:
-          - kube-controller-manager
+          jqPathExpressions:
+          - .spec.template.spec.labels[] | select(.name == "kyverno.io/generated-by")
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
