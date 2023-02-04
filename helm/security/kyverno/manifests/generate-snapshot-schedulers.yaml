@@ -16,7 +16,7 @@ spec:
       - resources:
           namespaces:
           - kube-system
-          - default
+          - storage
     generate:
       namespace: "{{request.object.metadata.name}}"
       synchronize: true
