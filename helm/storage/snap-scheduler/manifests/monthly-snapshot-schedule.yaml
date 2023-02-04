@@ -1,5 +1,5 @@
 ---
-apiVersion: snapscheduler.backube/v1
+apiVersion: snapscheduler.backube
 kind: SnapshotSchedule
 metadata:
   name: monthly-snapshot-schedule
