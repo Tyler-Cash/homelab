@@ -42,8 +42,8 @@ argo-cd:
         ignoreAggregatedRoles: true
       dex.config: |
         connectors:
-        - name: authentik
-          type: OIDC
+        - name: Authentik
+          type: oidc
           id: authentik
           config:
             issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd/"
@@ -55,7 +55,6 @@ argo-cd:
               - profile
               - email
               - groups
-            
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
     rbacConfig:
