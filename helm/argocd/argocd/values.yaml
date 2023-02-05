@@ -43,8 +43,7 @@ argo-cd:
       dex.config: |
         connectors:
           - config:
-              issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd/"
-              redirectURI: "https://argocd.k8s.tylercash.dev/api/dex/callback"
+              issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
               clientID: $argocd-secrets:client_id
               clientSecret: $argocd-secrets:client_secret
               insecureEnableGroups: true
