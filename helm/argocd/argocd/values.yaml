@@ -30,7 +30,7 @@ argo-cd:
     configs:
       cm.url: *host
     config:
-      url: *host
+      url: https://argocd.k8s.tylercash.dev/
       exec.enabled: "true"
       resource.exclusions: |
         - apiGroups:
