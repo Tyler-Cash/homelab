@@ -44,18 +44,21 @@ argo-cd:
         ignoreAggregatedRoles: true
       dex.config: |
         connectors:
-          - name: authentik
+          - config:
+              issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
+              redirectURI: "https://argocd.k8s.tylercash.dev/api/dex/callback"
+              clientID: $argocd-secrets:client_id
+              clientSecret: $argocd-secrets:client_secret
+              insecureEnableGroups: true
+              scopes:
+                - openid
+                - profile
+                - email
+                - groups
+            name: authentik
             type: oidc
             id: authentik
-            issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
-            clientID: $argocd-secrets:client_id
-            clientSecret: $argocd-secrets:client_secret
-            insecureEnableGroups: true
-            scopes:
-              - openid
-              - profile
-              - email
-              - groups         
+          
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
     rbacConfig:
