@@ -45,7 +45,7 @@ argo-cd:
         ignoreAggregatedRoles: true
       oidc.config: |
         name: Authentik
-        issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
+        issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd/"
         clientID: $argocd-oidc-secrets:oidc.authentik.client_id
         clientSecret: $argocd-oidc-secrets:oidc.authentik.client_secret
         requestedScopes:
