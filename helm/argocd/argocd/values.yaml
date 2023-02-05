@@ -1,4 +1,5 @@
 argo-cd:
+  global.logging.level: debug
   redis-ha:
     enabled: true
 
@@ -44,7 +45,10 @@ argo-cd:
         ignoreAggregatedRoles: true
       dex.config: |
         connectors:
-          - config:
+          - type: oidc
+            id: authentik
+            name: Authentik
+            config:
               issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
               redirectURI: "https://argocd.k8s.tylercash.dev/api/dex/callback"
               clientID: $argocd-secrets:client_id
@@ -55,9 +59,7 @@ argo-cd:
                 - profile
                 - email
                 - groups
-            name: authentik
-            type: oidc
-            id: authentik
+
           
       oidc.config: |
         oidc.tls.insecure.skip.verify: true
