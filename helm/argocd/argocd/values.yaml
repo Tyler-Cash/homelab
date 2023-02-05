@@ -44,9 +44,10 @@ argo-cd:
         connectors:
         - name: Authentik
           type: oidc
-          id: authentik
+          id: Authentik
           config:
             issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd/"
+            redirectURI: "https://argocd.k8s.tylercash.dev/api/dex/callback"
             clientID: $argocd-secrets:client_id
             clientSecret: $argocd-secrets:client_secret
             insecureEnableGroups: true
