@@ -30,6 +30,7 @@ argo-cd:
     configs:
       cm.url: *host
     config:
+      url: *host
       exec.enabled: "true"
       resource.exclusions: |
         - apiGroups:
