@@ -28,6 +28,7 @@ argo-cd:
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
     configs:
       cm.url: *host
+    config:
       exec.enabled: "true"
       resource.exclusions: |
         - apiGroups:
