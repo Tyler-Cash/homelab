@@ -53,9 +53,6 @@ argo-cd:
           - profile
           - email
           - groups
-
-          
-      oidc.config: |
         oidc.tls.insecure.skip.verify: true
     rbacConfig:
       policy.csv: |
