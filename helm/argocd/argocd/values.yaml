@@ -46,8 +46,8 @@ argo-cd:
       oidc.config: |
         name: Authentik
         issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
-        clientID: $argocd-secrets:client_id
-        clientSecret: $argocd-secrets:client_secret
+        clientID: $argocd-secrets:oidc.authentik.client_id
+        clientSecret: $argocd-secrets:oidc.authentik.client_secret
         requestedScopes:
           - openid
           - profile
