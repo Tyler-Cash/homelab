@@ -43,11 +43,17 @@ argo-cd:
             - '*'
       resource.compareoptions: |
         ignoreAggregatedRoles: true
-      oidc.config:
+      oidc.config: |
         name: Authentik
         issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd"
         clientID: "$argocd-secrets:client_id"
         clientSecret: "$argocd-secrets:client_secret"
+        requestedScopes:
+          - openid
+          - profile
+          - email
+          - groups
+        oidc.tls.insecure.skip.verify: true
     rbacConfig:
       policy.csv: |
         g, argo-admin, role:admin
