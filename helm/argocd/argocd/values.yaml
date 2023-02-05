@@ -10,7 +10,7 @@ argo-cd:
     ingress:
       enabled: true
       hosts:
-        - argocd.k8s.tylercash.dev
+        - &host argocd.k8s.tylercash.dev
       annotations:
         cert-manager.io/cluster-issuer: "prod-issuer"
         kubernetes.io/ingress-allow-http: "false"
@@ -24,9 +24,10 @@ argo-cd:
         nginx.org/websocket-services: "argocd-server"
       tls:
         - hosts:
-            - argocd.k8s.tylercash.dev
+            - *host
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
-    config:
+    configs:
+      cm.url: *host
       exec.enabled: "true"
       resource.exclusions: |
         - apiGroups:
