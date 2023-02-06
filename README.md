@@ -57,13 +57,13 @@ This Git repository contains the following directories.
 
 While most of my infrastructure and workloads are selfhosted I do rely upon the cloud for certain key parts of my setup. This saves me from having to worry about two things. (1) Dealing with chicken/egg scenarios and (2) services I critically need whether my cluster is online or not.
 
-| Service                                         | Use                                                               | Cost           |
-|-------------------------------------------------|-------------------------------------------------------------------|----------------|
-| [G Suite](https://workspace.google.com/intl/en_au/)      | Offsite backups and email                                       | ~$15/mo         |
-| [Cloudflare](https://www.cloudflare.com/)       | Domain, DNS and proxy management                                  | ~$30/yr        |
-| [GitHub](https://github.com/)                   | Hosting this repository and continuous integration/deployments    | Free           |
-| [Zen Duty](https://www.zenduty.com/)               | Push notifications alerting when health issue occurs                   | Free           |
-| Total: ~$18/mo |
+| Service                                                  | Use                                                                | Cost           |
+|----------------------------------------------------------|--------------------------------------------------------------------|----------------|
+| [G Suite](https://workspace.google.com/intl/en_au/)      | Offsite backups and email                                          | ~$15/mo        |
+| [Cloudflare](https://www.cloudflare.com/)                | Domain, DNS and proxy management                                   | ~$30/yr        |
+| [GitHub](https://github.com/)                            | Hosting this repository and continuous integration/deployments     | Free           |
+| [Zen Duty](https://www.zenduty.com/)                     | Push notifications alerting when health issue occurs               | Free           |
+|                                                          |                                                                    |Total: ~$18/mo  |
 
 ---
 
@@ -85,21 +85,15 @@ The [CoreDNS](https://github.com/coredns/coredns) deployment has a volume with a
 
 ### Dynamic DNS
 
-~~My home IP can change at any given time and in order to keep my WAN IP address up to date on Cloudflare. [pfSense](https://www.pfsense.org/) has a native Dynamic DNS tool which I use to update my IP in cloudflare
+My home IP can change at any given time and in order to keep my WAN IP address up to date on Cloudflare. [pfSense](https://www.pfsense.org/) has a native Dynamic DNS tool which I use to update my IP in cloudflare
 
 ---
 
 ## 🔧 Hardware
 
-<details>
-  <summary>Click to see da rack!</summary>
-
-  <img src="https://user-images.githubusercontent.com/213795/172947261-65a82dcd-3274-45bd-aabf-140d60a04aa9.png" align="center" width="200px" alt="rack"/>
-</details>
-
 | Device                    | Count | OS Disk Size | Data Disk Size              | Ram  | Operating System | Purpose             |
 |---------------------------|-------|--------------|-----------------------------|------|------------------|---------------------|
-| Random Computer                          | 2     | 256GB SSD  | 1x 1TB SSD, 1x 4TB HDD       | 32GB | Proxmox         | K8S Node              |
+| Random Computers                          | 2     | 256GB SSD  | 1x 1TB SSD, 1x 4TB HDD       | 32GB | Proxmox         | K8S Node              |
 | R720 (Uses all of my electricity ☹️)    | 1     | 256GB SSD  | 1x 1TB SSD, 4x 1TB HDD        | 64GB | Proxmox         | Router ([pfSense](https://www.pfsense.org/)), K8S Node              |
 
 ---
