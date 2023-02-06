@@ -77,7 +77,7 @@ Over WAN, I have port forwarded ports `80` and `443` to the load balancer IP of 
 
 ### Ad Blocking
 
-The [CoreDNS](https://github.com/coredns/coredns) deployment has a volume with a hosts file present on it. This hostfile is updated frequently by a [CronJob run in cluster](manifests\networking\adblock-updater\cron.yaml). CoreDNS is configured to drop any entries that are matched in this file, which results in ads failing to load.
+The [CoreDNS](https://github.com/coredns/coredns) deployment has a volume with a hosts file present on it. This hostfile is updated frequently by a [CronJob run in cluster](manifests/networking/adblock-updater/cron.yaml). CoreDNS is configured to drop any entries that are matched in this file, which results in ads failing to load.
 
 ### External DNS
 
