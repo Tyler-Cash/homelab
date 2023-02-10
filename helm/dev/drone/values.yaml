@@ -1,0 +1,17 @@
+drone:
+  env:
+    DRONE_SERVER_HOST: &host drone.k8s.tylercash.dev
+    DRONE_SERVER_PROTO: https
+  envValueFrom:
+    DRONE_RPC_SECRET:
+      secretKeyRef:
+        key: DRONE_RPC_SECRET
+        name: drone-secrets
+    DRONE_GITHUB_CLIENT_ID:
+      secretKeyRef:
+        key: DRONE_GITHUB_CLIENT_ID
+        name: drone-secrets
+    DRONE_GITHUB_CLIENT_SECRET:
+      secretKeyRef:
+        key: DRONE_GITHUB_CLIENT_SECRET
+        name: drone-secrets
