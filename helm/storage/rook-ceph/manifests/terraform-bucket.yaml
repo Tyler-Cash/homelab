@@ -1,0 +1,7 @@
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: &name terraform-bucket
+spec:
+  generateBucketName: *name
+  storageClassName: ceph-bucket
