@@ -280,6 +280,7 @@ kube-prometheus-stack:
   kubeEtcd:
     enabled: true
     endpoints:
+      - 10.0.0.72
       - 10.0.0.83
       - 10.0.0.84
       - 10.0.0.85
@@ -291,6 +292,7 @@ kube-prometheus-stack:
 kubeScheduler:
   enabled: true
   endpoints:
+    - 10.0.0.72
     - 10.0.0.83
     - 10.0.0.84
     - 10.0.0.85
@@ -304,6 +306,7 @@ kubeScheduler:
 kubeProxy:
   enabled: true
   endpoints:
+    - 10.0.0.72
     - 10.0.0.83
     - 10.0.0.84
     - 10.0.0.85

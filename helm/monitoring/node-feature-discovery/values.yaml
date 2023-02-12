@@ -1,0 +1,35 @@
+node-feature-discovery:
+  worker:
+    resources:
+      requests:
+        cpu: 15m
+        memory: 64M
+      limits:
+        memory: 64M
+    config:
+      core:
+        sources:
+          - custom
+          - pci
+          - usb
+      sources:
+        usb:
+          deviceClassWhitelist:
+            - "02"
+            - "0e"
+            - "ef"
+            - "fe"
+            - "ff"
+          deviceLabelFields:
+            - "class"
+            - "vendor"
+            - "device"
+        custom:
+          - name: "intel-gpu"
+            matchOn:
+              - pciId:
+                  class: ["0300"]
+                  vendor: ["8086"]
+  tls:
+    enable: true
+    certManager: true
