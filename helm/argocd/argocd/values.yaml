@@ -1,7 +1,15 @@
 argo-cd:
-  global.logging.level: debug
   redis-ha:
     enabled: true
+
+    exporter:
+      enabled: true
+
+    topologySpreadConstraints:
+      enabled: true
+      maxSkew: 1
+      topologyKey: topology.kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
 
   controller:
     replicas: 2
@@ -59,8 +67,13 @@ argo-cd:
     rbacConfig:
       policy.csv: |
         g, argo-admin, role:admin
+    topologySpreadConstraints: &topology
+    - maxSkew: 1
+      topologyKey: topology.kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
   repoServer:
     replicas: 2
+    topologySpreadConstraints: *topology
 
   applicationSet:
     replicaCount: 2
@@ -72,3 +85,4 @@ argo-cd:
       serviceMonitor:
         enabled: true
         namespace: monitoring
+    topologySpreadConstraints: *topology
