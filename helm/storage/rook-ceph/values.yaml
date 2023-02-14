@@ -29,7 +29,8 @@ rook-ceph-cluster:
           secretName: ceph-home-tylercash-dev-tls
   cephClusterSpec:
     removeOSDsIfOutAndSafeToRemove: true
-    
+    skipUpgradeChecks: true
+    continueUpgradeAfterChecksEvenIfNotHealthy: true
     storage:
       useAllNodes: true
       useAllDevices: true
