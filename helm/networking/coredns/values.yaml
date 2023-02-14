@@ -4,8 +4,7 @@ coredns:
     mountPath: /blacklist
   extraVolumes:
   - name: coredns-blacklist
-    persistentVolumeClaim:
-      claimName: coredns-blacklist
+    emptyDir: {}
   resources:
     limits:
       cpu: 400m
