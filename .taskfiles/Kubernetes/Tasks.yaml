@@ -13,3 +13,21 @@ tasks:
           echo "Copying secret to $ns"
           kubectl get secret rclone-secret -n storage -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid"])' | kubectl apply -n $ns -f -
         done
+  # https://github.com/kubernetes/kubernetes/issues/100485
+  unbind-stuck-pvcs:
+    desc: Sometimes the PVCs will become stuck due to the linked issues. This force unsticks them.
+    cmds:
+      - |
+        declare -A nodes
+        while read node; do
+          nodes["${node#node/}"]=exists
+        done < <(kubectl get nodes -o name)
+
+        kubectl get pvc -A -o json |
+        jq '.items[].metadata | [.namespace, .name, .annotations["volume.kubernetes.io/selected-node"]] | @tsv' -r |
+        while read namespace name node; do
+          test -n "$node" || continue
+          if ! [[ ${nodes[$node]-} == "exists" ]]; then
+            kubectl annotate -n "${namespace}" "pvc/${name}" volume.kubernetes.io/selected-node-
+          fi
+        done
