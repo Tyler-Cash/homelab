@@ -6,7 +6,7 @@ app-template:
   image:
     repository: ghcr.io/confusedpolarbear/jellyfin-intro-skipper
     tag: 10.8.9
-    
+
   service:
     main:
       ports:
@@ -18,7 +18,7 @@ app-template:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-            - key: feature.node.kubernetes.io/custom-intel-gpu
+            - key: intel.feature.node.kubernetes.io/gpu
               operator: In
               values:
                 - "true"
