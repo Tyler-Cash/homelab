@@ -17,3 +17,8 @@ tasks:
     desc: Retrieve the rook-ceph password
     cmds:
       - kubectl -n storage get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode
+
+  clear:
+    desc: Clear all Ceph health warnings 
+    cmds:
+      - kubectl -n storage exec -it deploy/rook-ceph-tools ceph crash archive-all

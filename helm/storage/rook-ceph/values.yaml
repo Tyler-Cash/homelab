@@ -29,8 +29,7 @@ rook-ceph-cluster:
           secretName: ceph-home-tylercash-dev-tls
   cephClusterSpec:
     removeOSDsIfOutAndSafeToRemove: true
-    skipUpgradeChecks: true
-    continueUpgradeAfterChecksEvenIfNotHealthy: true
+    
     storage:
       useAllNodes: true
       useAllDevices: true
@@ -41,22 +40,6 @@ rook-ceph-cluster:
       all:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9102"
-    placement:
-      all:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: role
-                    operator: In
-                    values:
-                      - storage-node
-        podAffinity:
-        podAntiAffinity:
-        topologySpreadConstraints:
-        tolerations:
-          - key: storage-node
-            operator: Exists
     resources:
       mgr:
         requests:

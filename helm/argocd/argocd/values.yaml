@@ -1,21 +1,24 @@
 argo-cd:
   redis-ha:
     enabled: true
+    pdb:
+      enabled: true
+      minAvailable: 1
 
     exporter:
       enabled: true
 
-    topologySpreadConstraints:
-      enabled: true
-      maxSkew: 1
-      topologyKey: topology.kubernetes.io/hostname
-      whenUnsatisfiable: ScheduleAnyway
-
   controller:
     replicas: 2
+    pdb:
+      enabled: true
+      minAvailable: 1
 
   server:
     replicas: 2
+    pdb:
+      enabled: true
+      minAvailable: 1
     ingress:
       enabled: true
       hosts:
@@ -67,22 +70,24 @@ argo-cd:
     rbacConfig:
       policy.csv: |
         g, argo-admin, role:admin
-    topologySpreadConstraints: &topology
-    - maxSkew: 1
-      topologyKey: topology.kubernetes.io/hostname
-      whenUnsatisfiable: ScheduleAnyway
   repoServer:
     replicas: 2
-    topologySpreadConstraints: *topology
 
   applicationSet:
     replicaCount: 2
 
   dex:
     enabled: true
+    pdb:
+      enabled: true
+      minAvailable: 1
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
         namespace: monitoring
-    topologySpreadConstraints: *topology
+
+  global:
+    additionalLabels:
+      distributed: required
+    
