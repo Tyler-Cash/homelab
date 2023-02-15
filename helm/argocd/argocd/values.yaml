@@ -1,24 +1,5 @@
 argo-cd:
-  redis-ha:
-    enabled: true
-    pdb:
-      enabled: true
-      minAvailable: 1
-
-    exporter:
-      enabled: true
-
-  controller:
-    replicas: 2
-    pdb:
-      enabled: true
-      minAvailable: 1
-
   server:
-    replicas: 2
-    pdb:
-      enabled: true
-      minAvailable: 1
     ingress:
       enabled: true
       hosts:
@@ -40,54 +21,41 @@ argo-cd:
           secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
     configs:
       cm.url: *host
-    config:
-      admin.enabled: "false"
-      url: https://argocd.k8s.tylercash.dev
-      exec.enabled: "true"
-      resource.exclusions: |
-        - apiGroups:
-            - kyverno.io
-          kinds:
-            - AdmissionReport
-            - BackgroundScanReport
-            - ClusterAdmissionReport
-            - ClusterBackgroundScanReport
-          clusters:
-            - '*'
-      resource.compareoptions: |
-        ignoreAggregatedRoles: true
-      oidc.config: |
-        name: Authentik
-        issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd/"
-        clientID: $argocd-oidc-secrets:oidc.authentik.client_id
-        clientSecret: $argocd-oidc-secrets:oidc.authentik.client_secret
-        requestedScopes:
-          - openid
-          - profile
-          - email
-          - groups
-        oidc.tls.insecure.skip.verify: true
-    rbacConfig:
-      policy.csv: |
-        g, argo-admin, role:admin
-  repoServer:
-    replicas: 2
+    # config:
+    #   admin.enabled: "false"
+    #   url: https://argocd.k8s.tylercash.dev
+    #   exec.enabled: "true"
+    #   resource.exclusions: |
+    #     - apiGroups:
+    #         - kyverno.io
+    #       kinds:
+    #         - AdmissionReport
+    #         - BackgroundScanReport
+    #         - ClusterAdmissionReport
+    #         - ClusterBackgroundScanReport
+    #       clusters:
+    #         - '*'
+    #   resource.compareoptions: |
+    #     ignoreAggregatedRoles: true
+    #   oidc.config: |
+    #     name: Authentik
+    #     issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd/"
+    #     clientID: $argocd-oidc-secrets:oidc.authentik.client_id
+    #     clientSecret: $argocd-oidc-secrets:oidc.authentik.client_secret
+    #     requestedScopes:
+    #       - openid
+    #       - profile
+    #       - email
+    #       - groups
+    #     oidc.tls.insecure.skip.verify: true
+    # rbacConfig:
+    #   policy.csv: |
+    #     g, argo-admin, role:admin
 
-  applicationSet:
-    replicaCount: 2
-
-  dex:
-    enabled: true
-    pdb:
-      enabled: true
-      minAvailable: 1
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        namespace: monitoring
-
-  global:
-    additionalLabels:
-      distributed: required
-    
+  # dex:
+  #   enabled: true
+  #   metrics:
+  #     enabled: true
+  #     serviceMonitor:
+  #       enabled: true
+  #       namespace: monitoring
