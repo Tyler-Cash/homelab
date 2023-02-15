@@ -1,0 +1,6 @@
+metallb:
+  controller:
+    priorityClassName: system-cluster-critical
+
+  speaker:
+    priorityClassName: system-cluster-critical
