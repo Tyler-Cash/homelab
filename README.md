@@ -40,7 +40,7 @@ Once the k3s cluster is up, the Ansible script will bootstrap ArgoCD and then my
 - [sealed-secrets](https://sealed-secrets.netlify.app/): Secret manager so secrets can be stored encrypted in git 
 - [volsync](https://github.com/backube/volsync) and [snapscheduler](https://github.com/backube/snapscheduler): Backup and recovery of persistent volume claims.
 
-### Directories
+### Directories (TODO update)
 
 This Git repository contains the following directories.
 

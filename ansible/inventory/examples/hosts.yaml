@@ -1,0 +1,24 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        k8s-0:
+          ansible_host: 192.168.42.10
+        k8s-1:
+          ansible_host: 192.168.42.11
+        k8s-2:
+          ansible_host: 192.168.42.12
+    worker:
+      hosts:
+        k8s-3:
+          ansible_host: 192.168.42.13
+        k8s-4:
+          ansible_host: 192.168.42.14
+        k8s-5:
+          ansible_host: 192.168.42.15
+          disks:
+          - /dev/disk/by-id/tests
+  vars:
+    ansible_user: tests
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"

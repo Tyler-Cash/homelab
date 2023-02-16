@@ -1,0 +1,26 @@
+postgres-operator:
+  configKubernetes:
+    enable_pod_antiaffinity: true
+  configLoadBalancer:
+    db_hosted_zone: k8s.tylercash.dev
+    enable_master_load_balancer: true
+    enable_master_pooler_load_balancer: true
+postgres-operator-ui:
+  envs:
+    operatorApiUrl: "http://zalando-op-postgres-operator:8080"
+    resourcesVisible: "True"
+    targetNamespace: "*"
+    teams:
+      - "home"
+  ingress:
+    enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+      nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
+    hosts:
+      - host: psgl.k8s.tylercash.dev
+        paths: ["/"]
+    tls:
+      - secretName: psgl-op-letsencrypt-certificate
+        hosts:
+          - psgl.k8s.tylercash.dev

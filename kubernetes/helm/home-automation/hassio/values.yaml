@@ -1,0 +1,99 @@
+app-template:
+  image:
+    repository: ghcr.io/onedr0p/home-assistant
+    tag: 2023.2.3@sha256:dd5235b9b4de2b5dd51e9bb9a87a8b4c55feb6d4a5ab2ed9b4ce116ae7584d80
+
+  env:
+    TZ: &timezone Australia/Sydney
+
+  service:
+    main:
+      type: LoadBalancer
+      ports:
+        http:
+          port: 8123
+
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
+        nginx.org/websocket-services: hassio
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
+      hosts:
+        - host: &host "hassio.k8s.tylercash.dev"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+      - secretName: hassio-letsencrypt-certificate
+        hosts:
+        - *host
+  addons:
+    codeserver:
+      enabled: true
+      image:
+        repository: ghcr.io/coder/code-server
+        tag: 4.9.1
+      env:
+        TZ: *timezone
+      workingDir: "/config"
+      args:
+        - --auth
+        - "none"
+        - --user-data-dir
+        - "/config/.vscode"
+        - --extensions-dir
+        - "/config/.vscode"
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
+          nginx.org/websocket-services: hassio-codeserver
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
+        hosts:
+          - host: &vs-host "hassio-code.k8s.tylercash.dev"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+        - secretName: hassio-code-letsencrypt-certificate
+          hosts:
+          - *vs-host
+      volumeMounts:
+        - name: config
+          mountPath: /config
+
+  probes:
+    liveness:
+      enabled: false
+    readiness:
+      enabled: false
+    startup:
+      enabled: false
+    
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+    supplementalGroups:
+      - 100
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 10Gi
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+    limits:
+      memory: 750Mi

@@ -3,12 +3,57 @@ version: '3'
 
 vars:
   PROJECT_DIR: '{{.ROOT_DIR}}'
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
+
+dotenv: [".config.env"]
+
+env:
+  KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
 
 includes:
   ro: .taskfiles/Rook/Tasks.yaml
+  ansible: .taskfiles/Ansible/Tasks.yaml
   k8s: .taskfiles/Kubernetes/Tasks.yaml
+  terraform: .taskfiles/Terraform/Tasks.yaml
+  precommit: .taskfiles/Pre-Commit/Tasks.yaml
 
 tasks:
-  default:
-    silent: true
-    cmds: ['task -l']
+  init:
+    desc: Initialize workstation dependencies with Brew
+    cmds:
+      - brew install {{.DEPS}} {{.CLI_ARGS}}
+      - task: install-gcloud
+    preconditions:
+      - sh: command -v brew
+        msg: |
+          Homebrew is not installed. Using MacOS, Linux or WSL?
+          Head over to https://brew.sh to get up and running.
+    vars:
+      DEPS: >-
+        ansible
+        direnv
+        go-task/tap/go-task
+        helm
+        ipcalc
+        jq
+        kubernetes-cli
+        kustomize
+        pre-commit
+        prettier
+        stern
+        terraform
+        tflint
+        yamllint
+        yq
+  
+  install-gcloud:
+    desc: Install gcloud CLI (On Ubuntu)
+    cmds:
+      - sudo apt-get install apt-transport-https ca-certificates gnupg
+      - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+      - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg
+      - sudo apt-get update && sudo apt-get install google-cloud-cli
+    status:
+      - test $(gcloud)

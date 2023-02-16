@@ -1,0 +1,54 @@
+app-template:
+  image:
+    repository: ghcr.io/bjw-s/calibre-web
+    tag: 0.6.19@sha256:9a2e5b9b0070d856b8cf465ce8f9b8c32293684de3f1df0625c1de28f232c502
+
+  enableServiceLinks: false
+
+  env:
+    CACHE_DIR: /cache
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8083
+
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
+        nginx.ingress.kubernetes.io/proxy-buffering: "on"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "256k"
+        nginx.ingress.kubernetes.io/proxy-max-temp-file-size: "256m"
+      hosts:
+        - host: &host calibre.k8s.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                port: 8083
+      tls:
+        - secretName: calibre-letsencrypt-certificate
+          hosts:
+            - *host
+
+  persistence:
+    books:
+      enabled: true
+      type: pvc
+      existingClaim: calibre-books
+    cache:
+      enabled: true
+      type: emptyDir
+      mountPath: /cache
+
+  resources:
+    requests:
+      cpu: 15m
+      memory: 249M
+    limits:
+      memory: 299M

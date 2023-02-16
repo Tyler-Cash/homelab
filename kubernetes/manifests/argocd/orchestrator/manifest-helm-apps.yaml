@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: manifest-helm-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/Tyler-Cash/homelab.git
+        revision: HEAD
+        directories:
+          - path: "kubernetes/helm/*/*/manifests"
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  template:
+    metadata:
+      name: "{{path[3]}}-manifests"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Tyler-Cash/homelab.git
+        targetRevision: HEAD
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path[2]}}"
+      ignoreDifferences:
+        - group: kyverno.io
+          kind: ClusterPolicy
+          jqPathExpressions:
+            - .spec.rules[] | select(.name|test("autogen-."))
+        - group: "*"
+          kind: "*"
+          jqPathExpressions:
+            - .spec.template.spec.labels[] | select(.name == "kyverno.io/*")
+
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true
