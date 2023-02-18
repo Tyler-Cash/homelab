@@ -1,0 +1,73 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: create-replication-for-pvc
+spec:
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: create-replication-for-pvc
+      match:
+        any:
+          - resources:
+              kinds:
+                - PersistentVolumeClaim
+              selector:
+                matchLabels:
+                  snapshot.home.arpa/enabled: "true"
+      generate:
+        namespace: &repl_namespace "{{request.object.metadata.namespace}}"
+        synchronize: true
+        name: &repl_name "{{request.object.metadata.name}}"
+        apiVersion: &repl_api volsync.backube/v1alpha1
+        kind: &repl_kind ReplicationSource
+        data:
+          apiVersion: *repl_api
+          kind: *repl_kind
+          metadata:
+            name: *repl_name
+            namespace: *repl_namespace
+          spec:
+            sourcePVC: "{{request.object.metadata.name}}"
+            trigger:
+              schedule: "0 5 * * *"
+            restic:
+              pruneIntervalDays: 14
+              repository: &restic_name "{{request.object.metadata.name}}"
+              retain:
+                hourly: 10
+                daily: 5
+                weekly: 4
+                monthly: 2
+                yearly: 1
+              copyMethod: Clone
+    - name: create-restic-config
+      context:
+        - name: restic
+          configMap:
+            name: restic-config
+            namespace: security
+      match:
+        any:
+          - resources:
+              kinds:
+                - PersistentVolumeClaim
+              selector:
+                matchLabels:
+                  snapshot.home.arpa/enabled: "true"
+      generate:
+        namespace: &restic_namespace "{{request.object.metadata.namespace}}"
+        synchronize: true
+        name: *restic_name
+        apiVersion: &restic_api v1
+        kind: &restic_kind Secret
+        data:
+          apiVersion: *restic_api
+          kind: *restic_kind
+          metadata:
+            name: *restic_name
+            namespace: *restic_namespace
+          stringData:
+            RESTIC_REPOSITORY: "{{restic.data.RESTIC_REPOSITORY}}/{{request.object.metadata.name}}/"
+            RESTIC_PASSWORD: "{{restic.data.RESTIC_PASSWORD}}"
+            AWS_ACCESS_KEY_ID: "{{restic.data.AWS_ACCESS_KEY_ID}}"
+            AWS_SECRET_ACCESS_KEY: "{{restic.data.AWS_SECRET_ACCESS_KEY}}"

@@ -18,6 +18,7 @@ includes:
   k8s: .taskfiles/Kubernetes/Tasks.yaml
   terraform: .taskfiles/Terraform/Tasks.yaml
   precommit: .taskfiles/Pre-Commit/Tasks.yaml
+  volsync: .taskfiles/Volsync/Tasks.yaml
 
 tasks:
   init:
@@ -47,7 +48,7 @@ tasks:
         tflint
         yamllint
         yq
-  
+
   install-gcloud:
     desc: Install gcloud CLI (On Ubuntu)
     cmds:

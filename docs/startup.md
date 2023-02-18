@@ -94,7 +94,7 @@ Note, although the steps are listed in sequence, on the ansible:install, it's po
 
 3. Onboard all cloud infrastructure
     ```sh
-    task terraform:apply -auto-approve
+    task terraform:apply -- -auto-approve -target=module.dns
     ```
 
 ### Start syncing Argo components
@@ -108,6 +108,11 @@ Note, although the steps are listed in sequence, on the ansible:install, it's po
     argocd app sync rook-operator
     argocd app sync rook-ceph
     argocd app sync cert-manager
+    argocd app sync kubed
+    task terraform:apply -- -auto-approve -target=module.secrets_storage
     ```
 
-    
+Wait for Storage to come up, Authentik (Aka all UIs) depend on the Rook cluster coming up
+  ```shell
+  kubectl get -n storage pod -w
+  ```

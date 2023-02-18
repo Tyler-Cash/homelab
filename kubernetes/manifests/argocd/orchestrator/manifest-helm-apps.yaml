@@ -24,6 +24,7 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{path[2]}}"
+
       ignoreDifferences:
         - group: kyverno.io
           kind: ClusterPolicy
@@ -36,7 +37,9 @@ spec:
 
       syncPolicy:
         syncOptions:
+          - RespectIgnoreDifferences=true
           - CreateNamespace=true
+          - ServerSideApply=true
         automated:
           prune: true
           selfHeal: true

@@ -1,37 +1,30 @@
 terraform {
   required_providers {
-    cloudflare = {
-      source = "cloudflare/cloudflare"
-      version = "~> 3.0"
-    }
     kubernetes = {
       source = "hashicorp/kubernetes"
       version = "2.18.0"
     }
-    google = {
-      source = "hashicorp/google"
-      version = "4.53.1"
-    }
   }
-}
-
-provider "google" {
-  project = var.homelab_project_id
-  region = "australia-southeast1"
 }
 
 provider "kubernetes" {
   config_path    = "../kubeconfig"
   config_context = "default"
-}
-
-provider "cloudflare" {
+  ignore_annotations = [
+    "kubed\\.appscode\\.com/origin"
+  ]
+  ignore_labels = [
+    "kubed.+"
+  ]
 }
 
 module "secrets_storage" {
   source = "./secrets_storage"
   homelab_project_id = var.homelab_project_id
+  email_username = var.email_username
+  email_password = var.email_password
 }
+
 module "dns" {
   source = "./dns"
   homelab_domain = var.homelab_domain
@@ -40,19 +33,14 @@ module "dns" {
   cloudflare_email = var.cloudflare_email
 }
 
-variable "homelab_domain" {
-    type = string
+module "idp" {
+  source = "./idp"
+  authentik_bootstrap_token = module.secrets_storage.authentik_token
 }
 
-variable "homelab_account_id" {
-    type = string
-}
-variable "homelab_project_id" {
-    type = string
-}
-variable "cloudflare_api_token" {
-    type = string
-}
-variable "cloudflare_email" {
-    type = string
+module "backups" {
+  source = "./backups"
+  b2_app_key = var.b2_app_key
+  b2_app_key_id = var.b2_app_key_id
+  b2_app_key_name = var.b2_app_key_name
 }

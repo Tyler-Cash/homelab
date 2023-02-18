@@ -14,22 +14,16 @@ rook-ceph-cluster:
   ingress:
     dashboard:
       annotations:
-        hajimari.io/group: "Storage"
-        kubernetes.io/ingress-allow-http: "false"
-        kubernetes.io/ingress.class: "nginx"
-        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       host:
-        name: ceph.k8s.tylercash.dev
+        name: &host ceph.k8s.tylercash.dev
         path: ""
       tls:
         - hosts:
-            - ceph.k8s.tylercash.dev
+            - *host
           secretName: ceph-home-tylercash-dev-tls
   cephClusterSpec:
     removeOSDsIfOutAndSafeToRemove: true
-    skipUpgradeChecks: true
-    continueUpgradeAfterChecksEvenIfNotHealthy: true
     storage:
       useAllNodes: true
       useAllDevices: true

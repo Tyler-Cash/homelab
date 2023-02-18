@@ -46,6 +46,7 @@
     - name: wipe disks as needed
       ansible.builtin.shell: |
         wipefs -a {{ item }}
+        dd if=/dev/zero of={{ item }} bs=512 count=1 conv=notrunc
       loop: "{{ disks }}"
       register: wipe
       changed_when: wipe.stdout | length > 0

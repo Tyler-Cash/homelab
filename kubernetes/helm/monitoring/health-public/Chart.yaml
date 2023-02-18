@@ -1,0 +1,9 @@
+apiVersion: v2
+name: gatus
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+- name:  gatus
+  version: "3.1.5"
+  repository: https://minicloudlabs.github.io/helm-charts

@@ -4,7 +4,7 @@ kured:
   configuration:
     timeZone: Australia/Sydney
     startTime: "03:00"
-    endTime: "10:00"
+    endTime: "09:00"
     preferNoScheduleTaint: "weave.works/kured-node-reboot"
     drainGracePeriod: 300
     drainTimeout: 7m
@@ -13,7 +13,7 @@ kured:
   metrics:
     create: true
     namespace: "monitoring"
-  
+
   tolerations:
   - key: "master"
     operator: "Exists"

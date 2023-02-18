@@ -5,6 +5,7 @@ coredns:
   extraVolumes:
   - name: coredns-blacklist
     emptyDir: {}
+
   resources:
     limits:
       cpu: 400m
@@ -12,22 +13,29 @@ coredns:
     requests:
       cpu: 250m
       memory: 400Mi
+
   prometheus:
     service:
       enabled: true
     monitor:
       enabled: true
       namespace: "monitoring"
+
   isClusterService: false
   serviceType: LoadBalancer
+
   service:
     type: udp
+    LoadBalancerIp: "10.0.90.120"
+
   autoscaler:
     enabled: true
     min: 3
     preventSinglePointFailure: true
+
   podDisruptionBudget:
     minAvailable: 2
+
   servers:
   - zones:
     - zone: .
@@ -73,7 +81,7 @@ coredns:
     plugins:
     - name: errors
     - name: forward
-      parameters: k8s.tylercash.dev dns://10.0.0.30
+      parameters: k8s.tylercash.dev dns://10.0.90.149
     - name: loop
     - name: reload
     - name: loadbalance

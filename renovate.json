@@ -5,10 +5,6 @@
   ],
   "timezone": "Australia/Sydney",
   "ignoreTests": true,
-  "schedule": [
-    "after 2am every monday",
-    "before 9am every monday"
-  ],
   "packageRules": [
     {
       "matchPackageNames": [
@@ -32,7 +28,7 @@
     },
     {
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackagePatterns": ["descheduler", "ghcr.io/bjw-s/calibre-web", "ghcr.io/onedr0p/readarr-develop"],
+      "matchPackageNames": ["descheduler", "ghcr.io/bjw-s/calibre-web", "ghcr.io/onedr0p/readarr-develop"],
       "matchCurrentVersion": "<=1.0.0",
       "automerge": true
     }

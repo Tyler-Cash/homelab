@@ -13,43 +13,7 @@ curl \
     "$1" > "$(mktemp "${HOSTS_FILES}"/XXXXXX)"
 }
 
-# https://firebog.net/
-## suspicious domains
-download "https://hosts-file.net/grm.txt"
-download "https://reddestdream.github.io/Projects/MinimalHosts/etc/MinimalHostsBlocker/minimalhosts"
-download "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/KADhosts/hosts"
-download "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Spam/hosts"
-download "https://v.firebog.net/hosts/static/w3kbl.txt"
-## advertising domains
-download "https://adaway.org/hosts.txt"
-download "https://v.firebog.net/hosts/AdguardDNS.txt"
-download "https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt"
-download "https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt"
-download "https://hosts-file.net/ad_servers.txt"
-download "https://v.firebog.net/hosts/Easylist.txt"
-download "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts;showintro=0"
-download "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/UncheckyAds/hosts"
-## tracking & telemetry domains
-download "https://v.firebog.net/hosts/Easyprivacy.txt"
-download "https://v.firebog.net/hosts/Prigent-Ads.txt"
-download "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt"
-download "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.2o7Net/hosts"
-download "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt"
-## malicious domains
-download "https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt"
-download "https://mirror1.malwaredomains.com/files/justdomains"
-download "https://hosts-file.net/exp.txt"
-download "https://hosts-file.net/emd.txt"
-download "https://hosts-file.net/psh.txt"
-download "https://mirror.cedia.org.ec/malwaredomains/immortal_domains.txt"
-download "https://www.malwaredomainlist.com/hostslist/hosts.txt"
-download "https://bitbucket.org/ethanr/dns-blacklists/raw/8575c9f96e5b4a1308f2f12394abd86d0927a4a0/bad_lists/Mandiant_APT1_Report_Appendix_D.txt"
-download "https://v.firebog.net/hosts/Prigent-Malware.txt"
-download "https://v.firebog.net/hosts/Prigent-Phishing.txt"
-download "https://phishing.army/download/phishing_army_blocklist_extended.txt"
-download "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt"
-download "https://v.firebog.net/hosts/Shalla-mal.txt"
-download "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Risk/hosts"
+download "https://big.oisd.nl/domains"
 
 cat "${HOSTS_FILES}"/* | \
 sed \

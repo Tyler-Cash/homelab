@@ -1,0 +1,64 @@
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  generateName: toolbox-sync-settings-
+#  annotations:
+#    argocd.argoproj.io/hook: PostSync
+#    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+#  namespace: storage
+#  labels:
+#    app: ceph-toolbox-job
+#spec:
+#  template:
+#    spec:
+#      initContainers:
+#        - name: config-init
+#          image: rook/ceph:master
+#          command: ["/usr/local/bin/toolbox.sh"]
+#          args: ["--skip-watch"]
+#          imagePullPolicy: IfNotPresent
+#          env:
+#            - name: ROOK_CEPH_USERNAME
+#              valueFrom:
+#                secretKeyRef:
+#                  name: rook-ceph-mon
+#                  key: ceph-username
+#          volumeMounts:
+#            - mountPath: /etc/ceph
+#              name: ceph-config
+#            - name: mon-endpoint-volume
+#              mountPath: /etc/rook
+#            - name: ceph-admin-secret
+#              mountPath: /var/lib/rook-ceph-mon
+#      containers:
+#        - name: script
+#          image: rook/ceph:master
+#          volumeMounts:
+#            - mountPath: /etc/ceph
+#              name: ceph-config
+#              readOnly: true
+#          command:
+#            - "bash"
+#            - "-c"
+#            - |
+#              ceph dashboard sso setup saml2 \
+#                https://ceph.k8s.tylercash.dev/
+#                ceph dashboard sso show saml2
+#                ceph dashboard sso enable saml2
+#      volumes:
+#        - name: ceph-admin-secret
+#          secret:
+#            secretName: rook-ceph-mon
+#            optional: false
+#            items:
+#              - key: ceph-secret
+#                path: secret.keyring
+#        - name: mon-endpoint-volume
+#          configMap:
+#            name: rook-ceph-mon-endpoints
+#            items:
+#              - key: data
+#                path: mon-endpoints
+#        - name: ceph-config
+#          emptyDir: {}
+#      restartPolicy: Never

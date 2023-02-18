@@ -1,6 +1,8 @@
 k8s-gateway:
   replicaCount: 2
   domain: k8s.tylercash.dev
+  service:
+    loadBalancerIP: "10.0.90.149"
   extraZonePlugins:
   - name: log
   - name: errors

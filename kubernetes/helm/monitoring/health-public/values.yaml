@@ -1,0 +1,51 @@
+gatus:
+  config:
+    storage:
+      type: sqlite
+      path: /data/data.db
+    endpoints:
+      - name: Jellyfin
+        url: http://jellyfin.media.svc.cluster.local:8096/
+        conditions:
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 1000"
+
+      - name: Authentik
+        url: https://authentik.k8s.tylercash.dev/
+        conditions:
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 1000"
+
+      - name: Kubernetes Cluster
+        url: tcp://10.0.90.100:6443
+        conditions:
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 1000"
+
+  ingress:
+    enabled: true
+    annotations:
+      nginx.org/websocket-services: gatus
+      external-dns.home.arpa/enabled: "true"
+    hosts:
+      - &host health.k8s.tylercash.dev
+    tls:
+      - secretName: status-letsencrypt-certificate
+        hosts:
+          - *host
+
+  persistence:
+    enabled: true
+    storageClass: ceph-block
+    accessMode: ReadWriteOnce
+    size: 5Gi
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 32Mi

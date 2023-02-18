@@ -47,5 +47,5 @@ ingress-nginx:
         metricRelabelings: []
 
       prometheusRule:
-        enabled: false
+        enabled: true
         namespace: "monitoring"

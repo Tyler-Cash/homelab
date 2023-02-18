@@ -5,11 +5,32 @@
   become: true
   gather_facts: true
   any_errors_fatal: true
-  # pre_tasks:
-  #   - name: Pausing for 5 seconds...
-  #     ansible.builtin.pause:
-  #       seconds: 5
+  pre_tasks:
+   - name: Pausing for 5 seconds...
+     ansible.builtin.pause:
+       seconds: 5
   tasks:
+    - name: Fix DNS for ubuntu
+      block:
+        - name: Stop and disable service which messes with DNS
+          service:
+            name: "systemd-resolved"
+            state: stopped
+            enabled: false
+        - name: Delete link to the systemd-resolved resolv.conf
+          ansible.builtin.file:
+            path: /etc/resolv.conf
+            state: absent
+        - name: Create empty resolv.conf
+          ansible.builtin.file:
+            path: /etc/resolv.conf
+            state: touch
+        - name: Setup nameserver
+          blockinfile: |
+            dest=/etc/resolv.conf
+            content="nameserver {{ dns }}"
+      when: ansible_facts['distribution'] == 'Ubuntu'
+
     - name: Check if cluster is installed
       check_mode: false
       ansible.builtin.stat:

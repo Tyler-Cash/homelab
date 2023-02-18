@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authentik-email
+data:
+  from: "authentik@tylercash.dev"
+  host: "in-v3.mailjet.com"

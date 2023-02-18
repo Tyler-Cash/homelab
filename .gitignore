@@ -18,3 +18,4 @@ all.yaml
 .terraform.tfstate*
 *.tfvars
 terraform.tfstate*
+.idea

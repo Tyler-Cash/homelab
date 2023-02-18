@@ -1,15 +1,11 @@
 terraform {
   required_providers {
     cloudflare = {
-        source = "cloudflare/cloudflare"
+      source = "cloudflare/cloudflare"
+      version = "~> 3.0"
     }
   }
 }
-
-variable "homelab_account_id" {}
-variable "homelab_domain" {}
-variable "cloudflare_api_token" {}
-variable "cloudflare_email" {}
 
 # resource "cloudflare_zone" "homelab_zone" {
 #   account_id = var.homelab_account_id
@@ -21,6 +17,9 @@ resource "kubernetes_secret" "cloudflare_secret" {
   metadata {
     name = "cloudflare-secret"
     namespace = "security"
+    annotations = {
+      "kubed.appscode.com/sync"= ""
+    }
   }
 
   data = {

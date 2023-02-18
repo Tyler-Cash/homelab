@@ -21,12 +21,10 @@ app-template:
           protocol: TCP
           targetPort: 9090
       type: ClusterIP
-      
+
   ingress:
     main:
       enabled: true
-      annotations:
-        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
         - host: calibre-db.k8s.tylercash.dev
           paths:

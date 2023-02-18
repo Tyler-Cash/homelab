@@ -1,2 +1,9 @@
 external-secrets:
   installCRDs: true
+
+  serviceMonitor:
+    enabled: true
+  
+  webhook:
+    serviceMonitor:
+      enabled: true

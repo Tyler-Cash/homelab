@@ -8,8 +8,7 @@
 
 <div align="center">
 
-[![Kubernetes](https://img.shields.io/badge/v1.24-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
-[![Renovate](https://img.shields.io/github/actions/workflow/status/onedr0p/home-ops/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/onedr0p/home-ops/actions/workflows/renovate.yaml)
+[![Kubernetes](https://img.shields.io/badge/v1.25-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
 
 </div>
 
@@ -19,25 +18,30 @@ Please don't judge the commit history and some janky components too harshly, I'm
 
 ## ⛵ Overview
 
-This is a repository for my Kubernetes cluster. ([Shamelessly stolen README](https://github.com/onedr0p/home-ops)) I have all of my ArgoCD applications here to deploy all of the infrastructure and services I use at home.
+This is a repository for my Kubernetes cluster. ([Shamelessly stolen README](https://github.com/onedr0p/home-ops)) I have all of my ArgoCD applications here to deploy the infrastructure and services I use at home.
 
 ### Installation
 
-My cluster is [k3s](https://k3s.io/) provisioned currently provisioned with a (Somewhat janky) [Ansible](https://www.ansible.com/) script you can find [here](https://github.com/Tyler-Cash/k3s-ansible). Currently the Ansible process creates VMs in my Proxmox hypervisor, it isn't idompotent though, so it's more just a collection of the scripts that I use to build things. That said, I can create a new cluster from scratch within about 40m~, by running only 2 commands. Not terrible, but not great either.
+My K8S cluster is deployed with the [Ansible](https://www.ansible.com/) script in the Ansible folder. This sets up a [K3S](https://k3s.io/) flavoured K8S cluster.
 
-Once the k3s cluster is up, the Ansible script will bootstrap ArgoCD and then my app of apps, which will deploy all applications to the cluster.
+Once the k8s cluster is up, the Ansible script will bootstrap ArgoCD and then my app of apps, which will deploy all applications to the cluster.
+
+After that the terraform process needs to be run to onboard necessary secrets and create the needed cloud infrastructure.
 
 ### Core Components
 
+- [argo-cd](https://argo-cd.readthedocs.io/en/stable/): Continous deployment tool used to deploy manifests/charts from git to my homelab
 - [authentik](https://goauthentik.io/): SSO for the services that support LDAP/SAML/OIDC.
 - [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster.
+- [cloudnative-pg](https://cloudnative-pg.io/): Operator for Postgresql DB management.
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider.
+- [external-secrets](https://external-secrets.io/main/): Used to store my secrets in a reversible way so DR is trivial.
 - [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): Ingress controller to expose HTTP traffic to pods over DNS.
 - [kyverno](https://kyverno.io/): Policy management for cluster (ie. Setup all pods with timezone Australia/Sydney)
 - [loki](https://grafana.com/oss/loki/): Centralized log storage
+- [metallb](https://metallb.universe.tf/): Load balancer provisioning service for bare metal LBs
 - [prometheus](https://prometheus.io/)/[alert manager](https://prometheus.io/docs/alerting/latest/alertmanager/)/ [grafana](https://grafana.com/): Observability and alerting
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
-- [sealed-secrets](https://sealed-secrets.netlify.app/): Secret manager so secrets can be stored encrypted in git 
 - [volsync](https://github.com/backube/volsync) and [snapscheduler](https://github.com/backube/snapscheduler): Backup and recovery of persistent volume claims.
 
 ### Directories (TODO update)
@@ -46,24 +50,28 @@ This Git repository contains the following directories.
 
 ```sh
 📁 .taskfiles           # Script files for common operations I perform
-📁 bootstrap            # Contains configurations used to bootstrap cluster
-📁 helm                 # Main Flux configuration of repository
-└─📁 ${namespace}       # Folder for all Argo Applications in namespace
-   └─📁 ${application}  # folder for helm chart info of application
+📁 ansible              # Ansible playbook to deploy K3S binaries onto nodes
+📁 kubernetes           # Contains all k8s manifests deployed using Argo CD
+└─📁 helm
+  └─📁 ${namespace}     # Folder name used by Argo to determine application's namespace
+    └─📁 ${application} # folder name used to name the Helm Application created by Argo
       └─📁 manifests    # optional : manifests related to application (i.e. Secrets, ClusterPolicy, etc)
+📁 terraform            # Create cloud infrastructure and k8s manifests in a repeatable way
 ```
 
 ## ☁️ Cloud Dependencies
 
 While most of my infrastructure and workloads are selfhosted I do rely upon the cloud for certain key parts of my setup. This saves me from having to worry about two things. (1) Dealing with chicken/egg scenarios and (2) services I critically need whether my cluster is online or not.
 
-| Service                                                  | Use                                                                | Cost           |
-|----------------------------------------------------------|--------------------------------------------------------------------|----------------|
-| [G Suite](https://workspace.google.com/intl/en_au/)      | Offsite backups and email                                          | ~$15/mo        |
-| [Cloudflare](https://www.cloudflare.com/)                | Domain, DNS and proxy management                                   | ~$30/yr        |
-| [GitHub](https://github.com/)                            | Hosting this repository and continuous integration/deployments     | Free           |
-| [Zen Duty](https://www.zenduty.com/)                     | Push notifications alerting when health issue occurs               | Free           |
-|                                                          |                                                                    |Total: ~$18/mo  |
+| Service                                                         | Use                                                            | Cost             |
+|-----------------------------------------------------------------|----------------------------------------------------------------|------------------|
+| [G Suite](https://workspace.google.com/intl/en_au/)             | Email                                                          | ~$15/mo          |
+| [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html) | Backups                                                        | ~$5/mo           |
+| [GCP](https://cloud.google.com/)                                | Secrets management                                             | ~$2/mo           |
+| [Cloudflare](https://www.cloudflare.com/)                       | Domain, DNS and proxy management                               | ~$30/yr          |
+| [GitHub](https://github.com/)                                   | Hosting this repository and continuous integration/deployments | Free             |
+| [Zen Duty](https://www.zenduty.com/)                            | Push notifications alerting when health issue occurs           | Free             |
+|                                                                 |                                                                | Total: ~$24.5/mo |
 
 ---
 
@@ -91,10 +99,12 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 
 ## 🔧 Hardware
 
-| Device                    | Count | OS Disk Size | Data Disk Size              | Ram  | Operating System | Purpose             |
-|---------------------------|-------|--------------|-----------------------------|------|------------------|---------------------|
-| Random Computers                          | 2     | 256GB SSD  | 1x 1TB SSD, 1x 4TB HDD       | 32GB | Proxmox         | K8S Node              |
-| R720 (Uses all of my electricity ☹️)    | 1     | 256GB SSD  | 1x 1TB SSD, 4x 1TB HDD        | 64GB | Proxmox         | Router ([pfSense](https://www.pfsense.org/)), K8S Node              |
+| Device                      | Count | OS Disk Size | Data Disk Size         | Ram  | Operating System | Purpose  |
+|-----------------------------|-------|--------------|------------------------|------|------------------|----------|
+| DIY machine (i5 11400)      | 2     | 256GB SSD    | 1x 1TB SSD, 1x 4TB HDD | 32GB | Ubuntu 22.04     | K8S Node |
+| HP ProDesk 600 G2 (i5 6500) | 1     | 256GB SSD    | 1x 1TB SSD, 4x 1TB HDD | 32GB | Ubuntu 22.04     | K8S Node |
+| Soft Router (Celeron N5105) | 1     | 256GB SSD    | N/A                    | 8GB  | pfSense          | Router   |
+
 
 ---
 

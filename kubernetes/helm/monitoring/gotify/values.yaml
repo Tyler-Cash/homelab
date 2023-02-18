@@ -26,13 +26,7 @@ app-template:
     main:
       enabled: true
       annotations:
-        hajimari.io/group: "Monitoring"
-        kubernetes.io/ingress-allow-http: "false"
-        kubernetes.io/ingress.class: "nginx"
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
-        nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
         nginx.org/websocket-services: "gotify"
-        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
       hosts:
         - host: gotify.k8s.tylercash.dev
           paths:
