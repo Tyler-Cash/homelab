@@ -15,10 +15,10 @@ spec:
             volumeMounts:
             - name: coredns-blacklist
               mountPath: /blacklist/
-            command: 
+            command:
             - /bin/sh
             - -c
-            - curl https://raw.githubusercontent.com/Tyler-Cash/k3s-argo/master/manifests/networking/adblock-updater/scripts/download_blacklists.sh | /bin/sh
+            - curl https://raw.githubusercontent.com/Tyler-Cash/homelab/master/kubernetes/helm/networking/coredns/manifests/scripts/download_blacklists.sh | /bin/sh
           restartPolicy: OnFailure
           volumes:
           - name: coredns-blacklist

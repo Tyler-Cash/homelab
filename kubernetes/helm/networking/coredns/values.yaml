@@ -22,6 +22,7 @@ coredns:
   serviceType: LoadBalancer
   service:
     type: udp
+    LoadBalancerIp: "10.0.90.120"
   autoscaler:
     enabled: true
     min: 3
@@ -73,7 +74,7 @@ coredns:
     plugins:
     - name: errors
     - name: forward
-      parameters: k8s.tylercash.dev dns://10.0.0.30
+      parameters: k8s.tylercash.dev dns://10.0.90.121
     - name: loop
     - name: reload
     - name: loadbalance

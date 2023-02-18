@@ -1,0 +1,83 @@
+app-template:
+  image:
+    repository: jacobalberty/unifi
+    tag: v7.2.94
+
+  env:
+    RUNAS_UID0: "false"
+    UNIFI_UID: "999"
+    UNIFI_GID: "999"
+    UNIFI_STDOUT: "true"
+    JVM_INIT_HEAP_SIZE:
+    JVM_MAX_HEAP_SIZE: 1024M
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: "nginx"
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      hosts:
+        - host: &host "unifi.k8s.tylercash.dev"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: "tls.{{ .Release.Name }}"
+          hosts:
+            - *host
+
+  service:
+    main:
+      annotations:
+        metallb.universe.tf/allow-shared-ip: unifi
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      ports:
+        http:
+          port: 8443
+          protocol: HTTPS
+        controller:
+          enabled: true
+          port: 8080
+          protocol: TCP
+        portal-http:
+          enabled: false
+          port: 8880
+          protocol: HTTP
+        portal-https:
+          enabled: false
+          port: 8843
+          protocol: HTTPS
+        speedtest:
+          enabled: true
+          port: 6789
+          protocol: TCP
+        stun:
+          enabled: true
+          port: 3478
+          protocol: UDP
+        syslog:
+          enabled: true
+          port: 5514
+          protocol: UDP
+        discovery:
+          enabled: true
+          port: 10001
+          protocol: UDP
+
+  persistence:
+    data:
+      enabled: true
+      size: 5Gi
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      mountPath: /unifi/data
+
+  resources:
+    requests:
+      cpu: 23m
+      memory: 1390M
+    limits:
+      memory: 1390M

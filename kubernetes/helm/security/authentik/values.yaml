@@ -8,35 +8,43 @@ authentik:
   envValueFrom:
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
+        name: authentik-database-app
         key: password
-        name: authentik.home-authentik.credentials.postgresql.acid.zalan.do
+    AUTHENTIK_BOOTSTRAP_TOKEN:
+      secretKeyRef:
+        name: security-authentik-secrets
+        key: security-authentik-bootstrap-token
+    AUTHENTIK_BOOTSTRAP_PASSWORD:
+      secretKeyRef:
+        name: security-authentik-secrets
+        key: security-authentik-bootstrap-password
     AUTHENTIK_SECRET_KEY:
       secretKeyRef:
-        key: secret_key
-        name: authentik-secrets
-    AUTHENTIK_EMAIL__FROM:
-      secretKeyRef:
-        key: from
-        name: authentik-email
+        name: security-authentik-secrets
+        key: security-authentik-secret-key
     AUTHENTIK_EMAIL__HOST:
-      secretKeyRef:
+      configMapKeyRef:
+        name: authentik-email
         key: host
+    AUTHENTIK_EMAIL__FROM:
+      configMapKeyRef:
         name: authentik-email
-    AUTHENTIK_EMAIL__PASSWORD:
-      secretKeyRef:
-        key: password
-        name: authentik-email
+        key: from
     AUTHENTIK_EMAIL__USERNAME:
       secretKeyRef:
-        key: username
-        name: authentik-email
+        name: security-authentik-secrets
+        key: security-authentik-email-username
+    AUTHENTIK_EMAIL__PASSWORD:
+      secretKeyRef:
+        name: security-authentik-secrets
+        key: security-authentik-email-password
 
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
 
   authentik:
     postgresql:
-      host: home-authentik
+      host: authentik-database-rw
     redis:
       host: authentik-redis-master
 

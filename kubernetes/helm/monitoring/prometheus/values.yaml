@@ -169,8 +169,8 @@ kube-prometheus-stack:
           revision: 1
           datasource: Prometheus
     extraSecretMounts:
-      - name: auth-generic-oauth-secret-mount
-        secretName: auth-generic-oauth-secret
+      - name: grafana-oidc-secrets
+        secretName: grafana-oidc-secrets
         defaultMode: 0440
         mountPath: /etc/secrets/auth_generic_oauth
         readOnly: true
@@ -193,6 +193,9 @@ kube-prometheus-stack:
         signout_redirect_url: https://authentik.k8s.tylercash.dev/application/o/grafana/end-session/
         oauth_auto_login: true
         disable_login_form: true
+      users:
+        auto_assign_org: true
+        auto_assign_org_id: 1
       auth.generic_oauth:
         name: Authentik
         enabled: true
@@ -204,7 +207,7 @@ kube-prometheus-stack:
         token_url: https://authentik.k8s.tylercash.dev/application/o/token/
         api_url: https://authentik.k8s.tylercash.dev/application/o/userinfo/
         tls_skip_verify_insecure: true
-        role_attribute_path: contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-write') && 'Editor' || contains(groups[*], 'grafana-read') && 'Viewer'
+        role_attribute_path: contains(groups[*], 'grafana_admin') && 'Admin' || contains(groups[*], 'grafana') && 'Viewer'
         role_attribute_strict: true
     ingress:
       enabled: true
@@ -241,9 +244,6 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            selector:
-              matchLabels:
-                snapshot.home.arpa/enabled: "false"
             storageClassName: ceph-block
             accessModes: ["ReadWriteOnce"]
             resources:
@@ -277,9 +277,9 @@ kube-prometheus-stack:
   kubeEtcd:
     enabled: true
     endpoints:
-      - 10.0.0.72
-      - 10.0.0.75
-      - 10.0.0.78
+    - 10.0.90.10
+    - 10.0.90.11
+    - 10.0.90.12
     service:
       enabled: true
       port: 2381
@@ -288,9 +288,9 @@ kube-prometheus-stack:
 kubeScheduler:
   enabled: true
   endpoints:
-    - 10.0.0.72
-    - 10.0.0.75
-    - 10.0.0.78
+  - 10.0.90.10
+  - 10.0.90.11
+  - 10.0.90.12
   service:
     enabled: true
   serviceMonitor:
@@ -301,9 +301,9 @@ kubeScheduler:
 kubeProxy:
   enabled: true
   endpoints:
-    - 10.0.0.72
-    - 10.0.0.75
-    - 10.0.0.78
+  - 10.0.90.10
+  - 10.0.90.11
+  - 10.0.90.12
 
 kubeStateMetrics:
   enabled: true
