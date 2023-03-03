@@ -8,5 +8,5 @@ dependencies:
   version: 0.6.4
   repository: https://charts.drone.io
 - name: drone-runner-docker
-  version: 0.6.0
+  version: 0.6.1
   repository: https://charts.drone.io
