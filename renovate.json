@@ -5,6 +5,10 @@
   ],
   "timezone": "Australia/Sydney",
   "ignoreTests": true,
+  "schedule": [
+    "after 4am",
+    "before 7am"
+  ],
   "packageRules": [
     {
       "matchPackageNames": [
