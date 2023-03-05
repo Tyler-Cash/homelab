@@ -5,7 +5,7 @@ kube-prometheus-stack:
     fullNameOverride: alertmanager
     alertmanagerSpec:
       useExistingSecret: true
-      configSecret: alertmanager-config
+      configSecret: alertmanager-secrets
       podAntiAffinity: soft
       resources:
         limits:
@@ -22,37 +22,7 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 50Gi
-    config:
-      global:
-        resolve_timeout: 5m
-        http_config:
-          follow_redirects: true
-      route:
-        receiver: zenduty
-        group_by:
-          - alertname
-        continue: false
-        routes:
-          - receiver: "null"
-            match:
-              alertname: Watchdog
-            continue: false
-          - receiver: zenduty
-            match_re:
-              pod: (.*)
-            continue: false
-        group_wait: 5m
-        group_interval: 10s
-        repeat_interval: 1h
-      inhibit_rules:
-        - source_match:
-            severity: critical
-          target_match:
-            severity: warning
-          equal:
-            - alertname
-            - dev
-            - instance
+
     ingress:
       enabled: true
       hosts:

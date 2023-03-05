@@ -23,6 +23,7 @@ module "secrets_storage" {
   homelab_project_id = var.homelab_project_id
   email_username = var.email_username
   email_password = var.email_password
+  alertmanager_config = var.alertmanager_config
 }
 
 module "dns" {

@@ -46,3 +46,7 @@ variable "email_username" {
 variable "email_password" {
   sensitive = true
 }
+
+variable "alertmanager_config" {
+  sensitive = true
+}
