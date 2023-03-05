@@ -2,7 +2,7 @@
 app-template:
   image:
     repository: ghcr.io/onedr0p/bazarr
-    tag: 1.2.0
+    tag: 1.1.4
     pullPolicy: IfNotPresent
 
   podAnnotations:
