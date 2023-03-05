@@ -45,11 +45,11 @@ rook-ceph-cluster:
           memory: "500Mi"
       osd:
         requests:
-          cpu: "300m"
+          cpu: "200m"
           memory: "1.5Gi"
       prepareosd:
         requests:
-          cpu: "500m"
+          cpu: "100m"
           memory: "50Mi"
       mgr-sidecar:
         requests:
@@ -65,7 +65,7 @@ rook-ceph-cluster:
           memory: "100Mi"
       cleanup:
         requests:
-          cpu: "500m"
+          cpu: "200m"
           memory: "100Mi"
   cephBlockPools:
     - name: ceph-blockpool
@@ -270,9 +270,6 @@ rook-ceph-cluster:
           # sslCertificateRef:
           instances: 1
           priorityClassName: system-cluster-critical
-        healthCheck:
-          bucket:
-            interval: 60s
       storageClass:
         enabled: true
         name: ceph-bucket

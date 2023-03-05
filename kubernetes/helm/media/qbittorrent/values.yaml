@@ -137,8 +137,8 @@ app-template:
 
   resources:
     limits:
-      cpu: 1500m
+      cpu: 800m
       memory: 2Gi
     requests:
-      cpu: 1000m
-      memory: 1.5Gi
+      cpu: 300m
+      memory: 1.3Gi

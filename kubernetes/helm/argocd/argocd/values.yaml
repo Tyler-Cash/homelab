@@ -1,16 +1,18 @@
 argo-cd:
   redis-ha:
     enabled: true
+    topologySpreadConstraints:
+      enabled: true
+      maxSkew: 1
+      topologyKey: kubernetes.io/hostname
     pdb:
       enabled: true
       minAvailable: 1
     resources:
-      limits:
-        cpu: 200m
-        memory: 400Mi
       requests:
         cpu: 100m
         memory: 300Mi
+
   server:
     replicas: 2
     pdb:
@@ -26,7 +28,8 @@ argo-cd:
       tls:
         - hosts:
             - *host
-          secretName: argocd-tylercash-dev-letsencrypt # do not change, this is provided by Argo CD
+          secretName: argocd-tylercash-dev-letsencrypt
+
   configs:
     params:
       applicationsetcontroller.policy: "create-only"
@@ -57,6 +60,7 @@ argo-cd:
           - profile
           - email
         oidc.tls.insecure.skip.verify: true
+
   rbac:
     policy.csv: |
       g, argo-admin, role:admin
@@ -78,8 +82,6 @@ argo-cd:
     pdb:
       enabled: true
       minAvailable: 1
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        namespace: monitoring
+
+  global:
+    priorityClassName: system-cluster-critical

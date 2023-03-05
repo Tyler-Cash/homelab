@@ -71,3 +71,5 @@ authentik:
       create: true
     rules:
       create: true
+
+  priorityClassName: system-cluster-critical
