@@ -20,17 +20,16 @@
       "automergeType": "branch",
       "automerge": true
     },
+
     {
-      "matchUpdateTypes": ["major"],
-      "excludePackageNames": ["rook-ceph", "rook-ceph-cluster", "argo-cd"],
-      "matchCurrentVersion": "!/^0/",
-      "automerge": true
-    },
-    {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
       "matchPackageNames": ["descheduler", "ghcr.io/bjw-s/calibre-web", "ghcr.io/onedr0p/readarr-develop"],
       "matchCurrentVersion": "<=1.0.0",
       "automerge": true
+    },
+    {
+      "extends": ["schedule:monthly"],
+      "matchPackageNames": ["metallb", "volsync", "rook-ceph", "rook-ceph-cluster", "argo-cd"]
     }
   ]
 }
