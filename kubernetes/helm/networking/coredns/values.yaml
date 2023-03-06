@@ -2,9 +2,11 @@ coredns:
   extraVolumeMounts:
   - name: coredns-blacklist
     mountPath: /blacklist
+
   extraVolumes:
   - name: coredns-blacklist
-    emptyDir: {}
+    persistentVolumeClaim:
+      claimName: coredns-blacklist
 
   resources:
     limits:
@@ -82,6 +84,12 @@ coredns:
     - name: errors
     - name: forward
       parameters: k8s.tylercash.dev dns://10.0.90.149
+    - name: hosts
+      parameters: /blacklist/hosts.blacklist
+      configBlock: |-
+        reload 3600s
+        no_reverse
+        fallthrough
     - name: loop
     - name: reload
     - name: loadbalance

@@ -22,3 +22,6 @@ spec:
           restartPolicy: OnFailure
           volumes:
           - name: coredns-blacklist
+            persistentVolumeClaim:
+              claimName: coredns-blacklist
+              readOnly: false
