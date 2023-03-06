@@ -41,6 +41,7 @@ tasks:
         jq
         kubernetes-cli
         kustomize
+        kyverno
         pre-commit
         prettier
         stern

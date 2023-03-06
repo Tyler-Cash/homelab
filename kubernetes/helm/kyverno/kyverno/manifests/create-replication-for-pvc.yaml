@@ -6,6 +6,11 @@ spec:
   generateExistingOnPolicyUpdate: true
   rules:
     - name: create-replication-for-pvc
+      context:
+        - name: storageClassName
+          apiCall:
+            urlPath: "/api/v1/namespaces/{{request.object.metadata.namespace}}/persistentvolumeclaims/{{request.object.metadata.name}}"
+            jmesPath: "spec.storageClassName"
       match:
         any:
           - resources:
@@ -39,6 +44,7 @@ spec:
                 weekly: 4
                 monthly: 2
                 yearly: 1
+              storageClassName: "{{storageClassName}}"
               copyMethod: Clone
     - name: create-restic-config
       context:
