@@ -50,6 +50,8 @@ authentik:
 
   ingress:
     enabled: true
+    annotations:
+      external-dns.home.arpa/enabled: "true"
     hosts:
       - host: authentik.k8s.tylercash.dev
         paths:
