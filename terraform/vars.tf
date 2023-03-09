@@ -50,3 +50,7 @@ variable "email_password" {
 variable "alertmanager_config" {
   sensitive = true
 }
+
+variable "tailscale_authkey" {
+  sensitive = true
+}

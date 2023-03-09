@@ -17,7 +17,7 @@ resource "google_secret_manager_secret" "storage" {
 resource "google_secret_manager_secret_version" "storage_version" {
   for_each = local.storage_secrets
 
-  secret = google_secret_manager_secret.s[each.key].id
+  secret = google_secret_manager_secret.storage[each.key].id
 
-  secret_data = ""
+  secret_data = each.value // .secret
 }

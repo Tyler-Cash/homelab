@@ -24,6 +24,7 @@ module "secrets_storage" {
   email_username = var.email_username
   email_password = var.email_password
   alertmanager_config = var.alertmanager_config
+  tailscale_authkey = var.tailscale_authkey
 }
 
 module "dns" {
