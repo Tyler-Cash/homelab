@@ -19,6 +19,6 @@ tasks:
       - kubectl -n storage get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode
 
   clear:
-    desc: Clear all Ceph health warnings 
+    desc: Clear all Ceph health warnings
     cmds:
-      - kubectl -n storage exec -it deploy/rook-ceph-tools ceph crash archive-all
+      - kubectl -n storage exec -it deploy/rook-ceph-tools -- bash -c "ceph crash archive-all"
