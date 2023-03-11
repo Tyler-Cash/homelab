@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: lscr.io/linuxserver/calibre
-    tag: 6.13.0
+    tag: 6.14.0
 
   env:
     PUID: 568
