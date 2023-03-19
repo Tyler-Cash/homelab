@@ -124,7 +124,7 @@ app-template:
       enabled: true
       storageClass: ceph-block-1rep
       accessMode: ReadWriteOnce
-      size: 250Gi
+      size: 500Gi
       labels:
         snapshot.home.arpa/enabled: "false"
     share:
