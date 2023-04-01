@@ -27,6 +27,10 @@ rook-ceph-cluster:
     storage:
       useAllNodes: true
       useAllDevices: true
+    mgr:
+      modules:
+        - name: pg_autoscaler
+          enabled: true
     dashboard:
       enabled: true
       ssl: true

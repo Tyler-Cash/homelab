@@ -47,16 +47,14 @@ spec:
                   ceph mgr module enable diskprediction_local
 
                   echo "Configure PG autoscaler"
-                  ceph config set global osd_pool_default_pg_autoscale_mode on
-                  for pool in $(ceph osd lspools |  sed 's/^[0-9]\+//' | tr -d '\n'); do
-                    ceph osd pool set ${pool} pg_autoscale_mode on
+                  for pool in $(ceph osd lspools | sed 's/^[0-9]\+//' | tr -d '\n'); do
+                    ceph osd pool set ${pool} pg_num 8
                   done
-                  ceph osd pool set ceph-blockpool target_size_bytes 300G
-                  ceph osd pool set ceph-filesystem-hdd-data0 target_size_bytes 15T
+                  ceph config set global mon_target_pg_per_osd 100
+                  ceph config set mon mon_max_pg_per_osd 500
 
                   echo "Configure disk prediction"
                   ceph config set global device_failure_prediction_mode local
-
                   if ceph dashboard sso status | grep "disabled"; then
                     echo "Configuring SAML"
                     ceph dashboard sso setup saml2 https://ceph.k8s.tylercash.dev https://authentik.k8s.tylercash.dev/api/v3/providers/saml/5/metadata/?download http://schemas.goauthentik.io/2021/02/saml/username
