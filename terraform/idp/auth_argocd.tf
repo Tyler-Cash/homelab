@@ -26,7 +26,7 @@ resource "authentik_application" "argocd_application" {
   name = authentik_provider_oauth2.argocd_ouath2.name
   slug = authentik_provider_oauth2.argocd_ouath2.name
   protocol_provider = authentik_provider_oauth2.argocd_ouath2.id
-  meta_icon = "https://cncf-branding.netlify.app/img/projects/argo/icon/color/argo-icon-color.svg"
+  meta_icon = "https://cncf-branding.netlify.app/img/projects/argo/icon/white/argo-icon-white.svg"
   meta_launch_url = "https://argocd.k8s.tylercash.dev/applications"
   policy_engine_mode = "all"
 }
@@ -44,4 +44,23 @@ resource "kubernetes_secret" "argocd-oidc-secrets" {
     "oidc.authentik.client_id" = authentik_provider_oauth2.argocd_ouath2.client_id
     "oidc.authentik.client_secret" = authentik_provider_oauth2.argocd_ouath2.client_secret
   }
+}
+
+resource "authentik_policy_binding" "argocd_stop_brute_force_username" {
+  target = authentik_application.argocd_application.uuid
+  policy = authentik_policy_reputation.minimum_username_reputation.id
+  order  = 0
+  negate = true
+}
+resource "authentik_policy_binding" "argocd_stop_brute_force_ip" {
+  target = authentik_application.argocd_application.uuid
+  policy = authentik_policy_reputation.minimum_ip_reputation.id
+  order  = authentik_policy_binding.argocd_stop_brute_force_username.order + 1
+  negate = true
+}
+
+resource "authentik_policy_binding" "argocd_is_enabled" {
+  target = authentik_application.argocd_application.uuid
+  policy = authentik_policy_expression.account_enabled.id
+  order  = authentik_policy_binding.argocd_stop_brute_force_ip.order + 1
 }

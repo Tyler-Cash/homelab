@@ -29,3 +29,21 @@ resource "authentik_application" "ceph_application" {
   policy_engine_mode = "all"
 }
 
+resource "authentik_policy_binding" "ceph_stop_brute_force_username" {
+  target = authentik_application.ceph_application.uuid
+  policy = authentik_policy_reputation.minimum_username_reputation.id
+  order  = 0
+  negate = true
+}
+resource "authentik_policy_binding" "ceph_stop_brute_force_ip" {
+  target = authentik_application.ceph_application.uuid
+  policy = authentik_policy_reputation.minimum_ip_reputation.id
+  order  = authentik_policy_binding.ceph_stop_brute_force_username.order + 1
+  negate = true
+}
+
+resource "authentik_policy_binding" "ceph_is_enabled" {
+  target = authentik_application.ceph_application.uuid
+  policy = authentik_policy_expression.account_enabled.id
+  order  = authentik_policy_binding.ceph_stop_brute_force_ip.order + 1
+}

@@ -31,3 +31,22 @@ resource "authentik_outpost" "jellyfin_outpost" {
     authentik_provider_ldap.jellyfin_ldap.id
   ]
 }
+
+resource "authentik_policy_binding" "jellyfin_stop_brute_force_username" {
+  target = authentik_application.jellyfin_application.uuid
+  policy = authentik_policy_reputation.minimum_username_reputation.id
+  order  = 0
+  negate = true
+}
+resource "authentik_policy_binding" "jellyfin_stop_brute_force_ip" {
+  target = authentik_application.jellyfin_application.uuid
+  policy = authentik_policy_reputation.minimum_ip_reputation.id
+  order  = authentik_policy_binding.jellyfin_stop_brute_force_username.order + 1
+  negate = true
+}
+
+resource "authentik_policy_binding" "jellyfin_is_enabled" {
+  target = authentik_application.jellyfin_application.uuid
+  policy = authentik_policy_expression.account_enabled.id
+  order  = authentik_policy_binding.jellyfin_stop_brute_force_ip.order + 1
+}
