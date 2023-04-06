@@ -5,6 +5,7 @@ rook-ceph-cluster:
     # Default of 0.05 is too aggressive for my cluster. (seconds)
     mon clock drift allowed = 0.1
     mon_data_avail_warn = 10
+    mon_max_pg_per_osd = 500  #  depends on your amount of PGs
   monitoring:
     enabled: true
     createPrometheusRules: true
@@ -40,34 +41,63 @@ rook-ceph-cluster:
         prometheus.io/port: "9102"
     resources:
       mgr:
+        limits:
+          cpu: "1000m"
+          memory: "1Gi"
         requests:
           cpu: "250m"
           memory: "512Mi"
       mon:
+        limits:
+          cpu: "2000m"
+          memory: "2Gi"
         requests:
           cpu: "150m"
           memory: "500Mi"
       osd:
+        limits:
+          cpu: "2000m"
+          memory: "4Gi"
         requests:
           cpu: "200m"
           memory: "1.5Gi"
       prepareosd:
+        # limits: It is not recommended to set limits on the OSD prepare job
+        #         since it's a one-time burst for memory that must be allowed to
+        #         complete without an OOM kill.  Note however that if a k8s
+        #         limitRange guardrail is defined external to Rook, the lack of
+        #         a limit here may result in a sync failure, in which case a
+        #         limit should be added.  1200Mi may suffice for up to 15Ti
+        #         OSDs ; for larger devices 2Gi may be required.
+        #         cf. https://github.com/rook/rook/pull/11103
         requests:
           cpu: "100m"
           memory: "50Mi"
       mgr-sidecar:
+        limits:
+          cpu: "500m"
+          memory: "100Mi"
         requests:
           cpu: "100m"
           memory: "40Mi"
       crashcollector:
+        limits:
+          cpu: "500m"
+          memory: "60Mi"
         requests:
           cpu: "50m"
           memory: "60Mi"
       logcollector:
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
         requests:
           cpu: "100m"
           memory: "100Mi"
       cleanup:
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
         requests:
           cpu: "200m"
           memory: "100Mi"
