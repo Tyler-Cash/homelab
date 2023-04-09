@@ -47,7 +47,7 @@ spec:
                   ceph mgr module enable diskprediction_local
 
                   echo "Configure PG autoscaler"
-                  for pool in $(ceph osd lspools | sed 's/^[0-9]\+//' | tr -d '\n'); do
+                  for pool in $(ceph osd lspools | sed 's/^[0-9]\+//' | grep -v "\-metadata" | tr -d '\n'); do
                     ceph osd pool set ${pool} pg_num 8
                   done
                   ceph config set global mon_target_pg_per_osd 100
