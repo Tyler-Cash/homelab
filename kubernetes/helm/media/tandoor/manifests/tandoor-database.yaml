@@ -1,0 +1,52 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: &name tandoor-database
+spec:
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    # Create a new DB, refer to authentik-database
+    recovery:
+      database: tandoor
+      owner: tandoor
+      source: *name
+  storage:
+    storageClass: local-path
+    size: 5Gi
+
+  monitoring:
+    enablePodMonitor: true
+
+  externalClusters:
+    - name: *name
+      barmanObjectStore: &barmanObjectStore
+        destinationPath: "s3://homelab-k8s-tcash/"
+        endpointURL: https://s3.us-east-005.backblazeb2.com
+        serverName: *name
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        s3Credentials:
+          accessKeyId:
+            name: cloudnativepg-secrets
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: cloudnativepg-secrets
+            key: AWS_SECRET_ACCESS_KEY
+
+  backup:
+    retentionPolicy: 180d
+    barmanObjectStore:
+      <<: *barmanObjectStore
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: tandoor-backup
+spec:
+  immediate: true
+  schedule: "@daily"
+  backupOwnerReference: self
+  cluster:
+    name: tandoor-database
