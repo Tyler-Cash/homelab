@@ -3,6 +3,6 @@ kind: PriorityClass
 metadata:
   name: normal-priority
 value: 100
-preemptionPolicy: Never
+preemptionPolicy: PreemptLowerPriority
 globalDefault: true
 description: "Normal priority for all pods."
