@@ -6,14 +6,14 @@ spec:
   instances: 3
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    recovery:
-      database: authentik
-      owner: authentik
-      source: *name
-    # Create a new DB, hopefully never needed!
-    # initdb:
-    #   database: authentik
-    #   owner: authentik
+#    recovery:
+#      database: authentik
+#      owner: authentik
+#      source: *name
+#     Create a new DB, hopefully never needed!
+     initdb:
+       database: authentik
+       owner: authentik
   storage:
     storageClass: local-path
     size: 5Gi
@@ -21,27 +21,6 @@ spec:
   monitoring:
     enablePodMonitor: true
 
-  externalClusters:
-    - name: *name
-      barmanObjectStore: &barmanObjectStore
-        destinationPath: "s3://homelab-k8s-tcash/"
-        endpointURL: https://s3.us-east-005.backblazeb2.com
-        serverName: *name
-        wal:
-          compression: bzip2
-          maxParallel: 8
-        s3Credentials:
-          accessKeyId:
-            name: cloudnativepg-secrets
-            key: AWS_ACCESS_KEY_ID
-          secretAccessKey:
-            name: cloudnativepg-secrets
-            key: AWS_SECRET_ACCESS_KEY
-
-  backup:
-    retentionPolicy: 180d
-    barmanObjectStore:
-      <<: *barmanObjectStore
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
