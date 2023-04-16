@@ -21,6 +21,11 @@ spec:
   monitoring:
     enablePodMonitor: true
 
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred
+
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
