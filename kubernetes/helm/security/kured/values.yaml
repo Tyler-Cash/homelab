@@ -7,6 +7,7 @@ kured:
     endTime: "09:00"
     preferNoScheduleTaint: "weave.works/kured-node-reboot"
     drainGracePeriod: 300
+    forceReboot: true
     drainTimeout: 7m
     annotateNodes: true
 
@@ -18,3 +19,8 @@ kured:
   - key: "master"
     operator: "Exists"
     effect: "NoSchedule"
+
+  resources:
+    requests:
+      cpu: "1m"
+      memory: "100Mi"

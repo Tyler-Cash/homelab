@@ -1,0 +1,31 @@
+app-template:
+  image:
+    repository: ghcr.io/tyler-cash/tylercash-api
+    tag: 1.0.0-SNAPSHOT
+    pullPolicy: Always
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8080
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: api.k8s.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                port: 8080
+      tls:
+        - secretName: api-letsencrypt-certificate
+          hosts:
+            - api.k8s.tylercash.dev
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
