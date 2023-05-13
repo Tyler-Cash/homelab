@@ -44,7 +44,7 @@ After that the terraform process needs to be run to onboard necessary secrets an
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
 - [volsync](https://github.com/backube/volsync) and [snapscheduler](https://github.com/backube/snapscheduler): Backup and recovery of persistent volume claims.
 
-### Directories (TODO update)
+### Directories
 
 This Git repository contains the following directories.
 
