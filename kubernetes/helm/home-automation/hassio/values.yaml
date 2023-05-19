@@ -18,6 +18,7 @@ app-template:
       enabled: true
       annotations:
         nginx.org/websocket-services: hassio
+        external-dns.home.arpa/enabled: "true"
       hosts:
         - host: &host "hassio.k8s.tylercash.dev"
           paths:
