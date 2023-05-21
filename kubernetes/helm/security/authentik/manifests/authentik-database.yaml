@@ -25,37 +25,3 @@ spec:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: preferred
-
-  externalClusters:
-    - name: *name
-      barmanObjectStore: &barmanObjectStore
-        destinationPath: "s3://homelab-k8s-tcash/"
-        endpointURL: https://s3.us-east-005.backblazeb2.com
-        serverName: *name
-        wal:
-          compression: bzip2
-          maxParallel: 8
-        s3Credentials:
-          accessKeyId:
-            name: cloudnativepg-secrets
-            key: AWS_ACCESS_KEY_ID
-          secretAccessKey:
-            name: cloudnativepg-secrets
-            key: AWS_SECRET_ACCESS_KEY
-
-  backup:
-    retentionPolicy: 180d
-    barmanObjectStore:
-      <<: *barmanObjectStore
-
----
-apiVersion: postgresql.cnpg.io/v1
-kind: ScheduledBackup
-metadata:
-  name: authentik-backup
-spec:
-  immediate: true
-  schedule: "@weekly"
-  backupOwnerReference: self
-  cluster:
-    name: authentik-database
