@@ -37,7 +37,7 @@ spec:
               schedule: "0 5 * * *"
             restic:
               pruneIntervalDays: 14
-              repository: &restic_name "{{request.object.metadata.name}}"
+              repository: &restic_name "restic-{{request.object.metadata.name}}"
               retain:
                 hourly: 10
                 daily: 5
@@ -51,7 +51,7 @@ spec:
         - name: restic
           configMap:
             name: restic-config
-            namespace: security
+            namespace: kyverno
       match:
         any:
           - resources:
@@ -73,7 +73,35 @@ spec:
             name: *restic_name
             namespace: *restic_namespace
           stringData:
-            RESTIC_REPOSITORY: "{{restic.data.RESTIC_REPOSITORY}}/{{request.object.metadata.name}}/"
+            RESTIC_REPOSITORY: "{{restic.data.RESTIC_REPOSITORY}}:{{request.object.metadata.name}}/"
             RESTIC_PASSWORD: "{{restic.data.RESTIC_PASSWORD}}"
-            AWS_ACCESS_KEY_ID: "{{restic.data.AWS_ACCESS_KEY_ID}}"
-            AWS_SECRET_ACCESS_KEY: "{{restic.data.AWS_SECRET_ACCESS_KEY}}"
+            GOOGLE_PROJECT_ID: "{{restic.data.GOOGLE_PROJECT_ID}}"
+            GOOGLE_APPLICATION_CREDENTIALS: "/tmp/creds/GCP_BACKUP_CREDS"
+    # Inject GCP creds into Volsync pod
+    - name: inject-gcp-creds-into-volsync
+      context:
+        - name: restic
+          configMap:
+            name: restic-config
+            namespace: kyverno
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              selector:
+                matchLabels:
+                  app.kubernetes.io/created-by: volsync
+      mutate:
+        patchStrategicMerge:
+          spec:
+            containers:
+              - (name): "*"
+                volumeMounts:
+                  - mountPath: "/tmp/creds/"
+                    name: gcp-mount
+                    readOnly: true
+            volumes:
+              - name: gcp-mount
+                secret:
+                  secretName: gcp-creds

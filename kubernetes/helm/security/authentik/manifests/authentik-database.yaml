@@ -25,3 +25,30 @@ spec:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: preferred
+
+  externalClusters:
+    - name: *name
+      barmanObjectStore: &barmanObjectStore
+        destinationPath: "s3://homelab-k8s-tcash/"
+        serverName: *name
+        googleCredentials:
+          applicationCredentials:
+            name: cloudnativepg-secrets
+            key: gcsCredentials
+
+  backup:
+    retentionPolicy: 180d
+    barmanObjectStore:
+      <<: *barmanObjectStore
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: authentik-backup
+spec:
+  immediate: true
+  schedule: "@weekly"
+  backupOwnerReference: self
+  cluster:
+    name: authentik-database

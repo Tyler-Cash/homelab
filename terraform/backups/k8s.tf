@@ -1,18 +1,30 @@
 resource "kubernetes_config_map" "restic-config" {
   metadata {
     name = "restic-config"
-    namespace = "security"
+    # Create in Kyverno's namespace so kyverno can propogate it as needed
+    namespace = "kyverno"
   }
 
   data = {
-    RESTIC_REPOSITORY = "s3:s3.us-east-005.backblazeb2.com/${b2_bucket.backup_bucket.bucket_name}"
-    RESTIC_PASSWORD = "my-secure-restic-password"
+    RESTIC_REPOSITORY = google_storage_bucket.backup-bucket.url
+    # Merely to complicate unapproved access to backup files
+    # Targeted attacks and data access would be successful
+    RESTIC_PASSWORD = "H8%G3SN!MJb^65rBNk4@Ug4ZASRfsD*JKwQPi8aehh^2tq*@gyUJ@W2z4T#o&cQD5ry*GdYHJ&"
+    GOOGLE_PROJECT_ID = google_project.homelab_backups.id
+  }
+}
 
-    //noinspection HILUnresolvedReference
-    AWS_ACCESS_KEY_ID = b2_application_key.backup_key.application_key_id
-    //noinspection HILUnresolvedReference
-    AWS_SECRET_ACCESS_KEY = b2_application_key.backup_key.application_key
-    AWS_DEFAULT_REGION = "us-east-005"
+resource "kubernetes_secret" "gcp-creds" {
+  metadata {
+    name = "gcp-creds"
+    namespace = "kyverno"
+    annotations = {
+      "kubed.appscode.com/sync"= ""
+    }
+  }
+
+  data = {
+    GCP_BACKUP_CREDS = base64decode(google_service_account_key.backup_operator_key.private_key)
   }
 }
 
@@ -23,10 +35,8 @@ resource "kubernetes_secret" "cloudnativepg-secrets" {
   }
 
   data = {
-    destination = "s3://s3.us-east-005.backblazeb2.com/${b2_bucket.backup_bucket.bucket_name}"
-    //noinspection HILUnresolvedReference
-    AWS_ACCESS_KEY_ID = b2_application_key.backup_key.application_key_id
-    //noinspection HILUnresolvedReference
-    AWS_SECRET_ACCESS_KEY = b2_application_key.backup_key.application_key
+    destination = "${google_storage_bucket.backup-bucket.url}/"
+    GOOGLE_PROJECT_ID = google_project.homelab_backups.id
+    GOOGLE_APPLICATION_CREDENTIALS = base64decode(google_service_account_key.backup_operator_key.private_key)
   }
 }

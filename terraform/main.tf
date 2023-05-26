@@ -20,7 +20,7 @@ provider "kubernetes" {
 
 module "secrets_storage" {
   source = "./secrets_storage"
-  homelab_project_id = var.homelab_project_id
+  homelab_project_id = "${var.homelab_project_prefix}-external-secrets-op"
   email_username = var.email_username
   email_password = var.email_password
   alertmanager_config = var.alertmanager_config
@@ -45,4 +45,8 @@ module "backups" {
   b2_app_key = var.b2_app_key
   b2_app_key_id = var.b2_app_key_id
   b2_app_key_name = var.b2_app_key_name
+  homelab_project_id = "${var.homelab_project_prefix}-backups"
+
+  email_username = var.email_username
+  email_password = var.email_password
 }

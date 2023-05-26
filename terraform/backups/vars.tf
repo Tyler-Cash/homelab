@@ -18,3 +18,12 @@ variable "b2_app_key" {
   type = string
   sensitive = true
 }
+
+variable "homelab_project_id" {}
+
+variable "email_username" {
+  sensitive = true # Sensitive as value is a key, not a username
+}
+variable "email_password" {
+  sensitive = true
+}

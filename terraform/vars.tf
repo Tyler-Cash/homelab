@@ -11,7 +11,7 @@ variable "homelab_account_id" {
     type = string
 }
 
-variable "homelab_project_id" {
+variable "homelab_project_prefix" {
     type = string
 }
 
