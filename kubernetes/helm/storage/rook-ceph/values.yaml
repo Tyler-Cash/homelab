@@ -134,7 +134,7 @@ rook-ceph-cluster:
       storageClass:
         enabled: true
         name: ceph-no-class
-        isDefault: true
+        isDefault: false
         reclaimPolicy: Delete
         allowVolumeExpansion: true
         mountOptions: []
@@ -316,7 +316,7 @@ rook-ceph-cluster:
   cephFileSystemVolumeSnapshotClass:
     enabled: true
     name: ceph-filesystem
-    isDefault: true
+    isDefault: false
     deletionPolicy: Delete
     annotations:
       k10.kasten.io/is-snapshot-class: "true"
