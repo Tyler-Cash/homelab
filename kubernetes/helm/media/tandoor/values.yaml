@@ -2,7 +2,7 @@
 app-template:
   image:
     repository: vabene1111/recipes
-    tag: 1.4.9
+    tag: 1.4.12
     pullPolicy: IfNotPresent
 
   service:
