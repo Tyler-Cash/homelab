@@ -3,7 +3,7 @@ collections:
   - name: community.general
     version: 6.6.0
   - name: ansible.posix
-    version: 1.5.2
+    version: 1.5.4
   - name: ansible.utils
     version: 2.9.0
   - name: kubernetes.core
