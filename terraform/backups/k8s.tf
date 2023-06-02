@@ -6,7 +6,7 @@ resource "kubernetes_config_map" "restic-config" {
   }
 
   data = {
-    RESTIC_REPOSITORY = google_storage_bucket.backup-bucket.url
+    RESTIC_REPOSITORY = "gs:${google_storage_bucket.backup-bucket.name}"
     # Merely to complicate unapproved access to backup files
     # Targeted attacks and data access would be successful
     RESTIC_PASSWORD = "H8%G3SN!MJb^65rBNk4@Ug4ZASRfsD*JKwQPi8aehh^2tq*@gyUJ@W2z4T#o&cQD5ry*GdYHJ&"
