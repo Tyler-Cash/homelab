@@ -1,10 +1,21 @@
----
 app-template:
   image:
     repository: vabene1111/recipes
     tag: 1.4.12
     pullPolicy: IfNotPresent
 
+  command:
+    - /opt/recipes/venv/bin/gunicorn
+    - -b
+    - :8080
+    - --access-logfile
+    - "-"
+    - --error-logfile
+    - "-"
+    - --log-level
+    - INFO
+    - recipes.wsgi
+    -
   service:
     main:
       ports:
@@ -15,46 +26,71 @@ app-template:
     main:
       enabled: true
       hosts:
-        - host: &hostname tandoor.k8s.tylercash.dev
+        - host: &host tandoor.k8s.tylercash.dev
           paths:
             - path: /
               pathType: Prefix
               service:
                 port: *port
       tls:
-        - secretName: tandoor-letsencrypt-certificate
-          hosts:
-            - *hostname
+        - secretName: recipes-letsencrypt-certificate
+          hosts: [*host]
 
   persistence:
+    files:
+      enabled: true
+      mountPath: /opt/recipes/mediafiles
+      storageClass: ceph-block
+      size: 1Gi
+      accessMode: ReadWriteOnce
+
+    nginx-config:
+      enabled: "true"
+      mountPath: /etc/nginx/nginx.conf
+      subPath: nginx-config
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: tandoor-nginx
+
+    django-js-reverse:
+      enabled: true
+      type: emptyDir
+      mountPath: /opt/recipes/cookbook/static/django_js_reverse
+      storageClass: ceph-block
+      size: 1Gi
+      accessMode: ReadWriteOnce
+
     static:
       enabled: true
-      storageClass: ceph-block
-      size: 1Gi
-      accessMode: ReadWriteOnce
       mountPath: /opt/recipes/staticfiles
+      type: emptyDir
 
-    media:
+    cache:
       enabled: true
-      storageClass: ceph-block
-      size: 1Gi
-      accessMode: ReadWriteOnce
-      mountPath: /opt/recipes/mediafiles
+      mountPath: /mnt/cache
+      type: emptyDir
+
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
 
   resources:
     requests:
       cpu: 100m
       memory: 256Mi
 
-  env:
+
+  env: &env
     DB_ENGINE: django.db.backends.postgresql
     POSTGRES_HOST: tandoor-database-rw
-    POSTGRES_PORT: 5432
     POSTGRES_DB: tandoor
     SECRET_KEY:
       secretKeyRef:
-        name: tandoor-database-app
-        key: password
+        name: media-tandoor-secrets
+        key: media-tandoor-secret-key
     POSTGRES_USER:
       secretKeyRef:
         name: tandoor-database-app
@@ -63,3 +99,24 @@ app-template:
       secretKeyRef:
         name: tandoor-database-app
         key: password
+
+  initContainers:
+    init-migrate:
+      name: init-migrate
+      image: vabene1111/recipes:1.4.9
+      command:
+        - sh
+        - -c
+        - |
+          set -e
+          source /opt/recipes/venv/bin/activate
+          echo "Updating database"
+          python3 /opt/recipes/manage.py migrate
+          python3 /opt/recipes/manage.py collectstatic_js_reverse
+          python3 /opt/recipes/manage.py collectstatic --noinput
+      env: *env
+      volumeMounts:
+        - name: django-js-reverse
+          mountPath: /opt/recipes/cookbook/static/django_js_reverse
+        - name: static
+          mountPath: /opt/recipes/staticfiles
