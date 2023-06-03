@@ -172,8 +172,7 @@ kube-prometheus-stack:
         token_url: https://authentik.k8s.tylercash.dev/application/o/token/
         api_url: https://authentik.k8s.tylercash.dev/application/o/userinfo/
         tls_skip_verify_insecure: true
-        role_attribute_path: contains(groups[*], 'grafana_admin') && 'Admin' || contains(groups[*], 'grafana') && 'Viewer'
-        role_attribute_strict: true
+        role_attribute_path: contains(groups[*], 'grafana_admin') && 'Admin' || contains(groups[*], 'admin') && 'Admin' || contains(groups[*], 'grafana') && 'Viewer'
     ingress:
       enabled: true
       annotations:
