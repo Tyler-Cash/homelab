@@ -140,5 +140,5 @@ app-template:
       cpu: 800m
       memory: 2Gi
     requests:
-      cpu: 300m
+      cpu: 30m
       memory: 1.3Gi

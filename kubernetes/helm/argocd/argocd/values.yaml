@@ -1,4 +1,5 @@
 argo-cd:
+
   redis-ha:
     enabled: true
     topologySpreadConstraints:
@@ -14,6 +15,8 @@ argo-cd:
         memory: 300Mi
 
   server:
+    metrics:
+      enabled: true
     replicas: 2
     pdb:
       enabled: true
@@ -66,22 +69,29 @@ argo-cd:
       g, argo-admin, role:admin
 
   controller:
+    metrics:
+      enabled: true
     replicas: 2
     pdb:
       enabled: true
       minAvailable: 1
 
   repoServer:
+    metrics:
+      enabled: true
     replicas: 2
 
   applicationSet:
     replicaCount: 2
 
   dex:
+    metrics:
+      enabled: true
     enabled: true
     pdb:
       enabled: true
       minAvailable: 1
 
   global:
+    addPrometheusAnnotations: true
     priorityClassName: system-cluster-critical

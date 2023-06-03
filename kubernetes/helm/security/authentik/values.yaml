@@ -75,3 +75,13 @@ authentik:
       create: true
 
   priorityClassName: system-cluster-critical
+
+
+  resources:
+    server:
+      requests:
+        cpu: 5m
+
+    worker:
+      requests:
+        cpu: 5m

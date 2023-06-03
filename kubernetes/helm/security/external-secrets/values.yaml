@@ -3,7 +3,11 @@ external-secrets:
 
   serviceMonitor:
     enabled: true
-  
+
   webhook:
     serviceMonitor:
       enabled: true
+
+  resources:
+    requests:
+      cpu: "10m"

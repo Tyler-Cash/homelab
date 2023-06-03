@@ -55,5 +55,5 @@ app-template:
       cpu: 500m
       memory: 606Mi
     requests:
-      cpu: 400m
+      cpu: 100m
       memory: 500Mi

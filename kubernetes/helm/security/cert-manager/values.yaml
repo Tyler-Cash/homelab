@@ -11,7 +11,7 @@ cert-manager:
       cpu: "30m"
       memory: "64Mi"
     requests:
-      cpu: "10m"
+      cpu: "1m"
       memory: "32Mi"
 
   webhook.resources:
@@ -19,7 +19,7 @@ cert-manager:
       cpu: "30m"
       memory: "64Mi"
     requests:
-      cpu: "10m"
+      cpu: "1m"
       memory: "32Mi"
 
   cainjector.resources:
@@ -27,7 +27,7 @@ cert-manager:
       cpu: "30m"
       memory: "64Mi"
     requests:
-      cpu: "10m"
+      cpu: "1m"
       memory: "32Mi"
 
   ingressShim:

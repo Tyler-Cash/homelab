@@ -1,1 +1,5 @@
-kubed: {}
+kubed:
+  operator:
+    resources:
+      requests:
+        cpu: "1m"
