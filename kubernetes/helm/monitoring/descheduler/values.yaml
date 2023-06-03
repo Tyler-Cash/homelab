@@ -1,0 +1,61 @@
+descheduler:
+  kind: Deployment
+  schedule: "*/5 * * * *"
+  deschedulerPolicy:
+    strategies:
+      RemovePodsHavingTooManyRestarts:
+        enabled: true
+        params:
+          podsHavingTooManyRestarts:
+            podRestartThreshold: 10
+            includingInitContainers: true
+      RemovePodsViolatingTopologySpreadConstraint:
+        enabled: true
+        params:
+          includeSoftConstraints: true
+      PodLifeTime:
+        enabled: true
+        params:
+          podLifeTime:
+            states:
+              - Pending
+              - PodInitializing
+              - ContainerCreating
+            maxPodLifeTimeSeconds: 3600
+      RemoveFailedPods:
+        enabled: true
+        params:
+          failedPods:
+            reasons:
+              - NodeShutdown
+              - ImagePullBackOff
+              - CreateContainerConfigError
+            includingInitContainers: true
+            excludeOwnerKinds:
+              - Job
+            minPodLifetimeSeconds: 3600
+      RemoveDuplicates:
+        enabled: true
+      RemovePodsViolatingNodeTaints:
+        enabled: true
+      RemovePodsViolatingNodeAffinity:
+        enabled: true
+        params:
+          nodeAffinityType:
+            - requiredDuringSchedulingIgnoredDuringExecution
+      RemovePodsViolatingInterPodAntiAffinity:
+        enabled: true
+      LowNodeUtilization:
+        enabled: true
+        params:
+          nodeResourceUtilizationThresholds:
+            thresholds:
+              cpu: 40
+              memory: 40
+            targetThresholds:
+              cpu: 70
+              memory: 70
+  service:
+    enabled: true
+  serviceMonitor:
+    enabled: true
