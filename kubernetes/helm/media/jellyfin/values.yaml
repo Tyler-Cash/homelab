@@ -88,17 +88,15 @@ app-template:
   probes:
     liveness:
       spec:
-        exec:
-          command:
-          - /usr/bin/env
-          - bash
-          - -c
-          - test -w /config/data/jellyfin.db
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 6
+
   resources:
     limits:
       memory: 1.5Gi
-      gpu.intel.com/i915: 1
+      gpu.intel.com/i915: 30
     requests:
       cpu: 1000m
       memory: 800Mi
-      gpu.intel.com/i915: 1
