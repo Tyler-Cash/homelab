@@ -23,6 +23,10 @@ spec:
       kind: "*"
       jqPathExpressions:
         - .spec.template.spec.labels[] | select(.name == "kyverno.io/*")
+    - group: "*"
+      kind: "*"
+      jqPathExpressions:
+        - .spec.template.spec.annotations[] | select(.name == "kyverno.io/*")
 
   syncPolicy:
     syncOptions:

@@ -37,7 +37,7 @@ module "dns" {
 
 module "idp" {
   source = "./idp"
-  authentik_bootstrap_token = module.secrets_storage.authentik_token
+  authentik_bootstrap_token = var.authentik_token
 }
 
 module "backups" {

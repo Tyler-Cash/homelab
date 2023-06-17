@@ -15,6 +15,11 @@ variable "homelab_project_prefix" {
     type = string
 }
 
+variable "authentik_token" {
+    type = string
+    sensitive = true
+}
+
 variable "cloudflare_api_token" {
     type = string
     sensitive = true

@@ -2,3 +2,5 @@ volsync:
   manageCRDs: true
   metrics:
     disableAuth: true
+  securityContext:
+    allowPrivilegeEscalation: true
