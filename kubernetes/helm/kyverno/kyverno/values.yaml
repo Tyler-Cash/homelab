@@ -6,10 +6,10 @@ kyverno:
     clusterRole:
       extraResources:
         - apiGroups: [ "snapscheduler.backube" ]
-          resources: [ "snapshotschedule" ]
+          resources: [ "SnapshotSchedule" ]
           verbs: [ "*" ]
         - apiGroups: [ "volsync.backube" ]
-          resources: [ "replicationsources" ]
+          resources: [ "ReplicationSource" ]
           verbs: [ "*" ]
         - apiGroups: ["networking.k8s.io"]
           resources: ["Ingress"]
