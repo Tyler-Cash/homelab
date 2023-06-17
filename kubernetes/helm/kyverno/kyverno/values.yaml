@@ -1,11 +1,22 @@
 kyverno:
-  installCRDs: true
-  serviceMonitor:
-    enabled: true
-    namespace: monitoring
-  replicaCount: 3
-  resources:
-    limits:
-      memory: 0
-    requests:
-      memory: 0
+  crds:
+    install: true
+  admissionController:
+    replicas: 3
+    clusterRole:
+      extraResources:
+        - apiGroups: [ "snapscheduler.backube" ]
+          resources: [ "snapshotschedule" ]
+          verbs: [ "*" ]
+        - apiGroups: [ "volsync.backube" ]
+          resources: [ "replicationsources" ]
+          verbs: [ "*" ]
+        - apiGroups: ["networking.k8s.io"]
+          resources: ["Ingress"]
+          verbs: ["*"]
+        - apiGroups: [""]
+          resources: ["Secret"]
+          verbs: ["*"]
+    serviceMonitor:
+      enabled: true
+      namespace: monitoring
