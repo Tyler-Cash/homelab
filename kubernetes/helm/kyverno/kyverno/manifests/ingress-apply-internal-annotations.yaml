@@ -19,6 +19,9 @@ spec:
           - resources:
               kinds: ["Ingress"]
       mutate:
+        targets: &targets
+          - apiVersion: v1
+            kind: Ingress
         patchStrategicMerge:
           metadata:
             annotations:
@@ -46,6 +49,7 @@ spec:
           - resources:
               annotations:
                 external-dns.home.arpa/proxied: "true"
+      targets: *targets
       mutate:
         patchStrategicMerge:
           metadata:
@@ -59,6 +63,7 @@ spec:
               kinds: ["Ingress"]
               annotations:
                 external-dns.home.arpa/enabled: "true"
+      targets: *targets
       mutate:
         patchStrategicMerge:
           metadata:
@@ -71,6 +76,7 @@ spec:
               kinds: ["Ingress"]
               annotations:
                 external-dns.home.arpa/proxied: "true"
+      targets: *targets
       mutate:
         patchStrategicMerge:
           metadata:

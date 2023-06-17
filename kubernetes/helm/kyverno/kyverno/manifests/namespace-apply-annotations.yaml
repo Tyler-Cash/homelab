@@ -16,6 +16,9 @@ spec:
         any:
           - resources:
               kinds: ["Namespace"]
+      targets:
+        - apiVersion: v1
+          kind: Namespace
       mutate:
         patchStrategicMerge:
           metadata:
