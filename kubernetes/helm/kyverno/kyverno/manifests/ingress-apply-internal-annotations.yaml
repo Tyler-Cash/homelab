@@ -49,8 +49,8 @@ spec:
           - resources:
               annotations:
                 external-dns.home.arpa/proxied: "true"
-      targets: *targets
       mutate:
+        targets: *targets
         patchStrategicMerge:
           metadata:
             annotations:
@@ -63,8 +63,8 @@ spec:
               kinds: ["Ingress"]
               annotations:
                 external-dns.home.arpa/enabled: "true"
-      targets: *targets
       mutate:
+        targets: *targets
         patchStrategicMerge:
           metadata:
             annotations:
@@ -76,8 +76,8 @@ spec:
               kinds: ["Ingress"]
               annotations:
                 external-dns.home.arpa/proxied: "true"
-      targets: *targets
       mutate:
+        targets: *targets
         patchStrategicMerge:
           metadata:
             annotations:
