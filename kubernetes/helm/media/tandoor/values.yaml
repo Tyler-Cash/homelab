@@ -103,7 +103,7 @@ app-template:
   initContainers:
     init-migrate:
       name: init-migrate
-      image: vabene1111/recipes:1.4.9
+      image: vabene1111/recipes:1.4.12
       command:
         - sh
         - -c
