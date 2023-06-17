@@ -3,8 +3,9 @@ kyverno:
     install: true
   admissionController:
     replicas: 3
-    clusterRole:
-      extraResources:
+    rbac:
+      clusterRole:
+        extraResources: &extraPermissions
         - apiGroups: [ "snapscheduler.backube" ]
           resources: [ "SnapshotSchedule" ]
           verbs: [ "*" ]
@@ -20,3 +21,7 @@ kyverno:
     serviceMonitor:
       enabled: true
       namespace: monitoring
+  backgroundController:
+    rbac:
+      clusterRole:
+        extraResources: *extraPermissions
