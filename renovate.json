@@ -5,10 +5,6 @@
   ],
   "timezone": "Australia/Sydney",
   "ignoreTests": true,
-  "schedule": [
-    "after 4am",
-    "before 7am"
-  ],
   "packageRules": [
     {
       "matchPackageNames": [
@@ -20,15 +16,11 @@
     {
       "matchUpdateTypes": ["minor", "patch"],
       "excludePackageNames": ["rook-ceph", "rook-ceph-cluster"],
-      "matchCurrentVersion": "!/^0/",
       "automergeType": "branch",
       "automerge": true
     },
-
     {
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "matchPackageNames": ["descheduler", "ghcr.io/bjw-s/calibre-web", "ghcr.io/onedr0p/readarr-develop"],
-      "matchCurrentVersion": "<=1.0.0",
+      "matchCurrentVersion": "/^0\\./",
       "automerge": true
     },
     {
