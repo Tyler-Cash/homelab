@@ -9,7 +9,7 @@ kyverno:
         - apiGroups: [ "*" ]
           resources: [ "*" ]
           verbs:
-            - *
+            - "*"
         - apiGroups: [ "volsync.backube" ]
           resources: [ "ReplicationSources" ]
           verbs:
