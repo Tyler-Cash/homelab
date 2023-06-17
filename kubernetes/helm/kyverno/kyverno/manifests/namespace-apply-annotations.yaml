@@ -1,0 +1,23 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: update-namespaces-annotations
+  annotations:
+    policies.kyverno.io/title: Update namespaces annotations
+    policies.kyverno.io/subject: Namespace
+    policies.kyverno.io/description: >-
+      This policy creates common annotations on all namespaces
+spec:
+  mutateExistingOnPolicyUpdate: true
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: apply-common-namespace-configs
+      match:
+        any:
+          - resources:
+              kinds: ["Namespace"]
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(volsync.backube/privileged-mover): "true"
