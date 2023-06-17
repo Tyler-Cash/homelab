@@ -8,10 +8,12 @@ kyverno:
         extraResources: &extraPermissions
         - apiGroups: [ "snapscheduler.backube" ]
           resources: [ "SnapshotSchedules" ]
-          verbs: [ "*" ]
+          verbs:
+            - create
         - apiGroups: [ "volsync.backube" ]
           resources: [ "ReplicationSources" ]
-          verbs: [ "*" ]
+          verbs:
+            - create
         - apiGroups: ["networking.k8s.io"]
           resources: ["Ingress"]
           verbs: ["*"]
