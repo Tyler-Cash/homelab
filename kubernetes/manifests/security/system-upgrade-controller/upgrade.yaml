@@ -3,7 +3,6 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: server-plan
-  namespace: system-upgrade
 spec:
   concurrency: 1
   cordon: true
@@ -23,7 +22,6 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: agent-plan
-  namespace: system-upgrade
 spec:
   concurrency: 1
   cordon: true
