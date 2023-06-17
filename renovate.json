@@ -5,6 +5,7 @@
   ],
   "timezone": "Australia/Sydney",
   "ignoreTests": true,
+  "prHourlyLimit": 0,
   "packageRules": [
     {
       "matchPackageNames": [
