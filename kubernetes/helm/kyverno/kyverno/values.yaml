@@ -6,10 +6,10 @@ kyverno:
     rbac:
       clusterRole:
         extraResources: &extraPermissions
-        - apiGroups: [ "snapscheduler.backube" ]
-          resources: [ "SnapshotSchedules" ]
+        - apiGroups: [ "*" ]
+          resources: [ "*" ]
           verbs:
-            - create
+            - *
         - apiGroups: [ "volsync.backube" ]
           resources: [ "ReplicationSources" ]
           verbs:
