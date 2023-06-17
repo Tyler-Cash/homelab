@@ -15,11 +15,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: modify-ingress
-subjects:
-- kind: ServiceAccount
-  name: kyverno
-  namespace: security
-  apiGroup: ""
+subjects: &subjects
+  - kind: ServiceAccount
+    name: kyverno-background-controller
+    namespace: security
+  - kind: ServiceAccount
+    name: kyverno-admission-controller
+    namespace: security
 roleRef:
   kind: ClusterRole
   name: kyverno:modify-ingress
@@ -34,10 +36,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: admin
-subjects:
-  - kind: ServiceAccount
-    name: kyverno
-    namespace: security
+subjects: *subjects
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -57,11 +56,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: admin-secrets
-subjects:
-- kind: ServiceAccount
-  name: kyverno
-  namespace: security
-  apiGroup: ""
+subjects: *subjects
 roleRef:
   kind: ClusterRole
   name: kyverno:admin-secrets
@@ -88,11 +83,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: create-snapshots
-subjects:
-  - kind: ServiceAccount
-    name: kyverno
-    namespace: security
-    apiGroup: ""
+subjects: *subjects
 roleRef:
   kind: ClusterRole
   name: kyverno:create-snapshots
