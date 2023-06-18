@@ -76,32 +76,5 @@ spec:
             RESTIC_REPOSITORY: "{{restic.data.RESTIC_REPOSITORY}}:{{request.object.metadata.name}}/"
             RESTIC_PASSWORD: "{{restic.data.RESTIC_PASSWORD}}"
             GOOGLE_PROJECT_ID: "{{restic.data.GOOGLE_PROJECT_ID}}"
-            GOOGLE_APPLICATION_CREDENTIALS: "/tmp/creds/GCP_BACKUP_CREDS"
-    # Inject GCP creds into Volsync pod
-    - name: inject-gcp-creds-into-volsync
-      context:
-        - name: restic
-          configMap:
-            name: restic-config
-            namespace: kyverno
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-              selector:
-                matchLabels:
-                  app.kubernetes.io/created-by: volsync
-      mutate:
-        patchStrategicMerge:
-          spec:
-            containers:
-              - (name): "*"
-                volumeMounts:
-                  - mountPath: "/tmp/creds/"
-                    name: gcp-mount
-                    readOnly: true
-            volumes:
-              - name: gcp-mount
-                secret:
-                  secretName: gcp-creds
+            GOOGLE_APPLICATION_CREDENTIALS: "{{restic.data.GOOGLE_APPLICATION_CREDENTIALS}}"
+

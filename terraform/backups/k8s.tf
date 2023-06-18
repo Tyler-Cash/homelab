@@ -11,22 +11,10 @@ resource "kubernetes_config_map" "restic-config" {
     # Targeted attacks and data access would be successful
     RESTIC_PASSWORD = "H8%G3SN!MJb^65rBNk4@Ug4ZASRfsD*JKwQPi8aehh^2tq*@gyUJ@W2z4T#o&cQD5ry*GdYHJ&"
     GOOGLE_PROJECT_ID = google_project.homelab_backups.id
+    GOOGLE_APPLICATION_CREDENTIALS = base64decode(google_service_account_key.backup_operator_key.private_key)
   }
 }
 
-resource "kubernetes_secret" "gcp-creds" {
-  metadata {
-    name = "gcp-creds"
-    namespace = "kyverno"
-    annotations = {
-      "kubed.appscode.com/sync"= ""
-    }
-  }
-
-  data = {
-    GCP_BACKUP_CREDS = base64decode(google_service_account_key.backup_operator_key.private_key)
-  }
-}
 
 resource "kubernetes_secret" "cloudnativepg-secrets" {
   metadata {
@@ -35,7 +23,7 @@ resource "kubernetes_secret" "cloudnativepg-secrets" {
   }
 
   data = {
-    destination = "${google_storage_bucket.backup-bucket.url}/"
+    destination = "${google_storage_bucket.backup-bucket.url}"
     GOOGLE_PROJECT_ID = google_project.homelab_backups.id
     GOOGLE_APPLICATION_CREDENTIALS = base64decode(google_service_account_key.backup_operator_key.private_key)
   }
