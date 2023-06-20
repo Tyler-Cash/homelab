@@ -27,7 +27,7 @@ app-template:
 
   initContainers:
     setup-wg:
-      image: busybox:1.32.0
+      image: busybox:1.36.1
       command:
         - sh
         - -c
