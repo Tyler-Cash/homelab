@@ -22,6 +22,8 @@ spec:
         targets: &targets
           - apiVersion: v1
             kind: Ingress
+          - apiVersion: v1
+            kind: Service
         patchStrategicMerge:
           metadata:
             annotations:
@@ -60,7 +62,9 @@ spec:
       match:
         any:
           - resources:
-              kinds: ["Ingress"]
+              kinds:
+                - Ingress
+                - Service
               annotations:
                 external-dns.home.arpa/enabled: "true"
       mutate:
