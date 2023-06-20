@@ -1,0 +1,51 @@
+app-template:
+  image:
+    repository: weejewel/wg-easy
+    pullPolicy: IfNotPresent
+    tag: 7
+  env:
+    WG_DEFAULT_DNS: '10.0.90.120'
+
+  service:
+    http:
+      ports:
+        http:
+          port: &webui 51821
+    wg:
+      ports:
+        udp:
+          port: 51820
+
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: &host wg.k8s.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                port: *webui
+      tls:
+        - secretName: wg-letsencrypt-certificate
+          hosts:
+            - *host
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 10Gi
+
+  securityContext:
+    privileged: true
+    capabilities:
+      add:
+        - NET_ADMIN
+
+  resources:
+    requests:
+      cpu: 1m
+      memory: 32Mi
