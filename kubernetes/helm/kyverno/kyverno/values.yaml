@@ -1,8 +1,21 @@
 kyverno:
   crds:
     install: true
+
   admissionController:
+    container:
+      resources:
+        limits:
+          memory: 2048Mi
+        requests:
+          cpu: 700m
+          memory: 500Mi
+
     replicas: 3
+
+    readinessProbe:
+      failureThreshold: 20
+
     rbac:
       clusterRole:
         extraResources: &extraPermissions
@@ -20,9 +33,11 @@ kyverno:
         - apiGroups: [""]
           resources: ["Secret"]
           verbs: ["*"]
+
     serviceMonitor:
       enabled: true
       namespace: monitoring
+
   backgroundController:
     rbac:
       clusterRole:

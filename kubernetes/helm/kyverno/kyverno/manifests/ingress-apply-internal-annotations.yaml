@@ -10,8 +10,6 @@ metadata:
       and sets an explicit RFC1918 whitelist for any ingresses
       that are not not exposed to the internet.
 spec:
-  mutateExistingOnPolicyUpdate: true
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: apply-common-ingress-configs
       match:
@@ -19,11 +17,6 @@ spec:
           - resources:
               kinds: ["Ingress"]
       mutate:
-        targets: &targets
-          - apiVersion: v1
-            kind: Ingress
-          - apiVersion: v1
-            kind: Service
         patchStrategicMerge:
           metadata:
             annotations:
@@ -52,7 +45,6 @@ spec:
               annotations:
                 external-dns.home.arpa/proxied: "true"
       mutate:
-        targets: *targets
         patchStrategicMerge:
           metadata:
             annotations:
@@ -68,7 +60,6 @@ spec:
               annotations:
                 external-dns.home.arpa/enabled: "true"
       mutate:
-        targets: *targets
         patchStrategicMerge:
           metadata:
             annotations:
@@ -81,7 +72,6 @@ spec:
               annotations:
                 external-dns.home.arpa/proxied: "true"
       mutate:
-        targets: *targets
         patchStrategicMerge:
           metadata:
             annotations:
