@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: vabene1111/recipes
-    tag: 1.4.12
+    tag: 1.5.0
     pullPolicy: IfNotPresent
 
   command:
@@ -103,7 +103,7 @@ app-template:
   initContainers:
     init-migrate:
       name: init-migrate
-      image: vabene1111/recipes:1.4.12
+      image: vabene1111/recipes:1.5.0
       command:
         - sh
         - -c
