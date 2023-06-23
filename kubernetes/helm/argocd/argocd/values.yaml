@@ -40,19 +40,39 @@ argo-cd:
       admin.enabled: "false"
       url: https://argocd.k8s.tylercash.dev
       exec.enabled: "true"
-      resource.exclusions: |
-        - apiGroups:
-            - kyverno.io
-          kinds:
-            - AdmissionReport
-            - BackgroundScanReport
-            - ClusterAdmissionReport
-            - ClusterBackgroundScanReport
-          clusters:
-            - '*'
-      resource.compareoptions: |
-        ignoreAggregatedRoles: true
-        ignoreResourceStatusField: crd
+      resource:
+        customizations:
+          ignoreDifferences:
+            all: |
+              jqPathExpressions:
+                - .spec.template.spec.labels[] | select(.name == "*kyverno.io/*")
+                - .spec.template.spec.annotations[] | select(.name == "*kyverno.io/*")
+                - .metadata.labels[] | select(.name == "policies.kyverno.io/*")
+                - .metadata.annotations[] | select(.name == "policies.kyverno.io/*")
+            admissionregistration.k8s.io_MutatingWebhookConfiguration: |
+              jqPathExpressions:
+                - '.webhooks[]?.clientConfig.caBundle'
+            ClusterPolicy.kyverno.io: |
+              jqPathExpressions:
+                - .spec.rules[] | select(.name|test("autogen-."))
+            Deployment.apps: &depoymentExpressions |
+              jqPathExpressions:
+                - .spec.template.spec.containers[].volumeMounts | select(.name == "timezone")
+                - .spec.template.volumes[] | select(.name == "timezone")
+
+        exclusions: |
+          - apiGroups:
+              - kyverno.io
+            kinds:
+              - AdmissionReport
+              - BackgroundScanReport
+              - ClusterAdmissionReport
+              - ClusterBackgroundScanReport
+            clusters:
+              - '*'
+        compareoptions: |
+          ignoreAggregatedRoles: true
+          ignoreResourceStatusField: crd
       oidc.config: |
         name: Authentik
         issuer: "https://authentik.k8s.tylercash.dev/application/o/argocd/"

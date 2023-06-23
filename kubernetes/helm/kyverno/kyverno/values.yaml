@@ -6,12 +6,10 @@ kyverno:
     container:
       resources:
         limits:
-          memory: 2048Mi
+          memory: 3000Mi
         requests:
           cpu: 700m
-          memory: 500Mi
-
-    replicas: 3
+          memory: 2048Mi
 
     readinessProbe:
       failureThreshold: 20
