@@ -186,8 +186,8 @@ kube-prometheus-stack:
   prometheus:
     fullNameOverride: prometheus
     prometheusSpec:
-      retention: 60d
-      retentionSize: "180GB"
+      retention: 30d
+      retentionSize: "50GB"
       walCompression: true
       replicas: 1
       podMonitorSelectorNilUsesHelmValues: false
@@ -206,7 +206,7 @@ kube-prometheus-stack:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 250Gi
+                storage: 50Gi
 
     ingress:
       enabled: true
