@@ -14,19 +14,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: storage
-  ignoreDifferences:
-  - group: kyverno.io
-    kind: ClusterPolicy
-    jqPathExpressions:
-      - .spec.rules[] | select(.name|test("autogen-."))
-  - group: "*"
-    kind: "*"
-    jqPathExpressions:
-      - .spec.template.spec.labels[] | select(.name == "kyverno.io/*")
-  - group: "*"
-    kind: "*"
-    jqPathExpressions:
-      - .spec.template.spec.annotations[] | select(.name == "kyverno.io/*")
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

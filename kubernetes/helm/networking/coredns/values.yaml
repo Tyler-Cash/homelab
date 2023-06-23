@@ -5,8 +5,7 @@ coredns:
 
   extraVolumes:
   - name: coredns-blacklist
-    persistentVolumeClaim:
-      claimName: coredns-blacklist
+    emptyDir: {}
 
   resources:
     limits:

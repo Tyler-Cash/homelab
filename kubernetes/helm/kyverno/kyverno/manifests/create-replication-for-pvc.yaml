@@ -9,6 +9,7 @@ spec:
       context:
         - name: storageClassName
           apiCall:
+            method: GET
             urlPath: "/api/v1/namespaces/{{request.object.metadata.namespace}}/persistentvolumeclaims/{{request.object.metadata.name}}"
             jmesPath: "spec.storageClassName"
       match:
