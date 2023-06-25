@@ -34,9 +34,12 @@ k3s_server:
   kubelet-arg:
     # Don't pull /etc/resolv.conf from host
     - "resolv-conf=/etc/resolv.conf"
+    - "config=/etc/rancher/k3s/kubelet.config"
+    - "v=0"
   kube-controller-manager-arg:
     # Required to monitor kube-controller-manager with kube-prometheus-stack
     - "bind-address=0.0.0.0"
+    - "terminated-pod-gc-threshold=10"
   kube-proxy-arg:
     # Required to monitor kube-proxy with kube-prometheus-stack
     - "metrics-bind-address=0.0.0.0"

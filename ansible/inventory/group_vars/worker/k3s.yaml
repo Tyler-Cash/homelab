@@ -11,4 +11,4 @@ k3s_agent:
   kubelet-arg:
     # Don't pull /etc/resolv.conf from host
     - "resolv-conf=/etc/resolv.conf"
-    - "eviction-hard=memory.available<500Mi,nodefs.available<98%"
+    - "eviction-hard=memory.available<500Mi"
