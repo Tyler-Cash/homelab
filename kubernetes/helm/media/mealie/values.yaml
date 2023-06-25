@@ -1,0 +1,58 @@
+app-template:
+  image:
+    repository: docker.io/hkotel/mealie
+    tag: frontend-v1.0.0beta-5
+
+  env:
+    BASE_URL: &external_url https://mealie.k8s.tylercash.dev
+  sidecars:
+    api:
+      name: mealie-api
+      image: docker.io/hkotel/mealie:api-v1.0.0beta-5
+      env:
+        - name: API_PORT
+          value: &api_port 9000
+        - name: ALLOW_SIGNUP
+          value: "false"
+        - name: BASE_URL
+          value: *external_url
+      ports:
+        - name: api
+          containerPort: *api_port
+      volumeMounts:
+        - name: api-data
+          mountPath: /app/data/
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+        api:
+          enabled: true
+          port: *api_port
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: &host mealie.k8s.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+          secretName: mealie-tls
+
+  persistence:
+    api-data:
+      enabled: true
+      mountPath: /app/data/
+      accessMode: ReadWriteOnce
+      size: 10Gi
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 500Mi
