@@ -1,0 +1,10 @@
+apiVersion: v2
+name: dragonfly
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+- name: dragonfly
+  version: 1.0.3
+  repository: https://dragonflyoss.github.io/helm-charts/
+

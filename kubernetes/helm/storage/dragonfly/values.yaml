@@ -1,0 +1,21 @@
+dragonfly:
+  containerRuntime:
+    containerd:
+      enable: true
+
+
+  scheduler:
+    metrics:
+      enable: true
+
+  seedPeer:
+    metrics:
+      enable: true
+
+  dfdaemon:
+    metrics:
+      enable: true
+
+  manager:
+    metrics:
+      enable: true
