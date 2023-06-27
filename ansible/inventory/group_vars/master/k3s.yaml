@@ -51,3 +51,5 @@ k3s_server:
   kube-apiserver-arg:
     # Required for HAProxy health-checks
     - "anonymous-auth=true"
+  etcd-arg: [ 'heartbeat-interval=500', 'election-timeout=5000', 'snapshot-count=5000', 'log-level=warn' ]
+
