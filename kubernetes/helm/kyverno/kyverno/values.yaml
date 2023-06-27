@@ -11,6 +11,7 @@ kyverno:
           cpu: 700m
           memory: 2048Mi
 
+    replicas: 1
     readinessProbe:
       failureThreshold: 20
 
