@@ -85,5 +85,6 @@ spec:
                   - key: data
                     path: mon-endpoints
             - name: ceph-config
-              emptyDir: {}
+              emptyDir:
+                sizeLimit: 100Mi
           restartPolicy: Never

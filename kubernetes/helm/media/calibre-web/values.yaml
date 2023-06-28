@@ -38,6 +38,7 @@ app-template:
       enabled: true
       type: emptyDir
       mountPath: /cache
+      sizeLimit: 100Mi
 
   resources:
     requests:

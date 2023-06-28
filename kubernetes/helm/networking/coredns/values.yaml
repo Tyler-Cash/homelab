@@ -1,12 +1,4 @@
 coredns:
-  extraVolumeMounts:
-  - name: coredns-blacklist
-    mountPath: /blacklist
-
-  extraVolumes:
-  - name: coredns-blacklist
-    emptyDir: {}
-
   resources:
     limits:
       cpu: 400m

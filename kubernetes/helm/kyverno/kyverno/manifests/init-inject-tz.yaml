@@ -49,4 +49,6 @@ spec:
                     value: *timezone
             volumes:
               - name: timezone
-                emptyDir: {}
+                emptyDir:
+                  sizeLimit: 100Mi
+
