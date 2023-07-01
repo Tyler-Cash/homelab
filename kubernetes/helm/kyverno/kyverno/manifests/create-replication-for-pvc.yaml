@@ -35,7 +35,7 @@ spec:
           spec:
             sourcePVC: "{{request.object.metadata.name}}"
             trigger:
-              schedule: "0 5 * * *"
+              schedule: "0 5 1/15 * *"
             restic:
               pruneIntervalDays: 14
               repository: &restic_name "restic-{{request.object.metadata.name}}"
