@@ -1,4 +1,5 @@
 coredns:
+
   resources:
     limits:
       cpu: 400m

@@ -12,16 +12,8 @@ spec:
           - name: adblock-updater
             image: centos
             imagePullPolicy: IfNotPresent
-            volumeMounts:
-            - name: coredns-blacklist
-              mountPath: /blacklist/
             command:
             - /bin/sh
             - -c
             - curl https://raw.githubusercontent.com/Tyler-Cash/homelab/master/kubernetes/helm/networking/coredns/manifests/scripts/download_blacklists.sh | /bin/sh
           restartPolicy: OnFailure
-          volumes:
-          - name: coredns-blacklist
-            persistentVolumeClaim:
-              claimName: coredns-blacklist
-              readOnly: false

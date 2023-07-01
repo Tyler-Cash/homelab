@@ -2,7 +2,6 @@
 set -e
 # Taken from https://news.ycombinator.com/item?id=21238213
 HOSTS_FILE="/tmp/hosts.blacklist"
-destination="/blacklist"
 HOSTS_FILES="$HOSTS_FILE.d"
 
 mkdir -p "${HOSTS_FILES}"
@@ -33,4 +32,3 @@ cat "${HOSTS_FILES}"/* | \
 
 rm -rf "${HOSTS_FILES}"
 
-mv "${HOSTS_FILE}" "${destination}"
