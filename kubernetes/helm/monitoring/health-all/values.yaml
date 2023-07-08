@@ -7,113 +7,90 @@ gatus:
       - name: bazarr
         interval: &interval 20s
         url: http://bazarr.media.svc.cluster.local:6767/
-        conditions:
+        conditions: &default_conditions
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
-
+          - "[RESPONSE_TIME] < 400"
+          -
       - name: bitwarden
         url: http://bitwarden.security.svc.cluster.local/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
 
       - name: gotify
         url: http://gotify.monitoring.svc.cluster.local/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
+
 
       - name: jellyfin
         url: http://jellyfin.media.svc.cluster.local:8096/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
+
 
       - name: prowlarr
         url: http://prowlarr.media.svc.cluster.local:9696/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
+
 
       - name: radarr
         url: http://radarr.media.svc.cluster.local:7878/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 2000"
+        conditions: *default_conditions
+
 
       - name: sonarr
         url: http://sonarr.media.svc.cluster.local:8989/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
+
 
       - name: k8s-master
         url: tcp://10.0.90.100:6443
         interval: *interval
         conditions:
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+          - "[RESPONSE_TIME] < 5"
+
 
       - name: argo
         url: https://argocd.k8s.tylercash.dev/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
 
       - name: prometheus
         url: http://prometheus-prometheus.monitoring.svc.cluster.local:9090/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
+
 
       - name: alert-manager
         url: http://prometheus-alertmanager.monitoring.svc.cluster.local:9093/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
+
 
       - name: grafana
         url: http://grafana.k8s.tylercash.dev/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1500"
+        conditions: *default_conditions
 
       - name: ceph
         url: https://ceph.k8s.tylercash.dev/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
 
       - name: qbittorrent
         url: http://qbittorrent.media.svc.cluster.local:8080/
         interval: *interval
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
+
+      - name: mealie
+        url: http://mealie.media.svc.cluster.local:3000/
+        interval: *interval
+        conditions: *default_conditions
 
   ingress:
     enabled: true
