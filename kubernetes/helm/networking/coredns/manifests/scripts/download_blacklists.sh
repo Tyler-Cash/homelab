@@ -3,7 +3,7 @@ set -e
 # Taken from https://news.ycombinator.com/item?id=21238213
 HOSTS_FILE="/tmp/hosts.blacklist"
 HOSTS_FILES="$HOSTS_FILE.d"
-
+destination="/blacklist"
 mkdir -p "${HOSTS_FILES}"
 download() {
 echo "download($1)"
@@ -30,5 +30,4 @@ cat "${HOSTS_FILES}"/* | \
                 sed \
                     -e '/tylercash.dev/d' > "${HOSTS_FILE}"
 
-rm -rf "${HOSTS_FILES}"
-
+mv "${HOSTS_FILE}" "${destination}"

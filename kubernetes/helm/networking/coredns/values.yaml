@@ -1,4 +1,17 @@
 coredns:
+  extraVolumeMounts:
+    - name: coredns-blacklist
+      mountPath: /blacklist
+
+  extraVolumes:
+    - name: coredns-blacklist
+      persistentVolumeClaim:
+        claimName: coredns-blacklist
+  podSecurityContext:
+    runAsUser: 3000
+    runAsGroup: 3000
+    fsGroup: 3000
+    fsGroupChangePolicy: "Always"
 
   resources:
     limits:
