@@ -14,13 +14,13 @@ app-template:
       ports:
         http:
           port: '51821'
-    wg:
+    wg-external:
       enabled: true
       type: LoadBalancer
       annotations:
         external-dns.home.arpa/enabled: 'true'
-        external-dns.alpha.kubernetes.io/hostname: wg.k8s.tylercash.dev
-      ports:
+        external-dns.alpha.kubernetes.io/hostname: &wg_hostname wg.k8s.tylercash.dev
+      ports: &wg_port
         wg:
           port: '51820'
           protocol: UDP
