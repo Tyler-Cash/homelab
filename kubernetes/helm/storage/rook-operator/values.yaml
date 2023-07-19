@@ -1,6 +1,10 @@
 rook-ceph:
+  csiAddons:
+    enabled: true
+
   monitoring:
     enabled: true
+
   resources:
     requests:
       cpu: "500m"
