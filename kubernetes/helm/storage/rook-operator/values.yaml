@@ -1,11 +1,16 @@
 rook-ceph:
+  priorityClassName: system-cluster-critical
+
   monitoring:
     enabled: true
+
   resources:
     requests:
       cpu: "500m"
       memory: "300Mi"
   csi:
+    csiAddons:
+      enabled: false
     csiRBDProvisionerResource: |
       - name : csi-provisioner
         resource:
