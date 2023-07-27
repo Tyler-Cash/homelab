@@ -1,2 +1,2 @@
-openshift==0.13.1
+openshift==0.13.2
 netaddr==0.8.0
