@@ -86,28 +86,3 @@ spec:
             RESTIC_PASSWORD: "{{restic.data.RESTIC_PASSWORD}}"
             GOOGLE_PROJECT_ID: "{{restic.data.GOOGLE_PROJECT_ID}}"
             GOOGLE_APPLICATION_CREDENTIALS: "{{restic.data.GOOGLE_APPLICATION_CREDENTIALS}}"
-
-
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-bazarr-config-cache
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-bazarr-config-src
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-calibre-books-cache
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-calibre-books-src
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-jellyfin-config-cache
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-jellyfin-config-src
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-qbittorrent-config-cache
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-qbittorrent-config-src
-kubectl patch pvc -n media -p '{"metadata":{"finalizers":null}}' --type=merge volsync-readarr-config-cache
- volsync-readarr-config-src
-
-
-k delete po -n media --force  volsync-src-bazarr-config-5jqcd
-k delete po -n media --force  volsync-src-calibre-books-kjwkv
-k delete po -n media --force  volsync-src-jellyfin-config-sqktk
-k delete po -n media --force  volsync-src-mealie-api-data-p7g7c
-k delete po -n media --force  volsync-src-ombi-config-2r5jb
-k delete po -n media --force  volsync-src-prowlarr-config-jq8zd
-k delete po -n media --force  volsync-src-qbittorrent-config-vn78c
-k delete po -n media --force  volsync-src-radarr-config-vg87j
-k delete po -n media --force  volsync-src-readarr-config-7w8c9
-k delete po -n media --force  volsync-src-sonarr-backups-kdkdk
-k delete po -n media --force  volsync-src-sonarr-config-jkhmv
