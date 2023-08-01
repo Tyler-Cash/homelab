@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/onedr0p/readarr-develop
-    tag: 0.2.4.1999
+    tag: 0.3.0.2091
 
   env:
     READARR__PORT: &port 80
