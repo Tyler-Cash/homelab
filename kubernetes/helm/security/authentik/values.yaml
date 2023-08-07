@@ -67,6 +67,9 @@ authentik:
 
   redis:
     enabled: true
+    master:
+      persistence:
+        enabled: false
 
   prometheus:
     serviceMonitor:
@@ -85,3 +88,5 @@ authentik:
     worker:
       requests:
         cpu: 5m
+  persistence:
+  existingClaim:
