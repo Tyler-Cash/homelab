@@ -119,7 +119,7 @@ app-template:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
-      size: 250Gi
+      size: 200Mi
     cache:
       enabled: true
       storageClass: ceph-block-1rep
