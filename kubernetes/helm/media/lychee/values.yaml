@@ -14,6 +14,7 @@ app-template:
       enabled: true
       annotations:
         external-dns.home.arpa/enabled: "true"
+        nginx.ingress.kubernetes.io/proxy-body-size: 100m
       hosts:
         - host: &host photos.k8s.tylercash.dev
           paths:
