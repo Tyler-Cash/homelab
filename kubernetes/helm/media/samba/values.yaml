@@ -1,0 +1,49 @@
+app-template:
+  image:
+    repository: ghcr.io/servercontainers/samba
+    tag: smbd-only-a3.18.4-s4.18.5-r0
+
+  env:
+    WSDD2_DISABLE: 1
+    AVAHI_DISABLE: 1
+    SAMBA_VOLUME_CONFIG_lightroom: "[Lightroom]; path=/shares/lightroom; valid users = tcash; guest ok = no; read only = no; browseable = yes"
+    SAMBA_VOLUME_CONFIG_photos: "[Photos]; path=/shares/photos; valid users = tcash; guest ok = no; read only = no; browseable = yes"
+    SAMBA_CONF_LOG_LEVEL: 1 passdb:5 auth:5
+    UID_tcash: 568
+
+  envFrom:
+   - secretRef:
+       name: samba-password-secret
+
+  service:
+    main:
+      enabled: false
+    samba:
+      enabled: true
+      type: LoadBalancer
+      annotations:
+        coredns.io/hostname: samba.k8s.tylercash.dev
+      ports:
+        samba:
+          enabled: true
+          port: 445
+          protocol: TCP
+          targetPort: 445
+
+  podSecurityContext:
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  persistence:
+    photos:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteMany
+      mountPath: /shares/photos
+      size: 150Gi
+    lightroom:
+      enabled: true
+      storageClass: ceph-block
+      mountPath: /shares/lightroom
+      accessMode: ReadWriteOnce
+      size: 50Gi
