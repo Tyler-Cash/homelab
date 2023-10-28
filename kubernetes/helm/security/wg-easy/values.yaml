@@ -6,7 +6,6 @@ app-template:
   env:
     WG_DEFAULT_DNS: '10.43.0.10'
     WG_HOST: wg.k8s.tylercash.dev
-    WG_ALLOWED_IPS: '10.0.0.0/8'
     WG_PERSISTENT_KEEPALIVE: 20
 
   service:
