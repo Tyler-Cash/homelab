@@ -1,11 +1,12 @@
 app-template:
   image:
-    repository: vaultwarden/server
+    repository: weejewel/wg-easy
     pullPolicy: IfNotPresent
-    tag: 1.29.2
+    tag: 7
   env:
     WG_DEFAULT_DNS: '10.43.0.10'
     WG_HOST: wg.k8s.tylercash.dev
+    WG_ALLOWED_IPS: '0.0.0.0/0, ::/0'
     WG_PERSISTENT_KEEPALIVE: 20
 
   service:
