@@ -1,10 +1,8 @@
 app-template:
-
   image:
     repository: vaultwarden/server
     pullPolicy: IfNotPresent
     tag: 1.29.2
-    
   env:
     WG_DEFAULT_DNS: '10.43.0.10'
     WG_HOST: wg.k8s.tylercash.dev
