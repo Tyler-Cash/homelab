@@ -1,6 +1,6 @@
 app-template:
   image:
-    repository: weejewel/wg-easy
+    repository: "weejewel/wg-easy"
     pullPolicy: IfNotPresent
     tag: 7
   env:
