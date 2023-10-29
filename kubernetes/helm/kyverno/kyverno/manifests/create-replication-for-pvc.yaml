@@ -43,17 +43,21 @@ spec:
           spec:
             sourcePVC: "{{request.object.metadata.name}}"
             trigger:
-              schedule: "0 20 * * 0"
+              schedule: "0 4 * * 0"
             restic:
               pruneIntervalDays: 1
               repository: &restic_name "restic-{{request.object.metadata.name}}"
               retain:
-                daily: 2
+                daily: 7
                 weekly: 2
                 monthly: 2
                 yearly: 2
               storageClassName: "{{storageClassName}}"
               copyMethod: Clone
+              moverSecurityContext:
+                runAsUser: 0
+                runAsGroup: 0
+                fsGroup: 0
     - name: create-restic-config
       context:
         - name: restic

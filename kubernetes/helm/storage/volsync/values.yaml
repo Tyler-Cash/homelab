@@ -1,6 +1,4 @@
 volsync:
-  image:
-    tag: 0.7.1
   manageCRDs: true
   metrics:
     disableAuth: true

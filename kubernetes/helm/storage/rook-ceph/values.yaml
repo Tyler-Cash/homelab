@@ -43,10 +43,10 @@ rook-ceph-cluster:
       mgr:
         limits:
           cpu: "1000m"
-          memory: "1Gi"
+          memory: "2Gi"
         requests:
           cpu: "250m"
-          memory: "512Mi"
+          memory: "1024Mi"
       mon:
         limits:
           cpu: "2000m"
@@ -315,10 +315,11 @@ rook-ceph-cluster:
 
   cephFileSystemVolumeSnapshotClass:
     enabled: true
-    name: ceph-filesystem
+    name: ceph-filesystem-hdd
     isDefault: false
     deletionPolicy: Delete
-    annotations:
-      k10.kasten.io/is-snapshot-class: "true"
     labels: {}
-    parameters: {}
+    parameters:
+      clusterID: ceph-filesystem-hdd
+      csi.storage.k8s.io/snapshotter-secret-name: rook-csi-cephfs-provisioner
+      csi.storage.k8s.io/snapshotter-secret-namespace: storage

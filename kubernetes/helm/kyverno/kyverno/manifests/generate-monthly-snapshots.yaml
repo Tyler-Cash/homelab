@@ -28,7 +28,7 @@ spec:
               matchLabels:
                 snapshot.home.arpa/enabled: "true"
             retention:
-              maxCount: 12
+              maxCount: 2
             schedule: "@monthly"
             snapshotTemplate:
               snapshotClassName: ceph-block-snapshot
