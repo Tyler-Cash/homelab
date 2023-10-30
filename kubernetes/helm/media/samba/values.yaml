@@ -40,7 +40,7 @@ app-template:
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
       mountPath: /shares/photos
-      size: 150Gi
+      size: 500Gi
     lightroom:
       enabled: true
       storageClass: ceph-block
