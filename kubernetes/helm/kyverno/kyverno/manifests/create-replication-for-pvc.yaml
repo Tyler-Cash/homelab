@@ -27,7 +27,7 @@ spec:
                 - PersistentVolumeClaim
               selector:
                 matchLabels:
-                  app.kubernetes.io/instance: "authentik"
+                  cnpg.io/pvcRole: "PG_DATA"
       generate:
         namespace: &repl_namespace "{{request.object.metadata.namespace}}"
         synchronize: true
@@ -43,7 +43,7 @@ spec:
           spec:
             sourcePVC: "{{request.object.metadata.name}}"
             trigger:
-              schedule: "0 4 * * 0"
+              schedule: "0 4 * * *"
             restic:
               pruneIntervalDays: 1
               repository: &restic_name "restic-{{request.object.metadata.name}}"
