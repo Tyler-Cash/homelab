@@ -45,6 +45,10 @@ app-template:
       enabled: true
       type: pvc
       existingClaim: calibre-books
+    backups:
+      enabled: true
+      type: pvc
+      existingClaim: sonarr-backups
     share:
       enabled: true
       type: pvc
