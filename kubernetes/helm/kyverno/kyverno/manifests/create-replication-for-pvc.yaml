@@ -54,6 +54,7 @@ spec:
                 yearly: 2
               storageClassName: "{{storageClassName}}"
               copyMethod: Clone
+              cacheCapacity: 10Gi
               moverSecurityContext:
                 runAsUser: 0
                 runAsGroup: 0
