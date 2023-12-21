@@ -153,19 +153,6 @@ rook-ceph-cluster:
         allowVolumeExpansion: true
         mountOptions: []
         parameters: *parameters
-    - name: ceph-blockpool-cache
-      spec:
-        deviceClass: ssd
-        failureDomain: host
-        replicated:
-          size: 1
-      storageClass:
-        enabled: true
-        name: ceph-blockpool-cache
-        reclaimPolicy: Delete
-        allowVolumeExpansion: true
-        mountOptions: []
-        parameters: *parameters
 
     - name: ceph-block-metadata
       spec:
