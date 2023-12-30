@@ -45,7 +45,6 @@ spec:
             trigger:
               schedule: "0 4 * * *"
             restic:
-              pruneIntervalDays: 1
               repository: &restic_name "restic-{{request.object.metadata.name}}"
               retain:
                 daily: 7
