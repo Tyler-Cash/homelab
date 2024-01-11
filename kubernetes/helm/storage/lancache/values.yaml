@@ -1,0 +1,56 @@
+app-template:
+  image:
+    repository: lancachenet/monolithic
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  env:
+     CACHE_DISK_SIZE: 5000g
+     CACHE_INDEX_SIZE: 1000m
+
+  service:
+    main:
+      type: LoadBalancer
+      loadBalancerIP: "10.0.90.148"
+      ports:
+        http:
+          port: 80
+        https:
+          enabled: true
+          port: 443
+
+  probes:
+    readiness:
+      custom: true
+      spec:
+        httpGet:
+          path: /lancache-heartbeat
+          port: 80
+    liveness:
+      custom: true
+      spec:
+        httpGet:
+          path: /lancache-heartbeat
+          port: 80
+    startup:
+      custom: true
+      spec:
+        httpGet:
+          path: /lancache-heartbeat
+          port: 80
+
+  persistence:
+    cache:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteOnce
+      size: 5Ti
+      mountPath: /data/cache
+      labels:
+        snapshot.home.arpa/enabled: "false"
+    logs:
+      enabled: false
+      mountPath: /data/logs
+
+  nodeSelector:
+    kubernetes.io/arch: amd64
