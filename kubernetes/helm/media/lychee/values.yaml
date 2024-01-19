@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: lycheeorg/lychee
-    tag: v5.0.3
+    tag: v5.1.0
 
   service:
     main:
