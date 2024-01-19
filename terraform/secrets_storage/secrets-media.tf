@@ -1,8 +1,3 @@
-resource "random_password" "tandoor_secret_key" {
-  length           = 50
-  special          = true
-}
-
 locals {
   media_secrets = {
     "media-tandoor-secret-key" = {secret = random_password.tandoor_secret_key.result}

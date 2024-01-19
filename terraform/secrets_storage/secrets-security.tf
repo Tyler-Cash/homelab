@@ -1,18 +1,3 @@
-resource "random_password" "authentik_secret_key" {
-  length           = 100
-  special          = true
-}
-
-resource "random_password" "authentik_bootstrap_password" {
-  length           = 100
-  special          = true
-}
-
-resource "random_password" "authentik_bootstrap_token" {
-  length           = 100
-  special          = true
-}
-
 locals {
   security_secrets = {
     "security-authentik-email-username" = {secret = var.email_username}

@@ -20,6 +20,9 @@ resource "kubernetes_secret" "cloudnativepg-secrets" {
   metadata {
     name = "cloudnativepg-secrets"
     namespace = "security"
+    annotations = {
+      "kubed.appscode.com/sync" = ""
+    }
   }
 
   data = {

@@ -20,7 +20,6 @@ tasks:
     dir: "{{.TERRAFORM_DIR}}/"
     cmds:
       - terraform apply {{.CLI_ARGS}}
-      -
   passwords:
     desc: Get passwords for all secrets that are needed
     dir: "{{.TERRAFORM_DIR}}/"

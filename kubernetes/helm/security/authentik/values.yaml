@@ -13,15 +13,15 @@ authentik:
     AUTHENTIK_BOOTSTRAP_TOKEN:
       secretKeyRef:
         name: security-authentik-secrets
-        key: security-authentik-bootstrap-token
+        key: bootstrap-token
     AUTHENTIK_BOOTSTRAP_PASSWORD:
       secretKeyRef:
         name: security-authentik-secrets
-        key: security-authentik-bootstrap-password
+        key: bootstrap-password
     AUTHENTIK_SECRET_KEY:
       secretKeyRef:
         name: security-authentik-secrets
-        key: security-authentik-secret-key
+        key: secret-key
     AUTHENTIK_EMAIL__HOST:
       configMapKeyRef:
         name: authentik-email
@@ -33,11 +33,11 @@ authentik:
     AUTHENTIK_EMAIL__USERNAME:
       secretKeyRef:
         name: security-authentik-secrets
-        key: security-authentik-email-username
+        key: email-username
     AUTHENTIK_EMAIL__PASSWORD:
       secretKeyRef:
         name: security-authentik-secrets
-        key: security-authentik-email-password
+        key: email-password
 
   env:
     AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
