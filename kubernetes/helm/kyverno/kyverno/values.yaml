@@ -6,7 +6,7 @@ kyverno:
     container:
       resources:
         limits:
-          memory: 3000Mi
+          memory: 4196Mi
         requests:
           cpu: 700m
           memory: 2048Mi
@@ -40,10 +40,10 @@ kyverno:
   backgroundController:
     resources:
       limits:
-        memory: 512Mi
+        memory: 2048Mi
       requests:
         cpu: 100m
-        memory: 256Mi
+        memory: 512Mi
     rbac:
       clusterRole:
         extraResources: *extraPermissions
