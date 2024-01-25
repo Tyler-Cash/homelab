@@ -12,7 +12,7 @@ resource "google_kms_key_ring" "homelab_keyring" {
 resource "google_kms_crypto_key" "homelab_crypto_key" {
   name            = "homelab_crypto_key"
   key_ring        = google_kms_key_ring.homelab_keyring.id
-  rotation_period = "100000s"
+  rotation_period = "31536000s"
   lifecycle {
     prevent_destroy = true
   }

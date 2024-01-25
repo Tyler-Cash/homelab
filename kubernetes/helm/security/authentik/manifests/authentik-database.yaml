@@ -6,11 +6,6 @@ spec:
   instances: 3
   primaryUpdateStrategy: unsupervised
   bootstrap:
-#    recovery:
-#      database: authentik
-#      owner: authentik
-#      source: *name
-#     Create a new DB, hopefully never needed!
      initdb:
        database: authentik
        owner: authentik
@@ -25,22 +20,6 @@ spec:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: preferred
-
-  externalClusters:
-    - name: *name
-      barmanObjectStore: &barmanObjectStore
-        destinationPath: "s3://homelab-k8s-tcash/"
-        serverName: *name
-        googleCredentials:
-          gkeEnvironment: false
-          applicationCredentials:
-            name: cloudnativepg-secrets
-            key: gcsCredentials
-
-  backup:
-    retentionPolicy: 180d
-    barmanObjectStore:
-      <<: *barmanObjectStore
 
 ---
 apiVersion: postgresql.cnpg.io/v1
