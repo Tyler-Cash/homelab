@@ -16,9 +16,13 @@ rook-ceph-cluster:
     dashboard:
       annotations:
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        nginx.ingress.kubernetes.io/server-snippet: |
+          proxy_ssl_verify off;
+          proxy_ssl_protocols TLSv1.3;
       host:
         name: &host ceph.k8s.tylercash.dev
         path: ""
+      port: &dashboardPort 8443
       tls:
         - hosts:
             - *host
@@ -34,6 +38,7 @@ rook-ceph-cluster:
           enabled: true
     dashboard:
       enabled: true
+      port: *dashboardPort
       ssl: true
     annotations:
       all:

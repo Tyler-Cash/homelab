@@ -1,5 +1,7 @@
 ingress-nginx:
+
   controller:
+    allowSnippetAnnotations: true
     config:
       client-max-body-size: 8m
       proxy-read-timeout: "300"
