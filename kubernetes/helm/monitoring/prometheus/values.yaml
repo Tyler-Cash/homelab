@@ -234,10 +234,10 @@ kube-prometheus-stack:
         memory: 100Mi
   kubeEtcd:
     enabled: true
-    endpoints:
+    endpoints: &clusterHosts
     - 10.0.90.10
-    - 10.0.90.11
     - 10.0.90.12
+    - 10.0.90.14
     service:
       enabled: true
       port: 2381
@@ -245,10 +245,7 @@ kube-prometheus-stack:
 
 kubeScheduler:
   enabled: true
-  endpoints:
-  - 10.0.90.10
-  - 10.0.90.11
-  - 10.0.90.12
+  endpoints: *clusterHosts
   service:
     enabled: true
   serviceMonitor:
@@ -258,10 +255,8 @@ kubeScheduler:
 
 kubeProxy:
   enabled: true
-  endpoints:
-  - 10.0.90.10
-  - 10.0.90.11
-  - 10.0.90.12
+  endpoints: *clusterHosts
+
 
 kubeStateMetrics:
   enabled: true
