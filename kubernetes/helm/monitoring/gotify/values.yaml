@@ -44,6 +44,7 @@ app-template:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
+      mountPath: /app
       size: 5Gi
   resources:
     limits:
