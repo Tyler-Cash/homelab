@@ -8,17 +8,17 @@ spec:
   source:
     repoURL: https://github.com/intel/intel-device-plugins-for-kubernetes.git
     path: deployments/nfd
-    targetRevision: v0.26.0
+    targetRevision: &gpu_plugin_version v0.29.0
   sources:
     - repoURL: https://github.com/intel/intel-device-plugins-for-kubernetes.git
       path: deployments/nfd
-      targetRevision: v0.26.0
+      targetRevision: *gpu_plugin_version
     - repoURL: https://github.com/intel/intel-device-plugins-for-kubernetes.git
       path: deployments/nfd/overlays/node-feature-rules
-      targetRevision: v0.26.0
+      targetRevision: *gpu_plugin_version
     - repoURL: https://github.com/intel/intel-device-plugins-for-kubernetes.git
       path: deployments/gpu_plugin/overlays/monitoring_shared-dev_nfd
-      targetRevision: v0.26.0
+      targetRevision: *gpu_plugin_version
 
   destination:
     server: https://kubernetes.default.svc

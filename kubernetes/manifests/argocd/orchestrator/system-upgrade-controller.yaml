@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/rancher/system-upgrade-controller.git
     path: manifests/
-    targetRevision: v0.10.0
+    targetRevision: v0.13.2
 
   destination:
     server: https://kubernetes.default.svc

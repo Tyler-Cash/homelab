@@ -95,9 +95,8 @@ app-template:
 
   resources:
     limits:
-      memory: 1.5Gi
-      gpu.intel.com/i915: 30
-      cpu: 2000m
+      gpu.intel.com/i915: 1
     requests:
       cpu: 1000m
       memory: 800Mi
+      gpu.intel.com/i915: 1
