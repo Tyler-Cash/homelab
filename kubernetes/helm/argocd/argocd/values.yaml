@@ -1,4 +1,6 @@
 argo-cd:
+  global:
+    domain: &host argocd.k8s.tylercash.dev
 
   redis-ha:
     enabled: true
@@ -23,15 +25,10 @@ argo-cd:
       minAvailable: 1
     ingress:
       enabled: true
-      hosts:
-        - &host argocd.k8s.tylercash.dev
       annotations:
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        nginx.org/websocket-services: "argocd-server"
-      tls:
-        - hosts:
-            - *host
-          secretName: argocd-tylercash-dev-letsencrypt
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      tls: true
 
   configs:
     params:
