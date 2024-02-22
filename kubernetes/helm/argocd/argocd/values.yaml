@@ -1,4 +1,8 @@
 argo-cd:
+  global:
+    domain: &host argocd.k8s.tylercash.dev
+    addPrometheusAnnotations: true
+    priorityClassName: system-cluster-critical
 
   redis-ha:
     enabled: true
@@ -14,6 +18,9 @@ argo-cd:
         cpu: 100m
         memory: 300Mi
 
+  certificate:
+    enabled: true
+
   server:
     metrics:
       enabled: true
@@ -23,15 +30,13 @@ argo-cd:
       minAvailable: 1
     ingress:
       enabled: true
-      hosts:
-        - &host argocd.k8s.tylercash.dev
-      annotations:
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        nginx.org/websocket-services: "argocd-server"
-      tls:
-        - hosts:
-            - *host
-          secretName: argocd-tylercash-dev-letsencrypt
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.org/websocket-services: "argocd-server"
+    extraTls:
+      - hosts:
+          - *host
+        secretName: argocd-tls
 
   configs:
     params:
@@ -111,7 +116,3 @@ argo-cd:
     pdb:
       enabled: true
       minAvailable: 1
-
-  global:
-    addPrometheusAnnotations: true
-    priorityClassName: system-cluster-critical
