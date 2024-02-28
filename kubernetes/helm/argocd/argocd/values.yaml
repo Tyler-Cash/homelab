@@ -30,13 +30,13 @@ argo-cd:
       minAvailable: 1
     ingress:
       enabled: true
-    annotations:
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      nginx.org/websocket-services: "argocd-server"
-    extraTls:
-      - hosts:
-          - *host
-        secretName: argocd-tls
+      annotations:
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        nginx.org/websocket-services: "argocd-server"
+      extraTls:
+        - hosts:
+            - *host
+          secretName: argocd-tls
 
   configs:
     params:
