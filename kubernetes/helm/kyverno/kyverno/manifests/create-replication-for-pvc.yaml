@@ -52,7 +52,6 @@ spec:
                 monthly: 2
                 yearly: 2
               storageClassName: "{{storageClassName}}"
-              unlock: 1
               copyMethod: Clone
               cacheCapacity: 10Gi
               moverSecurityContext:
