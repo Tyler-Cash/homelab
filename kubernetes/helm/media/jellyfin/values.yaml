@@ -102,3 +102,6 @@ app-template:
       cpu: 1000m
       memory: 800Mi
       gpu.intel.com/i915: 1
+
+  nodeSelector:
+    cpu: fast
