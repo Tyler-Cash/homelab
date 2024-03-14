@@ -2,7 +2,7 @@ app-template:
   image:
     repository: vaultwarden/server
     pullPolicy: IfNotPresent
-    tag: 1.30.3
+    tag: 1.30.5
   env:
     DATA_FOLDER: "config"
 
