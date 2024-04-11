@@ -4,7 +4,7 @@ app-template:
     backup.velero.io/backup-volumes-excludes: jellyfin-cache,jellyfin-tv,jellyfin-movies,jellyfin-transcodes
 
   image:
-    repository: ghcr.io/confusedpolarbear/jellyfin-intro-skipper
+    repository: jellyfin/jellyfin
     tag: 10.8.10
 
   service:
