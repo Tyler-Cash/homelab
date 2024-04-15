@@ -95,12 +95,12 @@ app-template:
 
   resources:
     limits:
-      memory: 4Gi
-      cpu: 4000m
+      memory: 8Gi
+      cpu: 6000m
       gpu.intel.com/i915: 1
     requests:
       cpu: 1000m
-      memory: 800Mi
+      memory: 1Gi
       gpu.intel.com/i915: 1
 
   nodeSelector:

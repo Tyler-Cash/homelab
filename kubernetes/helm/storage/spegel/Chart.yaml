@@ -6,4 +6,4 @@ appVersion: "1.0.0"
 dependencies:
 - name: spegel
   version: v0.0.18
-  repository: "spegel"
+  repository: "@spegel"
