@@ -50,7 +50,7 @@ app-template:
     config:
       enabled: true
       storageClass: ceph-block
-      size: 10Gi
+      size: 15Gi
     cache:
       enabled: true
       storageClass: ceph-block
