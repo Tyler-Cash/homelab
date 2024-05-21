@@ -11,10 +11,10 @@ app-template:
     GOTIFY_SERVER_KEEPALIVEPERIODSECONDS: "0"
     GOTIFY_SERVER_STREAM_PINGPERIODSECONDS: "45"
     GOTIFY_DATABASE_DIALECT: "sqlite3"
-    GOTIFY_DATABASE_CONNECTION: "config/gotify.db"
+    GOTIFY_DATABASE_CONNECTION: "/config/gotify.db"
     GOTIFY_PASSSTRENGTH: "10"
     GOTIFY_UPLOADEDIMAGESDIR: "config/images"
-    GOTIFY_PLUGINSDIR: "data/plugins"
+    GOTIFY_PLUGINSDIR: "/config/plugins"
 
   service:
     main:
@@ -44,7 +44,7 @@ app-template:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
-      mountPath: /app
+      mountPath: /config
       size: 5Gi
   resources:
     limits:
