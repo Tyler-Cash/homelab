@@ -5,7 +5,10 @@
   ],
   "timezone": "Australia/Sydney",
   "ignoreTests": true,
-  "schedule": ["on friday"],
+  "schedule": [
+    "after 4am",
+    "before 7am"
+  ],
   "prHourlyLimit": 0,
   "packageRules": [
     {
