@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/onedr0p/radarr
-    tag: 5.3.6.8612
+    tag: 5.6.0.8846
     pullPolicy: IfNotPresent
 
   podAnnotations:
