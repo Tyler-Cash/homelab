@@ -5,5 +5,5 @@ version: 1.0.0
 appVersion: "1.0.0"
 dependencies:
 - name: volsync
-  version: 0.8.0
+  version: 0.9.1
   repository: https://backube.github.io/helm-charts/
