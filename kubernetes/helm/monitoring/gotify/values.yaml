@@ -2,7 +2,7 @@ app-template:
   image:
     repository: gotify/server
     pullPolicy: IfNotPresent
-    tag: "2.4.0"
+    tag: "2.5.0"
 
   # See more environment variables in the gotify documentation
   # https://gotify.net/docs/config#environment-variables
