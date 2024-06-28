@@ -5,7 +5,7 @@ app-template:
 
   image:
     repository: jellyfin/jellyfin
-    tag: 10.9.6
+    tag: 10.9.7
 
   service:
     main:
