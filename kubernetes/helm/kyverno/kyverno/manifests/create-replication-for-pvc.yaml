@@ -28,6 +28,12 @@ spec:
               selector:
                 matchLabels:
                   cnpg.io/pvcRole: "PG_DATA"
+          - resources:
+              kinds:
+                - PersistentVolumeClaim
+              selector:
+                matchLabels:
+                  snapshot.home.arpa/enabled: "false"
       generate:
         namespace: &repl_namespace "{{request.object.metadata.namespace}}"
         synchronize: true
