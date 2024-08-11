@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: lscr.io/linuxserver/ombi
-    tag: 4.43.5
+    tag: 4.44.1
 
   service:
     main:
