@@ -10,6 +10,7 @@
     "before 7am"
   ],
   "prHourlyLimit": 0,
+  "branchConcurrentLimit": 0,
   "packageRules": [
     {
       "matchPackageNames": [
