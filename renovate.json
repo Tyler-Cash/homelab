@@ -20,7 +20,6 @@
     },
     {
       "matchUpdateTypes": ["minor", "patch"],
-      "excludePackageNames": ["rook-ceph", "rook-ceph-cluster"],
       "automergeType": "branch",
       "automerge": true
     },
