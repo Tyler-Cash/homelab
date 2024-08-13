@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: event-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    external-dns.home.arpa/enabled: "true"
+spec:
+  tls:
+  - hosts:
+    - event.k8s.tylercash.dev
+    secretName: event-tylercash-dev
+  rules:
+    - host: event.k8s.tylercash.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tyler-bot-frontend
+                port:
+                  number: 80
+          - path: /api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tyler-bot-backend
+                port:
+                  number: 8080

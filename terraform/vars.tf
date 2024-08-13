@@ -59,3 +59,7 @@ variable "alertmanager_config" {
 variable "tailscale_authkey" {
   sensitive = true
 }
+
+variable "tylerbot_config" {
+  sensitive = true
+}

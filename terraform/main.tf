@@ -25,6 +25,7 @@ module "secrets_storage" {
   email_password = var.email_password
   alertmanager_config = var.alertmanager_config
   tailscale_authkey = var.tailscale_authkey
+  tylerbot_config = var.tylerbot_config
 }
 
 module "dns" {

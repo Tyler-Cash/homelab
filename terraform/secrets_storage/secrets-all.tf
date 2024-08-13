@@ -26,6 +26,9 @@ locals {
     "alertmanager" = {
       "alertmanager.yaml" = var.alertmanager_config
     }
+    "tylerbot" = {
+      "application-prod.yaml" = var.tylerbot_config
+    }
     "authentik" = {
       "email-username" = var.email_username
       "email-password" = var.email_password

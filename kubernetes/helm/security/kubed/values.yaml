@@ -1,5 +1,8 @@
 kubed:
   operator:
+    registry: rancher
+    repository: mirrored-appscode-kubed
+    tag: v0.13.2
     resources:
       requests:
         cpu: "1m"
