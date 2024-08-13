@@ -1,0 +1,26 @@
+app-template:
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/tyler-cash/tyler-bot-frontend
+            tag: latest@sha256:0077a744e61b66aae3a2f68fb0fcb5d7e78fd68a1b5d131b670d1055559fc01c
+          env:
+            TZ: Australia/Sydney
+
+  service:
+    main:
+      type: LoadBalancer
+      controller: main
+      ports:
+        http:
+          port: 80
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      memory: 500Mi
+

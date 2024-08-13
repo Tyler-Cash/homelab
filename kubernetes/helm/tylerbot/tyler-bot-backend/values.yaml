@@ -1,0 +1,40 @@
+app-template:
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/tyler-cash/tyler-bot-backend
+            tag: latest@sha256:709877f6157c31a17f16b5a7d2d3af147da6f28341d0ca90998aec3307830ad4
+          env:
+            TZ: Australia/Sydney
+            SPRING_CONFIG_ADDITIONAL-LOCATION: &secret_folder /secrets/config/
+            SPRING_PROFILES_ACTIVE: prod
+
+  service:
+    main:
+      type: LoadBalancer
+      controller: main
+      ports:
+        http:
+          port: 8080
+
+  persistence:
+    storage:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 5Gi
+    secrets:
+      enabled: true
+      type: secret
+      name: tylerbot-secrets
+      globalMounts:
+        - path: *secret_folder
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 1Gi
+    limits:
+      memory: 2Gi
