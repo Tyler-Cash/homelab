@@ -1,92 +1,91 @@
 authentik:
-  replicas: 2
-
   worker:
     replicas: 2
+    pdb:
+      enabled: true
 
-  # Check that env variable isn't provided in normal env map. Sync will fail if it's duplicated
-  envValueFrom:
-    AUTHENTIK_POSTGRESQL__PASSWORD:
-      secretKeyRef:
-        name: authentik-database-app
-        key: password
-    AUTHENTIK_BOOTSTRAP_TOKEN:
-      secretKeyRef:
-        name: security-authentik-secrets
-        key: bootstrap-token
-    AUTHENTIK_BOOTSTRAP_PASSWORD:
-      secretKeyRef:
-        name: security-authentik-secrets
-        key: bootstrap-password
-    AUTHENTIK_SECRET_KEY:
-      secretKeyRef:
-        name: security-authentik-secrets
-        key: secret-key
-    AUTHENTIK_EMAIL__HOST:
-      configMapKeyRef:
-        name: authentik-email
-        key: host
-    AUTHENTIK_EMAIL__FROM:
-      configMapKeyRef:
-        name: authentik-email
-        key: from
-    AUTHENTIK_EMAIL__USERNAME:
-      secretKeyRef:
-        name: security-authentik-secrets
-        key: email-username
-    AUTHENTIK_EMAIL__PASSWORD:
-      secretKeyRef:
-        name: security-authentik-secrets
-        key: email-password
+  server:
+    replicas: 2
+    priorityClassName: system-cluster-critical
 
-  env:
-    AUTHENTIK_COOKIE_DOMAIN: tylercash.dev
+    pdb:
+      enabled: true
 
-  authentik:
-    postgresql:
-      host: authentik-database-rw
-    redis:
-      host: authentik-redis-master
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      rules:
+        enabled: true
 
-  ingress:
+    ingress:
+      enabled: true
+      annotations:
+        external-dns.home.arpa/enabled: "true"
+      hosts:
+        - authentik.k8s.tylercash.dev
+      tls:
+        - secretName: authentik-letsencrypt-certificate
+          hosts:
+            - authentik.k8s.tylercash.dev
+
+  global:
+    # Check that env variable isn't provided in normal env map. Sync will fail if it's duplicated
+    env:
+      - name: AUTHENTIK_POSTGRESQL__PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: authentik-database-app
+            key: password
+      - name: AUTHENTIK_BOOTSTRAP_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: security-authentik-secrets
+            key: bootstrap-token
+      - name: AUTHENTIK_BOOTSTRAP_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: security-authentik-secrets
+            key: bootstrap-password
+      - name: AUTHENTIK_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: security-authentik-secrets
+            key: secret-key
+      - name: AUTHENTIK_EMAIL__HOST
+        valueFrom:
+          configMapKeyRef:
+            name: authentik-email
+            key: host
+      - name: AUTHENTIK_EMAIL__FROM
+        valueFrom:
+          configMapKeyRef:
+            name: authentik-email
+            key: from
+      - name: AUTHENTIK_EMAIL__USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: security-authentik-secrets
+            key: email-username
+      - name: AUTHENTIK_EMAIL__PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: security-authentik-secrets
+            key: email-password
+      - name: AUTHENTIK_REDIS__PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: authentik-redis
+            key: redis-password
+      - name: AUTHENTIK_COOKIE_DOMAIN
+        value: tylercash.dev
+      - name: AUTHENTIK_POSTGRESQL__HOST
+        value: authentik-database-rw
+
+redis:
+  enabled: true
+  auth:
     enabled: true
-    annotations:
-      external-dns.home.arpa/enabled: "true"
-    hosts:
-      - host: authentik.k8s.tylercash.dev
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - secretName: authentik-letsencrypt-certificate
-        hosts:
-          - authentik.k8s.tylercash.dev
 
-  postgresql:
-    enabled: false
-
-  redis:
-    enabled: true
-    master:
-      persistence:
-        enabled: false
-
-  prometheus:
-    serviceMonitor:
-      create: true
-    rules:
-      create: true
-
-  priorityClassName: system-cluster-critical
-
-
-  resources:
-    server:
-      requests:
-        cpu: 5m
-
-    worker:
-      requests:
-        cpu: 5m
-  persistence:
-  existingClaim:
+postgresql:
+  enabled: false
