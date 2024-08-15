@@ -21,6 +21,13 @@
       "groupName": "rook"
     },
     {
+      "matchPackageNames": [
+        "ghcr.io/tyler-cash/tyler-bot-backend",
+        "ghcr.io/tyler-cash/tyler-bot-frontend"
+      ],
+      "automerge": true
+    },
+    {
       "matchUpdateTypes": ["minor", "patch"],
       "automergeType": "branch",
       "automerge": true
