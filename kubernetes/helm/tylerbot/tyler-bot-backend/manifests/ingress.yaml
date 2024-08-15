@@ -4,8 +4,7 @@ metadata:
   name: event-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
-    external-dns.home.arpa/proxied: "true"
-
+    external-dns.home.arpa/enabled: "true"
 spec:
   tls:
   - hosts:
