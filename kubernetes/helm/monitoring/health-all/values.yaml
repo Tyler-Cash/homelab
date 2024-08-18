@@ -1,4 +1,7 @@
 gatus:
+  deployment:
+    strategy: Recreate
+
   config:
     storage:
       type: sqlite
@@ -89,6 +92,19 @@ gatus:
 
       - name: mealie
         url: http://mealie.media.svc.cluster.local:3000/
+        interval: *interval
+        conditions: *default_conditions
+
+      - name: tyler-bot-backend
+        url: http://tyler-bot-backend.tylerbot.svc.cluster.local:8080/api/auth/is-logged-in
+        interval: *interval
+        conditions:
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 5000"
+
+      - name: tyler-bot-frontend
+        url: http://tyler-bot-frontend.tylerbot.svc.cluster.local:3000/
         interval: *interval
         conditions: *default_conditions
 

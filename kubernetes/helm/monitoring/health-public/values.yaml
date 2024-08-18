@@ -1,29 +1,40 @@
 gatus:
+  deployment:
+    strategy: Recreate
+
   config:
     storage:
       type: sqlite
       path: /data/data.db
     endpoints:
-      - name: Jellyfin
-        url: http://jellyfin.media.svc.cluster.local:8096/
+      - name: tyler-bot-backend
+        url: https://event.k8s.tylercash.dev/api/auth/is-logged-in
         conditions:
           - "[STATUS] == 200"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+          - "[RESPONSE_TIME] < 5000"
+
+      - name: tyler-bot-frontend
+        url: https://event.k8s.tylercash.dev/
+        conditions: &default_conditions
+          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 400"
+
+      - name: Jellyfin
+        url: https://jellyfin.k8s.tylercash.dev/
+        conditions: *default_conditions
 
       - name: Authentik
         url: https://authentik.k8s.tylercash.dev/
-        conditions:
-          - "[STATUS] == 200"
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 1000"
+        conditions: *default_conditions
 
       - name: Kubernetes Cluster
         url: tcp://10.0.90.100:6443
         conditions:
           - "[CONNECTED] == true"
           - "[RESPONSE_TIME] < 1000"
-
+          -
   ingress:
     enabled: true
     annotations:
