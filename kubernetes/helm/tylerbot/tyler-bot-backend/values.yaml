@@ -1,15 +1,41 @@
 app-template:
   controllers:
     main:
+#      type: deployment
+#      replicas: 3
+#      # -- Set the controller upgrade strategy
+#      # For Deployments, valid values are Recreate (default) and RollingUpdate.
+#      # For StatefulSets, valid values are OnDelete and RollingUpdate (default).
+#      # DaemonSets/CronJobs/Jobs ignore this.
+#      strategy: RollingUpdate
+#
+#      rollingUpdate:
+#        unavailable: 2
+#        surge: 5
       containers:
         main:
           image:
             repository: ghcr.io/tyler-cash/tyler-bot-backend
-            tag: latest@sha256:67759260fb6122ca071cbeb0d2f26b4c3a32417e81100e40240be7b9e3d0e81e
+            tag: latest@sha256:a9b68a0f729045ea194ab8df055f899a75e42b3c2d986c7a5158a1e083557a0b
           env:
             TZ: Australia/Sydney
             SPRING_CONFIG_ADDITIONAL-LOCATION: &secret_folder /secrets/config/
             SPRING_PROFILES_ACTIVE: prod
+            SPRING_DATASOURCE_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: tylerbot-database-app
+                  key: jdbc-uri
+            SPRING_DATASOURCE_USERNAME:
+              valueFrom:
+                secretKeyRef:
+                  name: tylerbot-database-app
+                  key: username
+            SPRING_DATASOURCE_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: tylerbot-database-app
+                  key: password
 
   service:
     main:
@@ -20,11 +46,6 @@ app-template:
           port: 8080
 
   persistence:
-    storage:
-      enabled: true
-      storageClass: ceph-block
-      accessMode: ReadWriteOnce
-      size: 5Gi
     secrets:
       enabled: true
       type: secret
