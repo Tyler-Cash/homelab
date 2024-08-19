@@ -38,7 +38,7 @@ rook-ceph-cluster:
         - name: pg_autoscaler
           enabled: true
     dashboard:
-      enabled: true
+      enabled: false
       port: *dashboardPort
       ssl: true
     annotations:
