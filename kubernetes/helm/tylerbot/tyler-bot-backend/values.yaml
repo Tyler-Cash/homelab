@@ -16,7 +16,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/tyler-cash/tyler-bot-backend
-            tag: latest@sha256:281817a39362a52ef1e203f4a72fca6db36aa2f4efa0dde3a9e962fd372a2d38
+            tag: latest@sha256:c6ad00e5e8220e9ef229f4dc56f270f4700ddd8170a2ddd426e4c71603a10348
           env:
             TZ: Australia/Sydney
             SPRING_CONFIG_ADDITIONAL-LOCATION: &secret_folder /secrets/config/
