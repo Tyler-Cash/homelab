@@ -5,7 +5,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/tyler-cash/tyler-bot-frontend
-            tag: latest@sha256:b8586ee4eafccbf4f30d72eeff501e2cb186b5753aa7b1685c7dbb31f5c921b8
+            tag: latest@sha256:509b8c078d77e5901edbd0449d0cd49de2f586bd44540caf9cb440c0fcdeb611
           env:
             TZ: Australia/Sydney
 
