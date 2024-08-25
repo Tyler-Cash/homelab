@@ -1,18 +1,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  labels:
-    serviceMonitorSelector: prometheus
-  name: tylerbot
-  namespace: monitoring
+  name: tylerbot-backend
 spec:
   endpoints:
-    - interval: 30s
-      targetPort: http
+    - targetPort: http
       path: /api/actuator/prometheus
   namespaceSelector:
     matchNames:
       - tylerbot
   selector:
     matchLabels:
-      app.kubernetes.io/name: tyler-bot-backend
+      app.kubernetes.io/service: tyler-bot-backend
