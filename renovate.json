@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "automergeType": "branch",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "timezone": "Australia/Sydney",
   "ignoreTests": true,
@@ -28,17 +29,8 @@
       "automerge": true
     },
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "automergeType": "branch",
-      "automerge": true
-    },
-    {
       "matchCurrentVersion": "/^0\\./",
       "automerge": true
-    },
-    {
-      "extends": ["schedule:monthly"],
-      "matchPackageNames": ["metallb", "volsync", "rook-ceph", "rook-ceph-cluster", "argo-cd"]
     }
   ]
 }
