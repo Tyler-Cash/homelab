@@ -41,6 +41,7 @@ argo-cd:
   configs:
     params:
       applicationsetcontroller.policy: "create-only"
+      controller.diff.server.side: "true"
     cm:
       admin.enabled: "false"
       url: https://argocd.k8s.tylercash.dev
