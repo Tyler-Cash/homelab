@@ -15,7 +15,7 @@ app-template:
       containers:
         main:
           image:
-            repository: ghcr.io/tyler-cash/tyler-bot-backend
+            repository: ghcr.io/tyler-cash/peep-bot-backend
             tag: latest@sha256:b5c7cfa6402b6eebdeea3847e6652ed52b7bba16dc294937e19c801a8e14620d
           env:
             TZ: Australia/Sydney
