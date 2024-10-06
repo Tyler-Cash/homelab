@@ -7,6 +7,7 @@ app-template:
     WSDD2_DISABLE: 1
     AVAHI_DISABLE: 1
     SAMBA_VOLUME_CONFIG_lightroom: "[Lightroom]; path=/shares/lightroom; valid users = tcash; guest ok = no; read only = no; browseable = yes"
+    SAMBA_VOLUME_CONFIG_replays: "[Lightroom]; path=/shares/lightroom; valid users = tcash; guest ok = no; read only = no; browseable = yes"
     SAMBA_VOLUME_CONFIG_photos: "[Photos]; path=/shares/photos; valid users = tcash; guest ok = no; read only = no; browseable = yes"
     SAMBA_CONF_LOG_LEVEL: 1 passdb:5 auth:5
     UID_tcash: 568
@@ -47,3 +48,9 @@ app-template:
       mountPath: /shares/lightroom
       accessMode: ReadWriteOnce
       size: 50Gi
+    replays:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      mountPath: /shares/replays
+      accessMode: ReadWriteMany
+      size: 5Ti
