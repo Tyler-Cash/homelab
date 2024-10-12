@@ -84,6 +84,7 @@ authentik:
 
 redis:
   enabled: true
+  architecture: replication
   auth:
     enabled: true
 
