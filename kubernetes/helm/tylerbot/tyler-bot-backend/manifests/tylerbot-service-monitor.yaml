@@ -4,11 +4,12 @@ metadata:
   name: tylerbot-backend
 spec:
   endpoints:
-    - targetPort: http
+    - interval: 30s
+      port: http
       path: /api/actuator/prometheus
   namespaceSelector:
     matchNames:
       - tylerbot
   selector:
     matchLabels:
-      app.kubernetes.io/service: tyler-bot-backend
+      app.kubernetes.io/instance: tyler-bot-backend
