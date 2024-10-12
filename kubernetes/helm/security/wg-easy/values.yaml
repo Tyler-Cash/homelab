@@ -1,8 +1,8 @@
 app-template:
   image:
-    repository: weejewel/wg-easy
+    repository: ghcr.io/wg-easy/wg-easy
     pullPolicy: IfNotPresent
-    tag: 7
+    tag: 14@sha256:6df87d399666b8a84fa7561c206b31061b32bcdda6404b4561f9c809d64805a8
   env:
     WG_DEFAULT_DNS: '10.43.0.10'
     WG_HOST: wg.k8s.tylercash.dev
