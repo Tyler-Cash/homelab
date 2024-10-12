@@ -11,6 +11,7 @@ data:
         {
           "name": "DS_PROMETHEUS",
           "label": "Prometheus",
+          "value": "Prometheus",
           "description": "",
           "type": "datasource",
           "pluginId": "prometheus",
@@ -96,7 +97,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -146,7 +147,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "${DataSource}"
               },
               "editorMode": "code",
               "expr": "count (volsync_volume_out_of_sync{obj_namespace=~\"$namespace\"})",
@@ -162,7 +163,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -212,7 +213,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "${DataSource}"
               },
               "editorMode": "code",
               "expr": "count (volsync_volume_out_of_sync{obj_namespace=~\"$namespace\",obj_name!~\"$replicationDestName\",role!~\"destination\"})",
@@ -228,7 +229,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -284,7 +285,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "${DataSource}"
               },
               "editorMode": "code",
               "expr": "count(volsync_volume_out_of_sync{obj_namespace=~\"$namespace\"} != 0)",
@@ -300,7 +301,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "description": "",
           "gridPos": {
@@ -333,7 +334,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "description": "",
           "fieldConfig": {
@@ -387,7 +388,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "${DataSource}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -405,7 +406,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "description": "",
           "fieldConfig": {
@@ -458,7 +459,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "${DataSource}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -503,7 +504,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "description": "Number of times sync failed to complete before next scheduled start.",
           "fieldConfig": {
@@ -557,7 +558,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "${DataSource}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -618,7 +619,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -696,7 +697,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "${DataSource}"
               },
               "editorMode": "code",
               "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{pod=~\"$volsyncPod\", namespace=~\"$volsyncNamespace\"}) by (pod)",
@@ -712,7 +713,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DataSource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -789,7 +790,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "${DataSource}"
               },
               "editorMode": "code",
               "expr": "sum(container_memory_working_set_bytes{pod=~\"$volsyncPod\", namespace=~\"$volsyncNamespace\"}) by (pod)",
@@ -813,12 +814,26 @@ data:
       "templating": {
         "list": [
           {
-            "allValue": ".*",
-            "current": {},
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+            "current": {
+              "selected": false,
+              "text": "Prometheus",
+              "value": "Prometheus"
             },
+            "description": null,
+            "error": null,
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data Source",
+            "multi": false,
+            "name": "DataSource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
             "definition": "label_values(volsync_volume_out_of_sync,obj_namespace)",
             "hide": 0,
             "includeAll": true,
@@ -862,7 +877,7 @@ data:
             "current": {},
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "${DataSource}"
             },
             "definition": "label_values(volsync_sync_duration_seconds,namespace)",
             "hide": 2,
@@ -885,7 +900,7 @@ data:
             "current": {},
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "${DataSource}"
             },
             "definition": "label_values(volsync_sync_duration_seconds,pod)",
             "hide": 2,
