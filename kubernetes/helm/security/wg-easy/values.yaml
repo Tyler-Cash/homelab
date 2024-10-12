@@ -2,7 +2,7 @@ app-template:
   image:
     repository: ghcr.io/wg-easy/wg-easy
     pullPolicy: IfNotPresent
-    tag: 7
+    tag: 14
   env:
     WG_DEFAULT_DNS: '10.43.0.10'
     WG_HOST: wg.k8s.tylercash.dev
