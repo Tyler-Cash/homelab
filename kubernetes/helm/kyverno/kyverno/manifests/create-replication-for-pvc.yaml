@@ -34,6 +34,18 @@ spec:
               selector:
                 matchLabels:
                   snapshot.home.arpa/enabled: "false"
+          - resources:
+              kinds:
+                - PersistentVolumeClaim
+              selector:
+                matchLabels:
+                  app.kubernetes.io/instance: prometheus
+          - resources:
+              kinds:
+                - PersistentVolumeClaim
+              selector:
+                matchLabels:
+                  app.kubernetes.io/name: redis
       generate:
         namespace: &repl_namespace "{{request.object.metadata.namespace}}"
         synchronize: true
