@@ -1,4 +1,12 @@
-# https://raw.githubusercontent.com/csi-addons/kubernetes-csi-addons/v0.7.0/deploy/controller/setup-controller.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: csi-addons
+    control-plane: controller-manager
+  name: csi-addons-system
+---
 apiVersion: v1
 data:
   controller_manager_config.yaml: |
@@ -44,7 +52,7 @@ spec:
             - --upstream=http://127.0.0.1:8080/
             - --logtostderr=true
             - --v=10
-          image: gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0
+          image: quay.io/brancz/kube-rbac-proxy:v0.18.0
           name: kube-rbac-proxy
           ports:
             - containerPort: 8443
@@ -57,12 +65,14 @@ spec:
             requests:
               cpu: 10m
               memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
         - args:
             - --namespace=$(POD_NAMESPACE)
             - --health-probe-bind-address=:8081
             - --metrics-bind-address=127.0.0.1:8080
             - --leader-elect
-            - --enable-admission-webhooks=false
           command:
             - /csi-addons-manager
           env:
@@ -70,7 +80,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-          image: quay.io/csiaddons/k8s-controller:latest
+          image: quay.io/csiaddons/k8s-controller:v0.10.0
           livenessProbe:
             httpGet:
               path: /healthz
@@ -93,6 +103,7 @@ spec:
               memory: 64Mi
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
       securityContext:
         runAsNonRoot: true
       serviceAccountName: csi-addons-controller-manager

@@ -1,11 +1,3 @@
-# https://raw.githubusercontent.com/csi-addons/kubernetes-csi-addons/v0.7.0/deploy/controller/rbac.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    app.kubernetes.io/name: csi-addons
-  name: csi-addons-system
----
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -58,24 +50,9 @@ rules:
   - apiGroups:
       - ""
     resources:
-      - persistentvolumeclaims
-    verbs:
-      - get
-      - list
-      - update
-      - watch
-  - apiGroups:
-      - ""
-    resources:
-      - persistentvolumes
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - ""
-    resources:
       - namespaces
+      - persistentvolumes
+      - pods
     verbs:
       - get
       - list
@@ -88,6 +65,7 @@ rules:
       - get
       - list
       - patch
+      - update
       - watch
   - apiGroups:
       - ""
@@ -96,9 +74,9 @@ rules:
     verbs:
       - update
   - apiGroups:
-      - ""
+      - coordination.k8s.io
     resources:
-      - pods
+      - leases
     verbs:
       - get
       - list
@@ -107,83 +85,10 @@ rules:
       - csiaddons.openshift.io
     resources:
       - csiaddonsnodes
-    verbs:
-      - create
-      - delete
-      - get
-      - list
-      - patch
-      - update
-      - watch
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
-      - csiaddonsnodes/finalizers
-    verbs:
-      - update
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
-      - csiaddonsnodes/status
-    verbs:
-      - get
-      - patch
-      - update
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
+      - encryptionkeyrotationcronjobs
+      - encryptionkeyrotationjobs
       - networkfences
-    verbs:
-      - create
-      - delete
-      - get
-      - list
-      - patch
-      - update
-      - watch
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
-      - networkfences/finalizers
-    verbs:
-      - update
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
-      - networkfences/status
-    verbs:
-      - get
-      - patch
-      - update
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
       - reclaimspacecronjobs
-    verbs:
-      - create
-      - delete
-      - get
-      - list
-      - patch
-      - update
-      - watch
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
-      - reclaimspacecronjobs/finalizers
-    verbs:
-      - update
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
-      - reclaimspacecronjobs/status
-    verbs:
-      - get
-      - patch
-      - update
-  - apiGroups:
-      - csiaddons.openshift.io
-    resources:
       - reclaimspacejobs
     verbs:
       - create
@@ -196,13 +101,54 @@ rules:
   - apiGroups:
       - csiaddons.openshift.io
     resources:
+      - csiaddonsnodes/finalizers
+      - encryptionkeyrotationcronjobs/finalizers
+      - encryptionkeyrotationjobs/finalizers
+      - networkfences/finalizers
+      - reclaimspacecronjobs/finalizers
       - reclaimspacejobs/finalizers
     verbs:
       - update
   - apiGroups:
       - csiaddons.openshift.io
     resources:
+      - csiaddonsnodes/status
+      - encryptionkeyrotationcronjobs/status
+      - encryptionkeyrotationjobs/status
+      - networkfences/status
+      - reclaimspacecronjobs/status
       - reclaimspacejobs/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - replication.storage.openshift.io
+    resources:
+      - volumegroupreplicationcontents
+      - volumegroupreplications
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - replication.storage.openshift.io
+    resources:
+      - volumegroupreplicationcontents/finalizers
+      - volumegroupreplications/finalizers
+      - volumereplications/finalizers
+      - volumereplications/status
+    verbs:
+      - update
+  - apiGroups:
+      - replication.storage.openshift.io
+    resources:
+      - volumegroupreplicationcontents/status
+      - volumegroupreplications/status
     verbs:
       - get
       - patch
@@ -225,20 +171,9 @@ rules:
       - update
       - watch
   - apiGroups:
-      - replication.storage.openshift.io
-    resources:
-      - volumereplications/finalizers
-    verbs:
-      - update
-  - apiGroups:
-      - replication.storage.openshift.io
-    resources:
-      - volumereplications/status
-    verbs:
-      - update
-  - apiGroups:
       - storage.k8s.io
     resources:
+      - storageclasses
       - volumeattachments
     verbs:
       - get
