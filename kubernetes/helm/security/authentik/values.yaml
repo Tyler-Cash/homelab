@@ -85,6 +85,8 @@ authentik:
 redis:
   enabled: true
   architecture: replication
+  global:
+    defaultStorageClass: local-path
   auth:
     enabled: true
 
