@@ -28,59 +28,38 @@ ingress-nginx:
 
     minAvailable: 2
 
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
+
     metrics:
       port: 10254
       portName: metrics
       enabled: true
 
-      service:
-        annotations:
-          prometheus.io/scrape: "true"
-          prometheus.io/port: "10254"
-
       serviceMonitor:
         enabled: true
-        namespace: "monitoring"
         namespaceSelector:
           any: true
         scrapeInterval: 30s
-        targetLabels: []
-        relabelings: []
-        metricRelabelings: []
-
+        honorLabels: true
       prometheusRule:
         enabled: true
-        namespace: "monitoring"
-      rules:
-       - alert: NGINXConfigFailed
-         expr: count(nginx_ingress_controller_config_last_reload_successful == 0) > 0
-         for: 1s
-         labels:
-           severity: critical
-         annotations:
-           description: bad ingress config - nginx config test failed
-           summary: uninstall the latest ingress changes to allow config reloads to resume
-       - alert: NGINXCertificateExpiry
-         expr: (avg(nginx_ingress_controller_ssl_expire_time_seconds) by (host) - time()) < 604800
-         for: 1s
-         labels:
-           severity: critical
-         annotations:
-           description: ssl certificate(s) will expire in less then a week
-           summary: renew expiring certificates to avoid downtime
-       - alert: NGINXTooMany500s
-         expr: 100 * ( sum( nginx_ingress_controller_requests{status=~"5.+"} ) / sum(nginx_ingress_controller_requests) ) > 5
-         for: 1m
-         labels:
-           severity: warning
-         annotations:
-           description: Too many 5XXs
-           summary: More than 5% of all requests returned 5XX, this requires your attention
-       - alert: NGINXTooMany400s
-         expr: 100 * ( sum( nginx_ingress_controller_requests{status=~"4.+"} ) / sum(nginx_ingress_controller_requests) ) > 5
-         for: 1m
-         labels:
-           severity: warning
-         annotations:
-           description: Too many 4XXs
-           summary: More than 5% of all requests returned 4XX, this requires your attention
+        rules:
+         # These are just examples rules, please adapt them to your needs
+         - alert: NGINXConfigFailed
+           expr: count(nginx_ingress_controller_config_last_reload_successful == 0) > 0
+           for: 1s
+           labels:
+             severity: critical
+           annotations:
+             description: bad ingress config - nginx config test failed
+             summary: uninstall the latest ingress changes to allow config reloads to resume
+         - alert: NGINXCertificateExpiry
+           expr: (avg(nginx_ingress_controller_ssl_expire_time_seconds{host!="_"}) by (host) - time()) < 604800
+           for: 1s
+           labels:
+             severity: critical
+           annotations:
+             description: ssl certificate(s) will expire in less then a week
+             summary: renew expiring certificates to avoid downtime
