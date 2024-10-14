@@ -1,5 +1,6 @@
 cert-manager:
-  installCRDs: true
+  crds:
+    enabled: true
   podDnsPolicy: "None"
   podDnsConfig:
     nameservers:
@@ -7,28 +8,10 @@ cert-manager:
       - "8.8.8.8"
 
   resources:
-    limits:
-      cpu: "30m"
-      memory: "64Mi"
     requests:
       cpu: "1m"
       memory: "32Mi"
 
-  webhook.resources:
-    limits:
-      cpu: "30m"
-      memory: "64Mi"
-    requests:
-      cpu: "1m"
-      memory: "32Mi"
-
-  cainjector.resources:
-    limits:
-      cpu: "30m"
-      memory: "64Mi"
-    requests:
-      cpu: "1m"
-      memory: "32Mi"
 
   ingressShim:
     defaultIssuerName: "prod-issuer"
