@@ -39,9 +39,17 @@ coredns:
     enabled: true
     min: 3
     preventSinglePointFailure: true
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "50Mi"
+      limits:
+        cpu: "500m"
+        memory: "50Mi"
 
   podDisruptionBudget:
     minAvailable: 2
+
 
   servers:
   - zones:
