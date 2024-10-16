@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: volsync-rules
+spec:
+  groups:
+    - name: volsync.rules
+      rules:
+        - alert: VolsyncBackupFailed
+          annotations:
+            description: |
+              {{ $labels.obj_name }} backup has failed.
+            summary: Volsync backup failed for a specific PVC.
+          expr: |
+            max_over_time(volsync_volume_out_of_sync{job="volsync-metrics",namespace="storage"}[5m]) > 0
+          for: 1s
+          labels:
+            severity: critical
