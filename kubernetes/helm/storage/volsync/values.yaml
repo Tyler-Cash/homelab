@@ -1,6 +1,14 @@
 volsync:
   manageCRDs: true
+
   metrics:
     disableAuth: true
+
   securityContext:
     allowPrivilegeEscalation: true
+
+  resources:
+    limits: {}
+    requests:
+      cpu: 500m
+      memory: 500Mi
