@@ -39,7 +39,13 @@ spec:
                 - PersistentVolumeClaim
               selector:
                 matchLabels:
-                  app.kubernetes.io/instance: prometheus
+                  app.kubernetes.io/name: prometheus
+          - resources:
+              kinds:
+                - PersistentVolumeClaim
+              selector:
+                matchLabels:
+                  app.kubernetes.io/name: alertmanager
           - resources:
               kinds:
                 - PersistentVolumeClaim
