@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gatus-rules
+spec:
+  groups:
+    - name: gatus.rules
+      rules:
+        - alert: CertAlmostExpired
+          annotations:
+            description: |
+              {{ $labels.name }} certificate will expire in a week.
+          expr: |
+            min_over_time(gatus_results_certificate_expiration_seconds[5m]) < 604800
+          for: 10m
+          labels:
+            severity: critical
+
+        - alert: GatusServiceDown
+          annotations:
+            summary: Service with less than 90% availability over the last 30m
+            description: |
+              {{ $labels.key }} is down.
+          expr: |
+            (sum(rate(gatus_results_total{success="true"}[30m])) by (key) / sum(rate(gatus_results_total[30m])) by (key)) < 0.9
+          for: 10m
+          labels:
+            severity: critical

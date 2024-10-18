@@ -3,6 +3,7 @@ gatus:
     strategy: Recreate
 
   config:
+    metrics: true
     storage:
       type: sqlite
       path: /data/data.db
@@ -10,9 +11,9 @@ gatus:
       - name: tyler-bot-backend
         url: https://event.k8s.tylercash.dev/api/auth/is-logged-in
         conditions:
-          - "[STATUS] == 200"
+          - "[STATUS] < 400"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 5000"
+          - "[RESPONSE_TIME] < 800"
 
       - name: tyler-bot-frontend
         url: https://event.k8s.tylercash.dev/
@@ -34,7 +35,13 @@ gatus:
         conditions:
           - "[CONNECTED] == true"
           - "[RESPONSE_TIME] < 1000"
-          -
+
+      - name: Domain expiry
+        url: https://tylercash.dev/
+        interval: 1h
+        conditions:
+          - "[DOMAIN_EXPIRATION] > 720h"
+
   ingress:
     enabled: true
     annotations:
@@ -54,9 +61,6 @@ gatus:
     size: 5Gi
 
   resources:
-    limits:
-      cpu: 100m
-      memory: 64Mi
     requests:
       cpu: 50m
       memory: 32Mi
