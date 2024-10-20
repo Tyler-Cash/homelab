@@ -93,18 +93,6 @@ kube-prometheus-stack:
               path: /var/lib/grafana/dashboards/discord
     dashboards:
       storage:
-        ceph-cluster:
-          gnetId: 7056
-          revision: 1
-          datasource: Prometheus
-        ceph-pools:
-          gnetId: 5342
-          revision: 1
-          datasource: Prometheus
-        ceph-osds:
-          gnetId: 5336
-          revision: 1
-          datasource: Prometheus
         postgres:
           gnetId: 9628
           revision: 1
