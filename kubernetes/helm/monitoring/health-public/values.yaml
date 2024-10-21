@@ -13,7 +13,7 @@ gatus:
         conditions:
           - "[STATUS] < 400"
           - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 800"
+          - "[RESPONSE_TIME] < 2000"
 
       - name: tyler-bot-frontend
         url: https://event.k8s.tylercash.dev/
