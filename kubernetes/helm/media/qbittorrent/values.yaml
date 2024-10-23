@@ -131,7 +131,7 @@ app-template:
       enabled: true
       storageClass: ceph-filesystem-hdd
       accessMode: ReadWriteMany
-      size: 250Gi
+      size: 1Ti
       labels:
         snapshot.home.arpa/enabled: "false"
 
