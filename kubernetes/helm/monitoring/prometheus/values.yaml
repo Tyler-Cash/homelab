@@ -35,10 +35,18 @@ kube-prometheus-stack:
     fullNameOverride: grafana
     defaultDashboardsTimezone: Australia/Sydney
     sidecar:
+      datasources:
+        enabled: true
       dashboards:
         enabled: true
         provider:
           disableDelete: true
+    additionalDataSources:
+    - name: Dashboard1
+      type: prometheus
+      isDefault: false
+      url: http://prometheus-prometheus.monitoring.svc.cluster.local:9090
+      version: 1
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -136,6 +144,8 @@ kube-prometheus-stack:
         mountPath: /etc/secrets/auth_generic_oauth
         readOnly: true
     grafana.ini:
+      security:
+        allow_embedding: true
       paths:
         data: /var/lib/grafana/
         logs: /var/log/grafana
@@ -157,6 +167,10 @@ kube-prometheus-stack:
       users:
         auto_assign_org: true
         auto_assign_org_id: 1
+      auth.anonymous:
+        enabled: true
+        name: Anonymous
+        org_role: Viewer
       auth.generic_oauth:
         name: Authentik
         enabled: true

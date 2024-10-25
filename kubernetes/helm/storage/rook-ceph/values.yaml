@@ -41,6 +41,7 @@ rook-ceph-cluster:
       enabled: true
       port: *dashboardPort
       ssl: true
+      prometheusEndpoint: http://prometheus-prometheus.monitoring.svc.cluster.local:9090
     annotations:
       all:
         prometheus.io/scrape: "true"
