@@ -47,7 +47,7 @@ spec:
                   ceph mgr module disable diskprediction_local
 
                   echo "Configure PG autoscaler"
-                  ceph osd pool set ceph-filesystem-hdd-data0 pg_num 32
+                  ceph osd pool set ceph-filesystem-hdd-data0 pg_num 64
                   ceph config set global mon_target_pg_per_osd 100
                   ceph config set mon mon_max_pg_per_osd 500
 
