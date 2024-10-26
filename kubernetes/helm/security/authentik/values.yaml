@@ -75,7 +75,7 @@ authentik:
       - name: AUTHENTIK_REDIS__PASSWORD
         valueFrom:
           secretKeyRef:
-            name: authentik-redis
+            name: &redis-secret redis-password-secret
             key: redis-password
       - name: AUTHENTIK_COOKIE_DOMAIN
         value: tylercash.dev
@@ -89,6 +89,8 @@ redis:
     defaultStorageClass: local-path
   auth:
     enabled: true
+    existingSecret: *redis-secret
+
 
 postgresql:
   enabled: false
