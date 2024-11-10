@@ -5,8 +5,8 @@ app-template:
 
   image:
     repository: jellyfin/jellyfin
-    tag: 2024101405-amd64
-
+    tag: 10.10.1
+    
   service:
     main:
       ports:
