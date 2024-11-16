@@ -27,6 +27,7 @@ rook-ceph-cluster:
         - hosts:
             - *host
           secretName: ceph-home-tylercash-dev-tls
+  enableDiscoveryDaemon: true
   cephClusterSpec:
     removeOSDsIfOutAndSafeToRemove: true
     skipUpgradeChecks: true
@@ -36,6 +37,8 @@ rook-ceph-cluster:
     mgr:
       modules:
         - name: pg_autoscaler
+          enabled: true
+        - name: rook
           enabled: true
     dashboard:
       enabled: true
