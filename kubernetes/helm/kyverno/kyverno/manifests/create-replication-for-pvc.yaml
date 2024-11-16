@@ -3,7 +3,6 @@ kind: ClusterPolicy
 metadata:
   name: create-replication-for-pvc
 spec:
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: create-replication-for-pvc
       context:
@@ -53,8 +52,9 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: redis
       generate:
-        namespace: &repl_namespace "{{request.object.metadata.namespace}}"
         synchronize: true
+        generateExisting: true
+        namespace: &repl_namespace "{{request.object.metadata.namespace}}"
         name: &repl_name "{{request.object.metadata.name}}"
         apiVersion: &repl_api volsync.backube/v1alpha1
         kind: &repl_kind ReplicationSource
@@ -97,8 +97,9 @@ spec:
                 matchLabels:
                   snapshot.home.arpa/enabled: "true"
       generate:
-        namespace: &restic_namespace "{{request.object.metadata.namespace}}"
         synchronize: true
+        generateExisting: true
+        namespace: &restic_namespace "{{request.object.metadata.namespace}}"
         name: *restic_name
         apiVersion: &restic_api v1
         kind: &restic_kind Secret
@@ -109,7 +110,7 @@ spec:
             name: *restic_name
             namespace: *restic_namespace
           stringData:
-            RESTIC_REPOSITORY: "{{restic.data.RESTIC_REPOSITORY}}:{{request.object.metadata.name}}/"
+            RESTIC_REPOSITORY: "{{restic.data.RESTIC_REPOSITORY}}:{{request.object.metadata.name}}"
             RESTIC_PASSWORD: "{{restic.data.RESTIC_PASSWORD}}"
             GOOGLE_PROJECT_ID: "{{restic.data.GOOGLE_PROJECT_ID}}"
             GOOGLE_APPLICATION_CREDENTIALS: "{{restic.data.GOOGLE_APPLICATION_CREDENTIALS}}"

@@ -3,7 +3,6 @@ kind: ClusterPolicy
 metadata:
   name: generate-monthly-snapshots
 spec:
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: generate-monthly-snapshots
       match:

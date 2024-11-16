@@ -73,16 +73,10 @@ tasks:
     vars:
       rsrc: '{{ or .rsrc (fail "Variable `rsrc` is required") }}'
       namespace: '{{.namespace | default "default"}}'
-      # 1) Query to find the Flux Kustomization associated with the ReplicationSource (rsrc)
-      kustomization:
-        sh: |
-          kubectl -n {{.namespace}} get replicationsource {{.rsrc}} \
-            -o jsonpath="{.metadata.labels.kustomize\.toolkit\.fluxcd\.io/name}"
       # 2) Query to find the Claim associated with the ReplicationSource (rsrc)
       claim:
         sh: |
-          kubectl -n {{.namespace}} get replicationsource {{.rsrc}} \
-            -o jsonpath="{.spec.sourcePVC}"
+          kubectl -n {{.namespace}} get replicationsource {{.rsrc}} -o jsonpath="{.spec.sourcePVC}"
       # 3) Query to find the controller associated with the PersistentVolumeClaim (claim)
       controller:
         sh: |
@@ -126,16 +120,20 @@ tasks:
   restore-volsync-job:
     internal: true
     cmds:
-      - envsubst < <(cat {{.destinationTemplate}}) | kubectl apply -f -
+      - storageClassName={{.storageClassName}} envsubst < <(cat {{.destinationTemplate}}) | kubectl apply -f -
       - bash {{.waitForJobScript}} volsync-dst-{{.rsrc}}-{{.claim}}-{{.ts}} {{.namespace}}
       - kubectl -n {{.namespace}} wait job/volsync-dst-{{.rsrc}}-{{.claim}}-{{.ts}} --for condition=complete --timeout=120m
       - kubectl -n {{.namespace}} delete replicationdestination {{.rsrc}}-{{.claim}}-{{.ts}}
     env: *task-vars
+    vars:
+      storageClassName:
+        sh: |
+          kubectl -n {{.namespace}} get pvc {{.rsrc}} -o jsonpath="{.spec.storageClassName}"
 
   # Resume ArgoCD automatic syncing
   restore-resume-app:
     internal: true
     cmds:
-      - kubectl -n argocd patch applications.argoproj.io {{.application}} --type=merge -p '{"spec":{"syncPolicy":{"automated":{},"syncOptions":["RespectIgnoreDifferences=true","CreateNamespace=true","ServerSideApply=true"]}}}'
+      - kubectl -n argocd patch applications.argoproj.io {{.application}} --type=merge -p '{"spec":{"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["RespectIgnoreDifferences=true","CreateNamespace=true","ServerSideApply=true"]}}}'
     env: *task-vars
 

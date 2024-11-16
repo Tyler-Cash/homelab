@@ -2,6 +2,15 @@ kyverno:
   crds:
     install: true
 
+  # Caused by https://github.com/kyverno/kyverno/issues/11561
+  features:
+    reporting:
+      validate: false
+      mutate: false
+      mutateExisting: false
+      imageVerify: false
+      generate: false
+
   admissionController:
     container:
       resources:

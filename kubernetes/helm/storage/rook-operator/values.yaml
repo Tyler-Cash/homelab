@@ -10,7 +10,7 @@ rook-ceph:
       memory: "300Mi"
   csi:
     csiAddons:
-      enabled: false
+      enabled: true
     csiRBDProvisionerResource: |
       - name : csi-provisioner
         resource:
