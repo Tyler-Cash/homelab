@@ -1,0 +1,55 @@
+---
+app-template:
+  image:
+    repository: syncthing/syncthing
+    tag: 1.28
+    pullPolicy: IfNotPresent
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8384
+        tcp:
+          port: 22000
+        udp:
+          port: 22000
+          protocol: UDP
+        broadcast:
+          port: 21027
+          protocol: UDP
+
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: syncthing.k8s.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                port: 8384
+      tls:
+        - secretName: syncthing-letsencrypt-certificate
+          hosts:
+            - syncthing.k8s.tylercash.dev
+
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+
+  persistence:
+    data:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      mountPath: /var/syncthing
+      size: 50Gi
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi

@@ -9,6 +9,7 @@ app-template:
     SAMBA_VOLUME_CONFIG_lightroom: "[Lightroom]; path=/shares/lightroom; valid users = tcash; guest ok = no; read only = no; browseable = yes"
     SAMBA_VOLUME_CONFIG_replays: "[Replays]; path=/shares/replays; valid users = tcash; guest ok = no; read only = no; browseable = yes"
     SAMBA_VOLUME_CONFIG_photos: "[Photos]; path=/shares/photos; valid users = tcash; guest ok = no; read only = no; browseable = yes"
+    SAMBA_VOLUME_CONFIG_photos_ssd: "[Photos_ssd]; path=/shares/photos-ssd; valid users = tcash; guest ok = no; read only = no; browseable = yes"
     SAMBA_CONF_LOG_LEVEL: 1 passdb:5 auth:5
     UID_tcash: 568
 
@@ -42,6 +43,12 @@ app-template:
       accessMode: ReadWriteMany
       mountPath: /shares/photos
       size: 5Ti
+    photos-ssd:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      mountPath: /shares/photos-ssd
+      size: 1Ti
     lightroom:
       enabled: true
       storageClass: ceph-block
