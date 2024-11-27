@@ -16,7 +16,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/tyler-cash/peep-bot-backend
-            tag: latest@sha256:7854186c4aa2289529be37cfc88849a3b375afa7103ae9fb309e6ab878c34745
+            tag: latest@sha256:25d20394bcb9a436373219eeec6b11f585c21f16def2aeaaec177c8c298a111c
           env:
             TZ: Australia/Sydney
             SPRING_CONFIG_ADDITIONAL-LOCATION: &secret_folder /secrets/config/
