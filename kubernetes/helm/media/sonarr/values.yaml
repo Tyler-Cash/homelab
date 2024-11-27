@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/onedr0p/sonarr
-    tag: 4.0.10.2544
+    tag: 4.0.11.2680
     pullPolicy: IfNotPresent
 
   podAnnotations:
