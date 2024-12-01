@@ -50,6 +50,7 @@ spec:
                   ceph dashboard set-prometheus-api-host https://prometheus.k8s.tylercash.dev
                   ceph config set global osd_scrub_load_threshold 6.0
                   ceph config set global osd_scrub_during_recovery  true
+                  ceph config set global osd_scrub_auto_repair true
 
                   echo "Configure PG autoscaler"
                   ceph osd pool set ceph-filesystem-hdd-data0 pg_num 64
