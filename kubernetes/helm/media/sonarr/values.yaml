@@ -55,9 +55,6 @@ app-template:
       retain: true
 
   resources:
-    limits:
-      cpu: 900m
-      memory: 900Mi
     requests:
       cpu: 100m
       memory: 700Mi
