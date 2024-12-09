@@ -22,7 +22,7 @@ spec:
             description: |
               {{ $labels.key }} is down.
           expr: |
-            (sum(rate(gatus_results_total{success="true"}[30m])) by (key) / sum(rate(gatus_results_total[30m])) by (key)) < 0.9
-          for: 10m
+            (sum(rate(gatus_results_total{success="true"}[30m])) by (key) / sum(rate(gatus_results_total[30m])) by (key)) < 0.7
+          for: 60m
           labels:
             severity: critical
