@@ -2,7 +2,6 @@ terraform {
   required_providers {
     kubernetes = {
       source = "hashicorp/kubernetes"
-      version = "2.35.0"
     }
   }
 }
@@ -23,6 +22,8 @@ module "secrets_storage" {
   homelab_project_id = "${var.homelab_project_prefix}-external-secrets-op"
   email_username = var.email_username
   email_password = var.email_password
+  foundry_username = var.foundry_username
+  foundry_password = var.foundry_password
   alertmanager_config = var.alertmanager_config
   tailscale_authkey = var.tailscale_authkey
   tylerbot_config = var.tylerbot_config

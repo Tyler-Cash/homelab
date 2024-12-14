@@ -1,16 +1,7 @@
 terraform {
-  required_version = ">= 1.0.0"
   required_providers {
     b2 = {
       source = "Backblaze/b2"
-    }
-    google = {
-      source = "hashicorp/google"
-      version = "6.13.0"
-    }
-    google-beta = {
-      source = "hashicorp/google-beta"
-      version = "6.13.0"
     }
   }
 }
@@ -32,7 +23,7 @@ provider "google-beta" {
 
 module "project-services" {
   source  = "terraform-google-modules/project-factory/google//modules/project_services"
-  version = "~> 17.0"
+  version = "17.0"
 
   project_id = google_project.homelab_backups.project_id
 

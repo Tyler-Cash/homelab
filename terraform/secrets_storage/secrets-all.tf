@@ -29,6 +29,10 @@ locals {
     "tylerbot" = {
       "application-prod.yaml" = var.tylerbot_config
     }
+    "foundry" = {
+      "foundry_username" = var.foundry_username
+      "foundry_password" = var.foundry_password
+    }
     "authentik" = {
       "email-username" = var.email_username
       "email-password" = var.email_password
@@ -42,9 +46,8 @@ locals {
 
 resource "google_secret_manager_secret" "all" {
   secret_id = "all_secrets"
-
   replication {
-    automatic = true
+    auto {}
   }
 }
 

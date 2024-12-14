@@ -1,6 +1,17 @@
 output "authentik_token" {
   value = random_password.authentik_bootstrap_token.result
 }
+
+variable "foundry_username" {
+  type = string
+  sensitive = true
+}
+
+variable "foundry_password" {
+  type = string
+  sensitive = true
+}
+
 output "authentik_admin_password" {
   value = random_password.authentik_bootstrap_password.result
 }

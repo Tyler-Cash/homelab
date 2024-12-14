@@ -1,13 +1,5 @@
 terraform {
   required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "6.13.0"
-    }
-    google-beta = {
-      source = "hashicorp/google-beta"
-      version = "6.13.0"
-    }
   }
 }
 
@@ -21,9 +13,9 @@ provider "google-beta" {
   region = "australia-southeast1"
 }
 
-module "project-services" {
-  source  = "terraform-google-modules/project-factory/google//modules/project_services"
-  version = "~> 17.0"
+module "project-factory" {
+  source  = "terraform-google-modules/project-factory/google"
+  version = "~> 17.1"
 
   project_id = google_project.homelab_secrets_storage.project_id
 
@@ -32,4 +24,7 @@ module "project-services" {
     "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com"
   ]
+  billing_account = google_project.homelab_secrets_storage.billing_account
+  name            = "Homelab Secrets"
 }
+
