@@ -13,6 +13,7 @@ spec:
       generate:
         namespace: "{{request.object.metadata.name}}"
         synchronize: true
+        orphanDownstreamOnPolicyDelete: false
         apiVersion: snapscheduler.backube/v1
         kind: SnapshotSchedule
         name: monthly-snapshot-schedule

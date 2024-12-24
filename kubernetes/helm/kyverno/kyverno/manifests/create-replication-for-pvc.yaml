@@ -11,15 +11,15 @@ spec:
             method: GET
             urlPath: "/api/v1/namespaces/{{request.object.metadata.namespace}}/persistentvolumeclaims/{{request.object.metadata.name}}"
             jmesPath: "spec.storageClassName"
-      match:
+      match: &match
         any:
           - resources:
               kinds:
                 - PersistentVolumeClaim
               selector:
                 matchLabels:
-                  snapshot.home.arpa/enabled: "true"
-      exclude:
+                  online-snapshot.home.arpa/enabled: "true"
+      exclude: &exclude
         any:
           - resources:
               kinds:
@@ -32,7 +32,7 @@ spec:
                 - PersistentVolumeClaim
               selector:
                 matchLabels:
-                  snapshot.home.arpa/enabled: "false"
+                  online-snapshot.home.arpa/enabled: "false"
           - resources:
               kinds:
                 - PersistentVolumeClaim
@@ -54,6 +54,7 @@ spec:
       generate:
         synchronize: true
         generateExisting: true
+        orphanDownstreamOnPolicyDelete: false
         namespace: &repl_namespace "{{request.object.metadata.namespace}}"
         name: &repl_name "{{request.object.metadata.name}}"
         apiVersion: &repl_api volsync.backube/v1alpha1
@@ -88,17 +89,12 @@ spec:
           configMap:
             name: restic-config
             namespace: kyverno
-      match:
-        any:
-          - resources:
-              kinds:
-                - PersistentVolumeClaim
-              selector:
-                matchLabels:
-                  snapshot.home.arpa/enabled: "true"
+      match: *match
+      exclude: *exclude
       generate:
         synchronize: true
         generateExisting: true
+        orphanDownstreamOnPolicyDelete: false
         namespace: &restic_namespace "{{request.object.metadata.namespace}}"
         name: *restic_name
         apiVersion: &restic_api v1

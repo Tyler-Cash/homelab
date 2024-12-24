@@ -1,15 +1,13 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: add-local-snapshot-labels
+  name: add-online-snapshot-labels
   annotations:
-    policies.kyverno.io/title: Add local snapshot label
-    policies.kyverno.io/category: Sample
-    policies.kyverno.io/minversion: 1.6.0
+    policies.kyverno.io/title: Add online snapshot label
     policies.kyverno.io/severity: medium
     policies.kyverno.io/subject: Label
     policies.kyverno.io/description: >-
-      Automatically enable local snapshots unless volume has been excluded
+      Automatically enable online snapshots unless volume has been excluded
 spec:
   rules:
     - name: whitelist
@@ -26,9 +24,13 @@ spec:
           - resources:
               selector:
                 matchLabels:
+                  online-snapshot.home.arpa/enabled: "false"
+          - resources:
+              selector:
+                matchLabels:
                   app.kubernetes.io/created-by: "volsync"
       mutate:
         patchStrategicMerge:
           metadata:
             labels:
-              +(snapshot.home.arpa/enabled): "true"
+              +(online-snapshot.home.arpa/enabled): "true"

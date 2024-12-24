@@ -5,9 +5,6 @@ app-template:
     tag: 1.4.5
     pullPolicy: IfNotPresent
 
-  podAnnotations:
-    backup.velero.io/backup-volumes-excludes: jellyfin-cache,jellyfin-tv,jellyfin-movies,jellyfin-transcodes
-
   service:
     main:
       ports:
@@ -40,6 +37,8 @@ app-template:
       enabled: true
       storageClass: ceph-block
       size: 10Gi
+      labels:
+        online-snapshot.home.arpa/enabled: "false"
     tv:
       enabled: true
       type: pvc

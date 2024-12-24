@@ -29,6 +29,8 @@ app-template:
     config:
       enabled: true
       storageClass: ceph-block
+      labels:
+        online-snapshot.home.arpa/enabled: "false"
     backups:
       enabled: true
       type: pvc

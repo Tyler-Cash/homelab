@@ -1,12 +1,8 @@
 app-template:
-
-  podAnnotations:
-    backup.velero.io/backup-volumes-excludes: jellyfin-cache,jellyfin-tv,jellyfin-movies,jellyfin-transcodes
-
   image:
     repository: jellyfin/jellyfin
     tag: 10.10.3
-    
+
   service:
     main:
       ports:

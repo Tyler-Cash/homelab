@@ -43,6 +43,8 @@ app-template:
       accessMode: ReadWriteMany
       mountPath: /shares/photos
       size: 5Ti
+      labels:
+        online-snapshot.home.arpa/enabled: "false"
     photos-ssd:
       enabled: true
       storageClass: ceph-block
