@@ -24,6 +24,10 @@ variable "secrets_namespace" {
 
 variable "homelab_project_id" {}
 
+variable "plex_claim" {
+  sensitive = true
+}
+
 variable "email_username" {
   sensitive = true # Sensitive as value is a key, not a username
 }

@@ -13,9 +13,9 @@ provider "google-beta" {
   region = "australia-southeast1"
 }
 
-module "project-factory" {
-  source  = "terraform-google-modules/project-factory/google"
-  version = "~> 17.1"
+module "project-services" {
+  source  = "terraform-google-modules/project-factory/google//modules/project_services"
+  version = "17.1"
 
   project_id = google_project.homelab_secrets_storage.project_id
 
@@ -24,7 +24,5 @@ module "project-factory" {
     "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com"
   ]
-  billing_account = google_project.homelab_secrets_storage.billing_account
-  name            = "Homelab Secrets"
 }
 

@@ -7,6 +7,10 @@ variable "homelab_domain" {
     type = string
 }
 
+variable "plex_claim" {
+    type = string
+}
+
 variable "homelab_account_id" {
     type = string
 }

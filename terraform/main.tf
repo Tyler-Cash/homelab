@@ -27,6 +27,7 @@ module "secrets_storage" {
   alertmanager_config = var.alertmanager_config
   tailscale_authkey = var.tailscale_authkey
   tylerbot_config = var.tylerbot_config
+  plex_claim = var.plex_claim
 }
 
 module "dns" {

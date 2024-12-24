@@ -23,6 +23,9 @@ locals {
     "tandoor" = {
       "secret-key" = random_password.tandoor_secret_key.result
     }
+    "plex" = {
+      "PLEX_CLAIM_TOKEN" = var.plex_claim
+    }
     "alertmanager" = {
       "alertmanager.yaml" = var.alertmanager_config
     }
