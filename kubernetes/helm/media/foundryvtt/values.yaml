@@ -2,29 +2,29 @@
 app-template:
   image:
     repository: felddy/foundryvtt
-    tag: 12.331.0
+    tag: prerelease-13.334.0
     pullPolicy: IfNotPresent
 
   env:
-    FOUNDRY_UID: 568
-    FOUNDRY_GID: 568
-    CONTAINER_CACHE: /data/container_cache
-    CONTAINER_PATCHES: /data/container_patches
+    CONTAINER_CACHE: /cache/container_cache/
+    CONTAINER_PATCHES: /cache/container_patches/
     CONTAINER_URL_FETCH_RETRY: "50"
-    CONTAINER_VERBOSE: "true"
+    FOUNDRY_COMPRESS_WEBSOCKET: true
     FOUNDRY_HOSTNAME: &host tabletop.k8s.tylercash.dev
     FOUNDRY_LOCAL_HOSTNAME: *host
-    FOUNDRY_MINIFY_STATIC_FILES: "true"
+    FOUNDRY_MINIFY_STATIC_FILES: true
     FOUNDRY_PROTOCOL: "4"
     FOUNDRY_PROXY_PORT: "443"
-    FOUNDRY_PROXY_SSL: "true"
-    FOUNDRY_COMPRESS_WEBSOCKET: "true"
-    FOUNDRY_TELEMETRY: "false"
-    FOUNDRY_USERNAME: "tcash"
+    FOUNDRY_PROXY_SSL: true
+    FOUNDRY_TELEMETRY: false
+
+
 
   envFrom:
     - secretRef:
-        name: foundry-password-secret
+        name: media-foundryvtt-secrets
+    - secretRef:
+        name: foundry-admin-key-secret
 
   service:
     main:
@@ -48,9 +48,9 @@ app-template:
             - *host
 
   podSecurityContext:
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
+    runAsUser: 421
+    runAsGroup: 421
+    fsGroup: 421
     fsGroupChangePolicy: "Always"
 
   persistence:
@@ -59,7 +59,30 @@ app-template:
       storageClass: ceph-block
       accessMode: ReadWriteOnce
       size: 10Gi
+    cache:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      labels:
+        snapshot.home.arpa/enabled: "false"
 
+    initContainers:
+      setup-foundryvtt:
+        name: setup-foundryvtt
+        image: busybox:1.37.0
+        command:
+          - sh
+          - -c
+        args:
+          - rm -f /data/Config/options.json.lock
+          - mkdir -p /cache/container_cache/
+          - mkdir -p /cache/container_patches/
+        volume_mounts:
+          - mountPath: /cache
+            name: cache
+          - mountPath: /data
+            name: data
   resources:
     requests:
       cpu: 100m

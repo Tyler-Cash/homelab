@@ -33,8 +33,8 @@ locals {
       "application-prod.yaml" = var.tylerbot_config
     }
     "foundry" = {
-      "foundry_username" = var.foundry_username
-      "foundry_password" = var.foundry_password
+      "FOUNDRY_USERNAME" = var.foundry_username
+      "FOUNDRY_PASSWORD" = var.foundry_password
     }
     "authentik" = {
       "email-username" = var.email_username
