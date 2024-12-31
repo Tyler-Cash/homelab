@@ -22,7 +22,6 @@ rook-ceph-cluster:
       host:
         name: &host ceph.k8s.tylercash.dev
         path: ""
-      port: &dashboardPort 8443
       tls:
         - hosts:
             - *host
@@ -30,7 +29,6 @@ rook-ceph-cluster:
   enableDiscoveryDaemon: true
   cephClusterSpec:
     removeOSDsIfOutAndSafeToRemove: true
-    skipUpgradeChecks: true
     storage:
       useAllNodes: true
       useAllDevices: true
@@ -42,7 +40,6 @@ rook-ceph-cluster:
           enabled: true
     dashboard:
       enabled: true
-      port: *dashboardPort
       ssl: true
       prometheusEndpoint: http://prometheus-prometheus.monitoring.svc.cluster.local:9090
     annotations:
