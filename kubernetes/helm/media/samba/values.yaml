@@ -6,7 +6,6 @@ app-template:
   env:
     WSDD2_DISABLE: 1
     AVAHI_DISABLE: 1
-    SAMBA_VOLUME_CONFIG_lightroom: "[Lightroom]; path=/shares/lightroom; valid users = tcash; guest ok = no; read only = no; browseable = yes"
     SAMBA_VOLUME_CONFIG_replays: "[Replays]; path=/shares/replays; valid users = tcash; guest ok = no; read only = no; browseable = yes"
     SAMBA_VOLUME_CONFIG_photos: "[Photos]; path=/shares/photos; valid users = tcash; guest ok = no; read only = no; browseable = yes"
     SAMBA_VOLUME_CONFIG_photos_ssd: "[Photos_ssd]; path=/shares/photos-ssd; valid users = tcash; guest ok = no; read only = no; browseable = yes"
@@ -51,12 +50,6 @@ app-template:
       accessMode: ReadWriteOnce
       mountPath: /shares/photos-ssd
       size: 1Ti
-    lightroom:
-      enabled: true
-      storageClass: ceph-block
-      mountPath: /shares/lightroom
-      accessMode: ReadWriteOnce
-      size: 50Gi
     replays:
       enabled: true
       storageClass: ceph-filesystem-hdd
