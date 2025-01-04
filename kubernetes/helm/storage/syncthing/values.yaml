@@ -48,6 +48,11 @@ app-template:
       accessMode: ReadWriteOnce
       mountPath: /var/syncthing
       size: 50Gi
+    photos:
+      enabled: true
+      storageClass: ceph-filesystem-hdd
+      accessMode: ReadWriteMany
+      size: 5Ti
 
   resources:
     requests:
