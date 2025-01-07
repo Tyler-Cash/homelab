@@ -1,6 +1,6 @@
 module "secret-manager" {
   source  = "GoogleCloudPlatform/secret-manager/google"
-  version = "~> 0.5"
+  version = "~> 0.6"
   project_id = google_project.homelab_secrets_storage.id
 }
 
