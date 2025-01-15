@@ -8,6 +8,6 @@ dependencies:
   version: 2024.10.5
   repository: https://charts.goauthentik.io/
 - name: redis
-  version: 20.6.2
+  version: 20.6.3
   repository: oci://registry-1.docker.io/bitnamicharts
 
