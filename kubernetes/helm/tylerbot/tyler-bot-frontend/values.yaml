@@ -5,7 +5,7 @@ app-template:
         main:
           image:
             repository: ghcr.io/tyler-cash/peep-bot-frontend
-            tag: latest@sha256:188d38863639cd75d30d4c6becea75a2774ee6bbc07653446d47b14e50b83f9b
+            tag: latest@sha256:50ea31297ea608db8d20b07db7ef3738d166834679bf429de3447fd1bb708ceb
           env:
             TZ: Australia/Sydney
 
