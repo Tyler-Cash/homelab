@@ -260,6 +260,45 @@ rook-ceph-cluster:
           csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
           csi.storage.k8s.io/node-stage-secret-namespace: storage
           csi.storage.k8s.io/fstype: ext4
+    - name: ceph-filesystem-hdd-speed
+      spec:
+        metadataPool:
+          deviceClass: ssd
+          replicated:
+            size: 3
+        dataPools:
+          - name: default
+            failureDomain: host
+            replicated:
+              size: 3
+          - name: data0
+            deviceClass: hdd
+            failureDomain: host
+            replicated:
+              size: 3
+        metadataServer:
+          activeCount: 1
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+          priorityClassName: system-cluster-critical
+      storageClass:
+        enabled: true
+        isDefault: false
+        name: ceph-filesystem-hdd-speed
+        pool: data0
+        reclaimPolicy: Delete
+        allowVolumeExpansion: true
+        mountOptions: []
+        parameters:
+          csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+          csi.storage.k8s.io/provisioner-secret-namespace: storage
+          csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+          csi.storage.k8s.io/controller-expand-secret-namespace: storage
+          csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+          csi.storage.k8s.io/node-stage-secret-namespace: storage
+          csi.storage.k8s.io/fstype: ext4
 
   cephObjectStores:
     - name: ceph-objectstore
