@@ -48,23 +48,14 @@ rook-ceph-cluster:
         prometheus.io/port: "9102"
     resources:
       mgr:
-        limits:
-          cpu: "1500m"
-          memory: "2Gi"
         requests:
           cpu: "800m"
           memory: "1024Mi"
       mon:
-        limits:
-          cpu: "2000m"
-          memory: "2Gi"
         requests:
           cpu: "150m"
           memory: "500Mi"
       osd:
-        limits:
-          cpu: "2000m"
-          memory: "4Gi"
         requests:
           cpu: "200m"
           memory: "1.5Gi"
