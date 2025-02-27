@@ -48,17 +48,23 @@ rook-ceph-cluster:
         prometheus.io/port: "9102"
     resources:
       mgr:
+        limits:
+          memory: "1Gi"
         requests:
-          cpu: "800m"
-          memory: "1024Mi"
+          cpu: "500m"
+          memory: "512Mi"
       mon:
+        limits:
+          memory: "2Gi"
         requests:
-          cpu: "150m"
-          memory: "500Mi"
+          cpu: "1000m"
+          memory: "1Gi"
       osd:
+        limits:
+          memory: "4Gi"
         requests:
-          cpu: "200m"
-          memory: "1.5Gi"
+          cpu: "1000m"
+          memory: "4Gi"
       prepareosd:
         # limits: It is not recommended to set limits on the OSD prepare job
         #         since it's a one-time burst for memory that must be allowed to
