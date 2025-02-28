@@ -71,11 +71,12 @@ spec:
               schedule: "0 4 * * *"
             restic:
               repository: &restic_name "restic-{{request.object.metadata.name}}"
+              pruneIntervalDays: 30
               retain:
-                daily: 7
-                weekly: 2
-                monthly: 2
-                yearly: 2
+                daily: 1
+                weekly: 1
+                monthly: 1
+                yearly: 1
               storageClassName: "{{storageClassName}}"
               copyMethod: Clone
               cacheCapacity: "{{request.object.spec.resources.requests.storage}}"
