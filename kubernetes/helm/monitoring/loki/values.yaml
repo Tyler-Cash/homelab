@@ -1,7 +1,6 @@
 loki:
-  namespace: monitoring
-
   loki:
+    auth_enabled: false
     commonConfig:
       replication_factor: 1
     schemaConfig:
@@ -12,22 +11,39 @@ loki:
           schema: v13
           index:
             prefix: loki_index_
-            period: 20d
+            period: 24h
     pattern_ingester:
       enabled: true
     limits_config:
       allow_structured_metadata: true
       volume_enabled: true
+      ingestion_rate_mb: 3
+      ingestion_burst_size_mb: 16
     ruler:
       enable_api: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
 
   minio:
     enabled: true
+    persistence:
+      enabled: true
+      storageClassName: "ceph-block"
+      size: 10Gi
 
   deploymentMode: SingleBinary
 
   singleBinary:
     replicas: 1
+    persistence:
+      enabled: true
+      storageClassName: "ceph-block"
+      size: 10Gi
 
   # Zero out replica counts of other deployment modes
   backend:
@@ -56,10 +72,6 @@ loki:
   bloomGateway:
     replicas: 0
 
-  monitoring:
-    dashboards:
-      enabled: true
-    rules:
-      enabled: true
-    serviceMonitor:
-      enabled: true
+  service:
+    type: ClusterIP
+    port: 3100

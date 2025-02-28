@@ -29,6 +29,14 @@ spec:
               selector:
                 matchLabels:
                   app.kubernetes.io/created-by: "volsync"
+          - resources:
+              selector:
+                matchLabels:
+                  release: "loki"
+          - resources:
+              selector:
+                matchLabels:
+                  app.kubernetes.io/name: loki
       mutate:
         patchStrategicMerge:
           metadata:

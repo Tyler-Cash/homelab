@@ -42,11 +42,14 @@ kube-prometheus-stack:
         provider:
           disableDelete: true
     additionalDataSources:
-    - name: Dashboard1
-      type: prometheus
+    - name: Loki
+      type: loki
+      uid: loki-datasource
+      access: proxy
+      url: http://loki.monitoring.svc.cluster.local:3100
       isDefault: false
-      url: http://prometheus-prometheus.monitoring.svc.cluster.local:9090
       version: 1
+      editable: true
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -67,14 +70,6 @@ kube-prometheus-stack:
             editable: false
             options:
               path: /var/lib/grafana/dashboards/security
-          - name: "argo"
-            orgId: 1
-            folder: "argo"
-            type: file
-            disableDeletion: true
-            editable: false
-            options:
-              path: /var/lib/grafana/dashboards/argo
           - name: "monitoring"
             orgId: 1
             folder: "monitoring"
@@ -122,11 +117,6 @@ kube-prometheus-stack:
           gnetId: 15804
           revision: 1
           datasource: Prometheus
-      argo:
-        argo-cd:
-          url: https://github.com/argoproj/argo-cd/blob/master/examples/dashboard.json
-          datasource: Prometheus
-          token: ""
       networking:
         nginx:
           gnetId: 9614
