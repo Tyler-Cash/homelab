@@ -51,20 +51,20 @@ rook-ceph-cluster:
         limits:
           memory: "4Gi"
         requests:
-          cpu: "500m"
+          cpu: "100m"
           memory: "512Mi"
       mon:
         limits:
           memory: "2Gi"
         requests:
-          cpu: "1000m"
+          cpu: "100m"
           memory: "1Gi"
       osd:
         limits:
           memory: "8Gi"
         requests:
-          cpu: "500m"
-          memory: "4Gi"
+          cpu: "150m"
+          memory: "2Gi"
       prepareosd:
         # limits: It is not recommended to set limits on the OSD prepare job
         #         since it's a one-time burst for memory that must be allowed to
@@ -82,7 +82,7 @@ rook-ceph-cluster:
           cpu: "500m"
           memory: "100Mi"
         requests:
-          cpu: "100m"
+          cpu: "50m"
           memory: "40Mi"
       crashcollector:
         limits:
@@ -96,14 +96,14 @@ rook-ceph-cluster:
           cpu: "500m"
           memory: "1Gi"
         requests:
-          cpu: "100m"
+          cpu: "50m"
           memory: "100Mi"
       cleanup:
         limits:
           cpu: "500m"
           memory: "1Gi"
         requests:
-          cpu: "200m"
+          cpu: "100m"
           memory: "100Mi"
   cephBlockPools:
     - name: ceph-blockpool
