@@ -63,7 +63,7 @@ rook-ceph-cluster:
         limits:
           memory: "8Gi"
         requests:
-          cpu: "1000m"
+          cpu: "500m"
           memory: "4Gi"
       prepareosd:
         # limits: It is not recommended to set limits on the OSD prepare job

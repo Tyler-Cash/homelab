@@ -6,6 +6,11 @@ metadata:
 spec:
   concurrency: 1
   cordon: true
+  drain:
+    enabled: true
+    force: true
+    timeout: 30
+    skipWaitForDeleteTimeout: 30
   nodeSelector:
     matchExpressions:
     - key: node-role.kubernetes.io/master
@@ -25,6 +30,11 @@ metadata:
 spec:
   concurrency: 1
   cordon: true
+  drain:
+    enabled: true
+    force: true
+    timeout: 30
+    skipWaitForDeleteTimeout: 30
   nodeSelector:
     matchExpressions:
     - key: node-role.kubernetes.io/master
