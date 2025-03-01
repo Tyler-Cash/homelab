@@ -1,0 +1,26 @@
+app-template:
+  image:
+    repository: ghcr.io/flaresolverr/flaresolverr
+    tag: v3.3.21
+
+  service:
+    main:
+      ports:
+        http:
+          port: 8191
+
+  podSecurityContext:
+    runAsUser: 1000
+
+  probes:
+    liveness:
+      spec:
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 6
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 500Mi
