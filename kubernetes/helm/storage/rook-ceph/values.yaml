@@ -28,6 +28,7 @@ rook-ceph-cluster:
           secretName: ceph-home-tylercash-dev-tls
   enableDiscoveryDaemon: true
   cephClusterSpec:
+    skipUpgradeChecks: true
     removeOSDsIfOutAndSafeToRemove: true
     storage:
       useAllNodes: true
@@ -196,7 +197,10 @@ rook-ceph-cluster:
         metadataServer:
           activeCount: 1
           activeStandby: true
-          resources:
+          resources: &mdsResources
+            limits:
+              cpu: "2"
+              memory: "4Gi"
             requests:
               cpu: "100m"
               memory: "128Mi"
@@ -236,10 +240,7 @@ rook-ceph-cluster:
               codingChunks: 1
         metadataServer:
           activeCount: 1
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
+          resources: *mdsResources
           priorityClassName: system-cluster-critical
       storageClass:
         enabled: true
@@ -275,10 +276,7 @@ rook-ceph-cluster:
               size: 3
         metadataServer:
           activeCount: 1
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
+          resources: *mdsResources
           priorityClassName: system-cluster-critical
       storageClass:
         enabled: true
