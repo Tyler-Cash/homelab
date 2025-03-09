@@ -17,10 +17,21 @@ kyverno:
         limits:
           memory: 4196Mi
         requests:
-          cpu: 700m
-          memory: 2048Mi
+          cpu: 300m
+          memory: 1024Mi
 
-    replicas: 1
+    replicas: 3
+
+    updateStrategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+
+    podDisruptionBudget:
+      enabled: true
+      minAvailable: 2
+
     readinessProbe:
       failureThreshold: 20
 
@@ -56,3 +67,15 @@ kyverno:
     rbac:
       clusterRole:
         extraResources: *extraPermissions
+
+    replicas: 3
+
+    updateStrategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+
+    podDisruptionBudget:
+      enabled: true
+      minAvailable: 2
