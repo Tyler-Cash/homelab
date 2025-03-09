@@ -6,10 +6,8 @@
   ],
   "timezone": "Australia/Sydney",
   "ignoreTests": true,
-  "schedule": [
-    "after 4am",
-    "before 7am"
-  ],
+  "schedule": ["after 4am and before 7am on every weekday"],
+  "automergeSchedule": ["after 2am and before 9am on every weekday"],
   "prHourlyLimit": 0,
   "branchConcurrentLimit": 0,
   "prConcurrentLimit": 0,
@@ -20,6 +18,12 @@
         "rook-ceph-cluster"
       ],
       "groupName": "rook"
+    },
+    {
+      "matchPackageNames": [
+        "felddy/foundryvtt"
+      ],
+      "automerge": false
     },
     {
       "matchPackageNames": [

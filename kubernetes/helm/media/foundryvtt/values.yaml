@@ -2,7 +2,7 @@
 app-template:
   image:
     repository: felddy/foundryvtt
-    tag: prerelease-13.334.0
+    tag: 13.337.0
     pullPolicy: IfNotPresent
 
   env:
