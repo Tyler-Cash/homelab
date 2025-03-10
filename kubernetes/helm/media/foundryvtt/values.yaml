@@ -1,39 +1,58 @@
 ---
 app-template:
-  image:
-    repository: felddy/foundryvtt
-    tag: 13.337.0
-    pullPolicy: IfNotPresent
+  controllers:
+    foundry:
+      containers:
+        app:
+          image:
+            repository: felddy/foundryvtt
+            tag: 13
+            pullPolicy: IfNotPresent
 
-  env:
-    CONTAINER_CACHE: /cache/container_cache/
-    CONTAINER_PATCHES: /cache/container_patches/
-    CONTAINER_URL_FETCH_RETRY: "50"
-    FOUNDRY_COMPRESS_WEBSOCKET: true
-    FOUNDRY_HOSTNAME: &host tabletop.k8s.tylercash.dev
-    FOUNDRY_LOCAL_HOSTNAME: *host
-    FOUNDRY_MINIFY_STATIC_FILES: true
-    FOUNDRY_PROTOCOL: "4"
-    FOUNDRY_PROXY_PORT: "443"
-    FOUNDRY_PROXY_SSL: true
-    FOUNDRY_TELEMETRY: false
+          env:
+            CONTAINER_CACHE: /cache/container_cache/
+            CONTAINER_PATCHES: /cache/container_patches/
+            CONTAINER_PRESERVE_OWNER: /*
+            CONTAINER_URL_FETCH_RETRY: "50"
+            FOUNDRY_COMPRESS_WEBSOCKET: true
+            FOUNDRY_VERSION: 12.331
+            FOUNDRY_HOSTNAME: &host tabletop.k8s.tylercash.dev
+            FOUNDRY_LOCAL_HOSTNAME: *host
+            FOUNDRY_MINIFY_STATIC_FILES: true
+            FOUNDRY_PROTOCOL: "4"
+            FOUNDRY_PROXY_PORT: "443"
+            FOUNDRY_PROXY_SSL: true
+            FOUNDRY_TELEMETRY: false
 
 
 
-  envFrom:
-    - secretRef:
-        name: media-foundryvtt-secrets
-    - secretRef:
-        name: foundry-admin-key-secret
+          envFrom:
+            - secretRef:
+                name: media-foundryvtt-secrets
+            - secretRef:
+                name: foundry-admin-key-secret
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+
+          probes:
+            startup:
+              enabled: true
+              spec:
+                failureThreshold: 70
+                periodSeconds: 5
 
   service:
-    main:
+    app:
+      controller: foundry
       ports:
         http:
           port: 30000
 
   ingress:
-    main:
+    app:
       enabled: true
       annotations:
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
@@ -43,17 +62,12 @@ app-template:
             - path: /
               pathType: Prefix
               service:
+                identifier: app
                 port: 30000
       tls:
         - secretName: foundry-letsencrypt-certificate
           hosts:
             - *host
-
-  podSecurityContext:
-    runAsUser: 421
-    runAsGroup: 421
-    fsGroup: 421
-    fsGroupChangePolicy: "Always"
 
   persistence:
     data:
@@ -69,23 +83,9 @@ app-template:
       labels:
         snapshot.home.arpa/enabled: "false"
 
-    initContainers:
-      setup-foundryvtt:
-        name: setup-foundryvtt
-        image: busybox:1.37.0
-        command:
-          - sh
-          - -c
-        args:
-          - rm -f /data/Config/options.json.lock
-          - mkdir -p /cache/container_cache/
-          - mkdir -p /cache/container_patches/
-        volume_mounts:
-          - mountPath: /cache
-            name: cache
-          - mountPath: /data
-            name: data
-  resources:
-    requests:
-      cpu: 100m
-      memory: 256Mi
+  defaultPodOptions:
+    securityContext:
+      runAsUser: 421
+      runAsGroup: 421
+      fsGroup: 421
+      fsGroupChangePolicy: "Always"
