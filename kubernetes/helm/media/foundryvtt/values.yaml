@@ -35,6 +35,8 @@ app-template:
   ingress:
     main:
       enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
       hosts:
         - host: *host
           paths:
