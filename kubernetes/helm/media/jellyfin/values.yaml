@@ -63,7 +63,7 @@ app-template:
         snapshot.home.arpa/enabled: "false"
     tv:
       enabled: true
-      storageClass: ceph-filesystem-hdd
+      storageClass: ceph-filesystem-rust
       accessMode: ReadWriteMany
       size: 30Ti
       retain: true
@@ -71,7 +71,7 @@ app-template:
         snapshot.home.arpa/enabled: "false"
     movies:
       enabled: true
-      storageClass: ceph-filesystem-hdd
+      storageClass: ceph-filesystem-rust
       accessMode: ReadWriteMany
       size: 30Ti
       retain: true

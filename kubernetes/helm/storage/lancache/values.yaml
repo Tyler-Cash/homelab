@@ -42,7 +42,7 @@ app-template:
   persistence:
     cache:
       enabled: true
-      storageClass: ceph-filesystem-hdd
+      storageClass: ceph-filesystem-rust
       accessMode: ReadWriteOnce
       size: 5Ti
       mountPath: /data/cache

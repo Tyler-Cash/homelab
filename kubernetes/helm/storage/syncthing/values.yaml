@@ -50,7 +50,7 @@ app-template:
       size: 50Gi
     photos:
       enabled: true
-      storageClass: ceph-filesystem-hdd
+      storageClass: ceph-filesystem-rust
       accessMode: ReadWriteMany
       size: 5Ti
 

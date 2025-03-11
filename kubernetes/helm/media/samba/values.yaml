@@ -39,7 +39,7 @@ app-template:
   persistence:
     photos:
       enabled: true
-      storageClass: ceph-filesystem-hdd
+      storageClass: ceph-filesystem-rust
       accessMode: ReadWriteMany
       mountPath: /shares/photos
       retain: true
@@ -48,7 +48,7 @@ app-template:
         online-snapshot.home.arpa/enabled: "false"
     photos-hdd:
       enabled: true
-      storageClass: ceph-filesystem-hdd
+      storageClass: ceph-filesystem-rust
       accessMode: ReadWriteMany
       mountPath: /shares/photos-hdd
       retain: true
@@ -64,7 +64,7 @@ app-template:
       size: 1Ti
     replays:
       enabled: true
-      storageClass: ceph-filesystem-hdd
+      storageClass: ceph-filesystem-rust
       mountPath: /shares/replays
       accessMode: ReadWriteMany
       retain: true

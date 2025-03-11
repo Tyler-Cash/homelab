@@ -221,7 +221,7 @@ rook-ceph-cluster:
           csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
           csi.storage.k8s.io/node-stage-secret-namespace: storage
           csi.storage.k8s.io/fstype: ext4
-    - name: ceph-filesystem-hdd
+    - name: ceph-filesystem-metal
       spec:
         metadataPool:
           deviceClass: ssd
@@ -245,43 +245,7 @@ rook-ceph-cluster:
       storageClass:
         enabled: true
         isDefault: false
-        name: ceph-filesystem-hdd
-        pool: data0
-        reclaimPolicy: Delete
-        allowVolumeExpansion: true
-        mountOptions: []
-        parameters:
-          csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-          csi.storage.k8s.io/provisioner-secret-namespace: storage
-          csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-          csi.storage.k8s.io/controller-expand-secret-namespace: storage
-          csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-          csi.storage.k8s.io/node-stage-secret-namespace: storage
-          csi.storage.k8s.io/fstype: ext4
-    - name: ceph-filesystem-hdd-speed
-      spec:
-        metadataPool:
-          deviceClass: ssd
-          replicated:
-            size: 3
-        dataPools:
-          - name: default
-            failureDomain: host
-            replicated:
-              size: 3
-          - name: data0
-            deviceClass: hdd
-            failureDomain: host
-            replicated:
-              size: 3
-        metadataServer:
-          activeCount: 1
-          resources: *mdsResources
-          priorityClassName: system-cluster-critical
-      storageClass:
-        enabled: true
-        isDefault: false
-        name: ceph-filesystem-hdd-speed
+        name: ceph-filesystem-rust
         pool: data0
         reclaimPolicy: Delete
         allowVolumeExpansion: true
@@ -295,38 +259,7 @@ rook-ceph-cluster:
           csi.storage.k8s.io/node-stage-secret-namespace: storage
           csi.storage.k8s.io/fstype: ext4
 
-  cephObjectStores:
-    - name: ceph-objectstore
-      # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Object-Storage/ceph-object-store-crd.md#object-store-settings for available configuration
-      spec:
-        metadataPool:
-          failureDomain: host
-          replicated:
-            size: 3
-        dataPool:
-          failureDomain: host
-          erasureCoded:
-            dataChunks: 2
-            codingChunks: 1
-        preservePoolsOnDelete: true
-        gateway:
-          port: 80
-          resources:
-            requests:
-              cpu: "150m"
-              memory: "200Mi"
-          # securePort: 443
-          # sslCertificateRef:
-          instances: 1
-          priorityClassName: system-cluster-critical
-      storageClass:
-        enabled: true
-        name: ceph-bucket
-        reclaimPolicy: Delete
-        # see https://github.com/rook/rook/blob/master/Documentation/ceph-object-bucket-claim.md#storageclass for available configuration
-        parameters:
-          # note: objectStoreNamespace and objectStoreName are configured by the chart
-          region: us-east-1
+  cephObjectStores: null
 
   cephBlockPoolsVolumeSnapshotClass:
     enabled: true
@@ -342,11 +275,11 @@ rook-ceph-cluster:
 
   cephFileSystemVolumeSnapshotClass:
     enabled: true
-    name: ceph-filesystem-hdd
+    name: ceph-filesystem-rust
     isDefault: false
     deletionPolicy: Delete
     labels: {}
     parameters:
-      clusterID: ceph-filesystem-hdd
+      clusterID: ceph-filesystem-rust
       csi.storage.k8s.io/snapshotter-secret-name: rook-csi-cephfs-provisioner
       csi.storage.k8s.io/snapshotter-secret-namespace: storage
