@@ -61,7 +61,7 @@ app-template:
       accessMode: ReadWriteOnce
       mountPath: /shares/photos-ssd
       retain: true
-      size: 1Ti
+      size: 1.5Ti
     replays:
       enabled: true
       storageClass: ceph-filesystem-rust
