@@ -160,22 +160,6 @@ rook-ceph-cluster:
         mountOptions: []
         parameters: *parameters
 
-    - name: ceph-block-ec
-      spec:
-        deviceClass: hdd
-        failureDomain: host
-        erasureCoded:
-          dataChunks: 2
-          codingChunks: 1
-      storageClass:
-        enabled: true
-        name: ceph-block-ec
-        isDefault: false
-        reclaimPolicy: Delete
-        allowVolumeExpansion: true
-        mountOptions: []
-        parameters: *parameters
-
   cephFileSystems:
     - name: ceph-filesystem
       spec:
