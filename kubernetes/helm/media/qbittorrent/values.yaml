@@ -121,14 +121,14 @@ app-template:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
-      size: 1Ti
+      size: 500Gi
       labels:
         snapshot.home.arpa/enabled: "false"
     share:
       enabled: true
       storageClass: ceph-filesystem-rust
       accessMode: ReadWriteMany
-      size: 1Ti
+      size: 5Ti
       labels:
         snapshot.home.arpa/enabled: "false"
 
