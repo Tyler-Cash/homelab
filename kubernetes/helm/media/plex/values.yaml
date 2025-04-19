@@ -1,6 +1,6 @@
 app-template:
   image:
-    repository: ghcr.io/onedr0p/plex
+    repository: ghcr.io/home-operations/plex
     tag: 1.41.3.9314-a0bfb8370
     pullPolicy: IfNotPresent
 

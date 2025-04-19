@@ -1,6 +1,6 @@
 app-template:
   image:
-    repository: ghcr.io/onedr0p/qbittorrent
+    repository: ghcr.io/home-operations/qbittorrent
     tag: 5.0.4
     pullPolicy: IfNotPresent
 
