@@ -1,0 +1,59 @@
+app-template:
+  image:
+    repository: linuxserver/lazylibrarian
+    tag: amd64-version-37322235
+    pullPolicy: IfNotPresent
+
+  service:
+    main:
+      ports:
+        http:
+          port: &servicePort 5299
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: &hostname books.k8s.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                port: *servicePort
+      tls:
+        - secretName: books-letsencrypt-certificate
+          hosts:
+            - *hostname
+
+
+  podSecurityContext:
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+
+  persistence:
+    config:
+      enabled: true
+      accessMode: ReadWriteOnce
+      storageClass: ceph-block
+      size: 5Gi
+    downloads:
+      enabled: true
+      type: pvc
+      existingClaim: qbittorrent-share
+    books:
+      enabled: true
+      storageClass: ceph-filesystem-rust
+      accessMode: ReadWriteMany
+      size: 1Gi
+      retain: true
+      labels:
+        snapshot.home.arpa/enabled: "false"
+
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 606Mi
+    requests:
+      cpu: 100m
+      memory: 500Mi
