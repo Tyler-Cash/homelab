@@ -10,7 +10,7 @@
     "before 7am every weekday"
   ],
   "automergeSchedule": [
-    "before 9am on every weekday"
+    "before 9am every weekday"
   ],
   "prHourlyLimit": 0,
   "branchConcurrentLimit": 0,
