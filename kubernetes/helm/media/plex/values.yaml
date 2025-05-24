@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/home-operations/plex
-    tag: 1.41.3.9314-a0bfb8370
+    tag: 1.41.7.9799
     pullPolicy: IfNotPresent
 
   # uncomment for initial claiming of server
