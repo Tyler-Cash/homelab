@@ -9,7 +9,8 @@ spec:
   symbols: 0
 
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
+
 kind: ExternalSecret
 metadata:
   name: foundry-admin-key
