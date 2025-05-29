@@ -36,6 +36,9 @@ app-template:
         - secretName: jellyfin-letsencrypt-certificate
           hosts: [*host]
 
+  securityContext:
+    privileged: true # Required for GPU passthrough
+
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
