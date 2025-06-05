@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/home-operations/prowlarr
-    tag: 1.36.3.5071
+    tag: 1.37.0.5076
     pullPolicy: IfNotPresent
 
   service:
