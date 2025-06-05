@@ -34,11 +34,11 @@
         "ghcr.io/tyler-cash/tyler-bot-backend",
         "ghcr.io/tyler-cash/tyler-bot-frontend"
       ],
-      "automerge": true
+      "automerge": false
     },
     {
       "matchCurrentVersion": "/^0\\./",
-      "automerge": true
+      "automerge": false
     },
     {
       "matchUpdateTypes": [
@@ -47,7 +47,7 @@
         "pin",
         "digest"
       ],
-      "automerge": true
+      "automerge": false
     }
   ]
 }
