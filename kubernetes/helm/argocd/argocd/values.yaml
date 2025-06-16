@@ -9,6 +9,8 @@ argo-cd:
     pdb:
       enabled: true
       minAvailable: 1
+    haproxy:
+      hardAntiAffinity: false
     resources:
       requests:
         cpu: 100m
