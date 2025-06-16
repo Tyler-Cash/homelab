@@ -1,2 +1,3 @@
 intel-device-plugins-gpu:
-  empty: "true"
+  image:
+    tag: "0.32.1"
