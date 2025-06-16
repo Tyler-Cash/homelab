@@ -1,1 +1,2 @@
-intel-device-plugins-gpu: {}
+intel-device-plugins-gpu:
+  empty: "true"
