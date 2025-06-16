@@ -37,6 +37,7 @@ k3s_server:
     - "resolv-conf=/etc/resolv.conf"
     - "config=/etc/rancher/k3s/kubelet.config"
     - "v=0"
+    - "max-pods=150"
   kube-controller-manager-arg:
     # Required to monitor kube-controller-manager with kube-prometheus-stack
     - "bind-address=0.0.0.0"
