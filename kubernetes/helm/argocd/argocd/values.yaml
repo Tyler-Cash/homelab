@@ -6,10 +6,6 @@ argo-cd:
 
   redis-ha:
     enabled: true
-    topologySpreadConstraints:
-      enabled: true
-      maxSkew: 1
-      topologyKey: kubernetes.io/hostname
     pdb:
       enabled: true
       minAvailable: 1
