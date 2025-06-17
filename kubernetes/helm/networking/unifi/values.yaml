@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: jacobalberty/unifi
-    tag: v9.1.120
+    tag: v9.2.87
 
   env:
     RUNAS_UID0: "false"
