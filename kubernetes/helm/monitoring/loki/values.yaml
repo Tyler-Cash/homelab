@@ -35,6 +35,9 @@ loki:
       enabled: true
       storageClassName: "ceph-block"
       size: 10Gi
+      labels:
+        snapshot.home.arpa/enabled: "false"
+        online-snapshot.home.arpa/enabled: "false"
 
   deploymentMode: SingleBinary
 
@@ -44,6 +47,9 @@ loki:
       enabled: true
       storageClassName: "ceph-block"
       size: 10Gi
+      labels:
+        snapshot.home.arpa/enabled: "false"
+        online-snapshot.home.arpa/enabled: "false"
 
   # Zero out replica counts of other deployment modes
   backend:

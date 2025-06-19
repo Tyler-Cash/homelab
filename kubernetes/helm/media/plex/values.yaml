@@ -54,6 +54,9 @@ app-template:
       storageClass: ceph-block
       accessMode: ReadWriteOnce
       size: 50Gi
+      labels:
+        snapshot.home.arpa/enabled: "false"
+        online-snapshot.home.arpa/enabled: "false"
     tv:
       enabled: true
       type: pvc
