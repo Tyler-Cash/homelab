@@ -96,11 +96,9 @@ app-template:
     limits:
       memory: 8Gi
       cpu: 10000m
-      gpu.intel.com/i915: 1
     requests:
       cpu: 1000m
       memory: 1Gi
-      gpu.intel.com/i915: 1
 
   nodeSelector:
     cpu: fast
