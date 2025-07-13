@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: ghcr.io/home-operations/radarr
-    tag: 5.27.0.10101
+    tag: 5.27.1.10122
     pullPolicy: IfNotPresent
 
   service:
