@@ -1,0 +1,42 @@
+descheduler:
+  schedule: "*/30 * * * *"
+
+  deschedulerPolicy:
+    strategies:
+      RemoveDuplicates:
+        enabled: true
+
+      RemovePodsViolatingNodeTaints:
+        enabled: true
+
+      RemovePodsViolatingNodeAffinity:
+        enabled: true
+
+      RemovePodsViolatingInterPodAntiAffinity:
+        enabled: true
+
+      LowNodeUtilization:
+        enabled: false
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+
+  rbac:
+    create: true
+  serviceAccount:
+    create: true
+    name: "descheduler"
+
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
