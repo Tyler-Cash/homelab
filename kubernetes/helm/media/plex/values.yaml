@@ -5,9 +5,9 @@ app-template:
     pullPolicy: IfNotPresent
 
   # uncomment for initial claiming of server
-  #  envFrom:
-  #    - secretRef:
-  #        name: media-plex-secrets
+  envFrom:
+    - secretRef:
+        name: media-plex-secrets
   env:
     PLEX_UID: 568
     PLEX_GID: 568
