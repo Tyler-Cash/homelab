@@ -3,11 +3,6 @@ ingress-nginx:
     allowSnippetAnnotations: true
     config:
       client-max-body-size: 8m
-      proxy-read-timeout: "300"
-      proxy-send-timeout: "300"
-      proxy_buffer_size: "128k"
-      proxy_buffers: 4 256k
-      proxy_busy_buffers_size: 256k
       annotations-risk-level: Critical
 
     watchIngressWithoutClass: true
@@ -46,20 +41,20 @@ ingress-nginx:
       prometheusRule:
         enabled: true
         rules:
-         # These are just examples rules, please adapt them to your needs
-         - alert: NGINXConfigFailed
-           expr: count(nginx_ingress_controller_config_last_reload_successful == 0) > 0
-           for: 1s
-           labels:
-             severity: critical
-           annotations:
-             description: bad ingress config - nginx config test failed
-             summary: uninstall the latest ingress changes to allow config reloads to resume
-         - alert: NGINXCertificateExpiry
-           expr: (avg(nginx_ingress_controller_ssl_expire_time_seconds{host!="_"}) by (host) - time()) < 604800
-           for: 1s
-           labels:
-             severity: critical
-           annotations:
-             description: ssl certificate(s) will expire in less then a week
-             summary: renew expiring certificates to avoid downtime
+          # These are just examples rules, please adapt them to your needs
+          - alert: NGINXConfigFailed
+            expr: count(nginx_ingress_controller_config_last_reload_successful == 0) > 0
+            for: 1s
+            labels:
+              severity: critical
+            annotations:
+              description: bad ingress config - nginx config test failed
+              summary: uninstall the latest ingress changes to allow config reloads to resume
+          - alert: NGINXCertificateExpiry
+            expr: (avg(nginx_ingress_controller_ssl_expire_time_seconds{host!="_"}) by (host) - time()) < 604800
+            for: 1s
+            labels:
+              severity: critical
+            annotations:
+              description: ssl certificate(s) will expire in less then a week
+              summary: renew expiring certificates to avoid downtime
