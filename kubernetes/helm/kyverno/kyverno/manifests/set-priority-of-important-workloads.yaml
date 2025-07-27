@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-priority-class-system-upgrade
+  annotations:
+    policies.kyverno.io/title: Add System-Critical Priority Class
+    policies.kyverno.io/category: Pod Security
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/description: >-
+      This policy adds priorityClassName: system-cluster-critical to all pods
+      in the system-upgrade namespace to ensure they are not evicted during
+      node pressure events.
+spec:
+  background: true
+  rules:
+    - name: add-priority-class
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - system-upgrade
+      mutate:
+        patchStrategicMerge:
+          spec:
+            priorityClassName: system-cluster-critical

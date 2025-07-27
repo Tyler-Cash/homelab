@@ -6,15 +6,12 @@ metadata:
 spec:
   concurrency: 1
   cordon: true
-  drain:
-    force: true
-    skipWaitForDeleteTimeout: 30
   nodeSelector:
     matchExpressions:
-    - key: node-role.kubernetes.io/master
-      operator: In
-      values:
-      - "true"
+      - key: node-role.kubernetes.io/master
+        operator: In
+        values:
+          - "true"
   serviceAccountName: system-upgrade
   upgrade:
     image: rancher/k3s-upgrade
