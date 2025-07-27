@@ -15,8 +15,6 @@ spec:
       operator: In
       values:
       - "true"
-    - key: node-role.kubernetes.io/master
-      operator: DoesNotExist
   serviceAccountName: system-upgrade
   upgrade:
     image: rancher/k3s-upgrade

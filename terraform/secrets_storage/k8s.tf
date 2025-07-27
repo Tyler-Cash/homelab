@@ -24,7 +24,7 @@ resource "kubernetes_manifest" "gcp-clusterstore" {
       "name"      = "gcp-clusterstore"
     }
     "spec" = {
-      "provider" = { 
+      "provider" = {
         "gcpsm" = {
           "auth" = {
             "secretRef" = {
