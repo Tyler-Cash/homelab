@@ -1,13 +1,12 @@
-
 resource "kubernetes_secret" "gcpsm-secret" {
   metadata {
-    name = "gcpsm-secret"
+    name      = "gcpsm-secret"
     namespace = "security"
     labels = {
       type = "gcpsm"
     }
     annotations = {
-        "kubed.appscode.com/sync"= ""
+      "kubed.appscode.com/sync" = ""
     }
   }
 
@@ -18,10 +17,10 @@ resource "kubernetes_secret" "gcpsm-secret" {
 
 resource "kubernetes_manifest" "gcp-clusterstore" {
   manifest = {
-    "apiVersion" = "external-secrets.io/v1beta1"
+    "apiVersion" = "external-secrets.io/v1"
     "kind"       = "ClusterSecretStore"
     "metadata" = {
-      "name"      = "gcp-clusterstore"
+      "name" = "gcp-clusterstore"
     }
     "spec" = {
       "provider" = {
@@ -30,7 +29,7 @@ resource "kubernetes_manifest" "gcp-clusterstore" {
             "secretRef" = {
               "secretAccessKeySecretRef" = {
                 "name" = "gcpsm-secret"
-                "key" = "gcp_config"
+                "key"  = "gcp_config"
               }
             }
           }
