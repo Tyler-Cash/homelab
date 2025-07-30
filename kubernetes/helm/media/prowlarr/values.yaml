@@ -4,6 +4,10 @@ app-template:
     tag: 2.0.2.5116
     pullPolicy: IfNotPresent
 
+  envFrom:
+    - secretRef:
+        name: prowlarr-password-secret
+
   service:
     main:
       ports:

@@ -4,6 +4,10 @@ app-template:
     tag: 4.0.15.2940
     pullPolicy: IfNotPresent
 
+  envFrom:
+    - secretRef:
+        name: prowlarr-password-secret
+
   service:
     main:
       ports:
@@ -54,7 +58,7 @@ app-template:
       retain: true
 
   resources:
-    limits: {}
+    limits: { }
     requests:
       cpu: 100m
       memory: 700Mi
