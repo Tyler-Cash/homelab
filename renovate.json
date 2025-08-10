@@ -38,7 +38,7 @@
     },
     {
       "matchCurrentVersion": "/^0\\./",
-      "automerge": true
+      "automerge": false
     },
     {
       "matchUpdateTypes": [
@@ -47,7 +47,7 @@
         "pin",
         "digest"
       ],
-      "automerge": true
+      "automerge": false
     }
   ]
 }
