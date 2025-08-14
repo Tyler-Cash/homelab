@@ -48,7 +48,7 @@ app-template:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
-      size: 5Gi
+      size: 20Gi
     transcode:
       enabled: true
       storageClass: ceph-block
@@ -65,6 +65,11 @@ app-template:
       enabled: true
       type: pvc
       existingClaim: jellyfin-movies
+    backup:
+      enabled: true
+      storageClass: ceph-block
+      accessMode: ReadWriteOnce
+      size: 20Gi
 
   resources:
     limits: {}
