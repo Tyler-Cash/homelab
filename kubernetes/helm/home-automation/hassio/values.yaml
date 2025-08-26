@@ -1,7 +1,7 @@
 app-template:
   image:
-    repository: ghcr.io/home-operations/home-assistant
-    tag: 2025.7.4@sha256:0f7f057d1817c7bed5632ce510ffcc921799ff34e75c6a53346994ba6c7b14ab
+    repository: ghcr.io/home-assistant/home-assistant
+    tag: 2025.8.3
 
   env:
     TZ: &timezone Australia/Sydney
@@ -25,9 +25,9 @@ app-template:
             - path: /
               pathType: Prefix
       tls:
-      - secretName: hassio-letsencrypt-certificate
-        hosts:
-        - *host
+        - secretName: hassio-letsencrypt-certificate
+          hosts:
+            - *host
   addons:
     codeserver:
       enabled: true
@@ -58,9 +58,9 @@ app-template:
               - path: /
                 pathType: Prefix
         tls:
-        - secretName: hassio-code-letsencrypt-certificate
-          hosts:
-          - *vs-host
+          - secretName: hassio-code-letsencrypt-certificate
+            hosts:
+              - *vs-host
       volumeMounts:
         - name: config
           mountPath: /config
