@@ -37,6 +37,12 @@
       "automerge": true
     },
     {
+      "matchPackageNames": [
+        "ghcr.io/home-operations/home-assistant"
+      ],
+      "automerge": false
+    },
+    {
       "matchCurrentVersion": "/^0\\./",
       "automerge": false
     },
@@ -47,7 +53,7 @@
         "pin",
         "digest"
       ],
-      "automerge": true
+      "automerge": false
     }
   ]
 }
