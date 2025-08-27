@@ -1,7 +1,7 @@
 app-template:
   image:
-    repository: ghcr.io/home-assistant/home-assistant
-    tag: 2025.8.3
+    repository: ghcr.io/home-operations/home-assistant
+    tag: 2025.8.3@sha256:7ef14f513e487add292b43306cccb4f1cd9dbcbd5eaf85d6438f98b197f930a4
 
   env:
     TZ: &timezone Australia/Sydney
