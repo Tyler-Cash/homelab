@@ -47,7 +47,7 @@ app-template:
       storageClass: ceph-block
       accessMode: ReadWriteOnce
       mountPath: /var/syncthing
-      size: 50Gi
+      size: 100Gi
     photos:
       enabled: true
       storageClass: ceph-filesystem-rust
