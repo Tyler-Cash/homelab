@@ -6,7 +6,7 @@ authentik:
 
   server:
     replicas: 2
-    priorityClassName: system-cluster-critical
+    priorityClassName: &priorityClass system-cluster-critical
 
     pdb:
       enabled: true
@@ -85,12 +85,20 @@ authentik:
 redis:
   enabled: true
   architecture: replication
-  global:
-    defaultStorageClass: local-path
   auth:
     enabled: true
     existingSecret: *redis-secret
-
+  master:
+    persistence:
+      enabled: false
+    podAntiAffinityPreset: hard
+    priorityClassName: *priorityClass
+  replica:
+    persistence:
+      enabled: false
+    priorityClassName: *priorityClass
+    podAntiAffinityPreset: hard
 
 postgresql:
   enabled: false
+
