@@ -90,7 +90,8 @@ redis:
   auth:
     enabled: true
     existingSecret: *redis-secret
-
+  master:
+    priorityClassName: system-cluster-critical
 
 postgresql:
   enabled: false
