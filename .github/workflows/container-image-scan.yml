@@ -1,0 +1,118 @@
+name: Container Image Security Scan
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'kubernetes/helm/**'
+      - '.github/scripts/**'
+      - '.github/workflows/container-image-scan.yml'
+  push:
+    branches: [ master ]
+    paths:
+      - 'kubernetes/helm/**'
+      - '.github/scripts/**'
+      - '.github/workflows/container-image-scan.yml'
+
+jobs:
+  scan:
+    name: Scan Helm-referenced container images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install PyYAML
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Collect images by rendering Helm charts (fallback to raw YAML if Helm unavailable)
+        run: |
+          python .github/scripts/collect_images.py > images.txt
+          echo "Collected images:" && cat images.txt || true
+
+      - name: Ensure images were found (or skip gracefully)
+        id: check_images
+        run: |
+          if [ ! -s images.txt ]; then
+            echo "No images found in Helm charts. Skipping scan."
+            echo "has_images=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_images=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install Trivy
+        if: steps.check_images.outputs.has_images == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo gpg --dearmor -o /usr/share/keyrings/trivy.gpg
+          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install -y trivy
+
+      - name: Scan each image with Trivy (generate SARIF and gate build)
+        if: steps.check_images.outputs.has_images == 'true'
+        run: |
+          set -e
+          mkdir -p sarif
+          EXIT_CODE=0
+          while IFS= read -r image; do
+            [ -z "$image" ] && continue
+            echo "\n===== Scanning: $image ====="
+            SAFE=$(echo "$image" | sed -e 's#[/:@ ]#_#g')
+            # Generate SARIF for GitHub Security while enforcing exit code gate
+            trivy image \
+              --scanners vuln \
+              --severity CRITICAL,HIGH \
+              --ignore-unfixed \
+              --exit-code 1 \
+              --no-progress \
+              --format sarif \
+              --output "sarif/${SAFE}.sarif" \
+              "$image" || EXIT_CODE=$?
+          done < images.txt
+
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            echo "\nHigh/Critical vulnerabilities were found. Failing the job."
+            exit $EXIT_CODE
+          else
+            echo "\nNo High/Critical vulnerabilities detected in referenced images."
+          fi
+
+      - name: Merge SARIF files into a single report
+        id: merge_sarif
+        if: always() && steps.check_images.outputs.has_images == 'true'
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          if compgen -G "sarif/*.sarif" > /dev/null; then
+            # Merge all SARIF 'runs' into one file
+            jq -s '{ "$schema": (.[0]."$schema"), "version": (.[0].version), "runs": (map(.runs) | add) }' sarif/*.sarif > sarif/merged.sarif
+            echo "merged=true" >> "$GITHUB_OUTPUT"
+            echo "Merged SARIF created at sarif/merged.sarif"
+          else
+            echo "No SARIF files found to merge."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload merged SARIF results to GitHub Security
+        if: always() && steps.check_images.outputs.has_images == 'true' && steps.merge_sarif.outputs.merged == 'true'
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: sarif/merged.sarif
+
