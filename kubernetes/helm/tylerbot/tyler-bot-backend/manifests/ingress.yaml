@@ -7,20 +7,20 @@ metadata:
     external-dns.home.arpa/enabled: "true"
 spec:
   tls:
-    - hosts:
-        - event.k8s.tylercash.dev
-      secretName: event-tylercash-dev
+  - hosts:
+    - event.k8s.tylercash.dev
+    secretName: event-tylercash-dev
   rules:
     - host: event.k8s.tylercash.dev
       http:
         paths:
-          # - path: /
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: tyler-bot-frontend
-          #       port:
-          #         number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tyler-bot-frontend
+                port:
+                  number: 80
           - path: /api(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
