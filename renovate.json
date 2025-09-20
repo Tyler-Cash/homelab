@@ -34,6 +34,12 @@
         "ghcr.io/tyler-cash/tyler-bot-backend",
         "ghcr.io/tyler-cash/tyler-bot-frontend"
       ],
+      "schedule": [
+        "at any time"
+      ],
+      "automergeSchedule": [
+        "at any time"
+      ],
       "automerge": true
     },
     {
