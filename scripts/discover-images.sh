@@ -6,19 +6,7 @@ set -e
 # This script discovers all container images in the repository.
 # It renders Helm charts and parses Kubernetes manifests to find image references.
 
-# Ensure yq is installed
-if ! command -v yq &> /dev/null
-then
-    echo "yq could not be found, installing..."
-    sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && sudo chmod +x /usr/bin/yq
-fi
-
-# Ensure helm is installed
-if ! command -v helm &> /dev/null
-then
-    echo "helm could not be found, please install it."
-    exit 1
-fi
+# This script assumes that 'helm' and 'yq' are installed and available in the PATH.
 
 
 # --- Image Discovery ---

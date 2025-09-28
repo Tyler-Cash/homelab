@@ -25,6 +25,14 @@ jobs:
         with:
           version: "v3.13.3"
 
+      - name: "Set up yq"
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+
+      - name: "Set up jq"
+        run: sudo apt-get install -y jq
+
       - name: "Run discovery script"
         id: discover
         run: |
