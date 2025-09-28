@@ -55,6 +55,13 @@ descheduler:
             targetThresholds:
               cpu: 70
               memory: 70
+      HighNodeUtilization:
+        enabled: true
+        params:
+          nodeResourceUtilizationThresholds:
+            thresholds:
+              cpu: 90
+              memory: 90
   service:
     enabled: true
   serviceMonitor:
