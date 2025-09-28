@@ -72,7 +72,7 @@ jobs:
           severity: 'CRITICAL'
           ignore-unfixed: true
           scanners: 'vuln'
-          exit-code: '1'
+          exit-code: '0'
           github-pat: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Upload Trivy scan results to GitHub Security tab"
@@ -94,3 +94,29 @@ jobs:
           name: "sbom-${{ steps.sanitize.outputs.name }}"
           path: "${{ steps.sanitize.outputs.name }}.cdx.json"
           retention-days: 7
+
+      - name: "Check for open critical alerts"
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Determine the correct branch ref
+          if [ -n "${{ github.head_ref }}" ]; then
+            ref="refs/heads/${{ github.head_ref }}"
+          else
+            ref="${{ github.ref }}"
+          fi
+
+          echo "Checking for open critical alerts on ref: $ref"
+
+          # Query for open, critical alerts on the current branch
+          open_alerts_count=$(gh code-scanning alerts --ref "$ref" --state open --severity critical --json number -q 'length')
+
+          echo "Found $open_alerts_count open critical alerts."
+
+          if [ "$open_alerts_count" -gt 0 ]; then
+            echo "Failing workflow due to $open_alerts_count open critical alerts that have not been dismissed."
+            exit 1
+          else
+            echo "No open critical alerts found. Build can proceed."
+          fi
