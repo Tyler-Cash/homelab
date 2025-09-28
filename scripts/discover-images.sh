@@ -34,9 +34,9 @@ find kubernetes/manifests \( -name "*.yaml" -o -name "*.yml" \) -exec cat {} + >
 echo "--- Extracting Image References ---" >&2
 # The pipeline below is designed to be robust against unexpected output from helm/yq.
 # - yq extracts image fields.
-# - tr removes quotes and commas.
-# - grep -v '[[:space:]]' filters out any line with whitespace (a key sign of a non-image string).
+# - awk '{print $1}' extracts the first field, ignoring leading whitespace and subsequent text.
+# - tr -d ',"' removes any stray quotes or commas.
 # - grep -v '^---$' filters out YAML document separators.
 # - sed '/^$/d' filters out any remaining blank lines.
 # - sort -u provides the final unique list.
-cat "$TMP_YAML" | yq '.. | .image? | select(.)' | tr -d ',"' | grep -v '[[:space:]]' | grep -v '^---$' | sed '/^$/d' | sort -u
+cat "$TMP_YAML" | yq '.. | .image? | select(.)' | awk '{print $1}' | tr -d ',"' | grep -v '^---$' | sed '/^$/d' | sort -u
