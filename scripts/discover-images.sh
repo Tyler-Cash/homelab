@@ -21,8 +21,8 @@ find kubernetes/helm -name Chart.yaml | while read -r chart_file; do
     chart_dir=$(dirname "$chart_file")
     echo "Rendering chart in $chart_dir"
 
-    # Build dependencies first
-    helm dependency build "$chart_dir" --quiet || echo "No dependencies for $chart_dir"
+    # Update dependencies first to fetch any required sub-charts
+    helm dependency update "$chart_dir"
 
     # Render the chart
     helm template "$chart_dir" --values "$chart_dir/values.yaml" >> "$TMP_YAML"
