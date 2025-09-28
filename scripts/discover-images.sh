@@ -42,6 +42,6 @@ echo "--- Extracting Image References ---" >&2
 # - yq extracts image fields.
 # - awk '{print $1}' extracts the first word, ignoring leading whitespace and subsequent text.
 # - tr -d ',"' removes any stray quotes or commas.
-# - grep '[a-zA-Z]' ensures the line contains letters, filtering out garbage like '---' or '-'.
+# - grep -E '(\.|/|:)' ensures the line contains a dot, slash, or colon, which is characteristic of a valid image reference.
 # - sort -u provides the final unique list.
-cat "$TMP_YAML" | yq '.. | .image? | select(.)' | awk '{print $1}' | tr -d ',"' | grep '[a-zA-Z]' | sort -u
+cat "$TMP_YAML" | yq '.. | .image? | select(.)' | awk '{print $1}' | tr -d ',"' | grep -E '(\.|/|:)' | sort -u
