@@ -37,9 +37,18 @@ jobs:
         id: discover
         run: |
           chmod +x ./scripts/discover-images.sh
-          images=$(./scripts/discover-images.sh)
+          TMP_FILE=$(mktemp)
+          echo "TMP_FILE_PATH=$TMP_FILE" >> $GITHUB_ENV
+          images=$(./scripts/discover-images.sh "$TMP_FILE")
           # Convert multi-line string to a JSON array for the matrix
           echo "images=$(echo "$images" | jq -R . | jq -s .)" >> $GITHUB_OUTPUT
+
+      - name: "Upload debug artifact"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-rendered-yaml
+          path: ${{ env.TMP_FILE_PATH }}
 
   scan:
     name: "Scan Images"
