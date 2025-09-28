@@ -30,6 +30,10 @@ done
 echo "--- Finding and appending Kubernetes Manifests ---" >&2
 find kubernetes/manifests \( -name "*.yaml" -o -name "*.yml" \) -exec cat {} + >> "$TMP_YAML"
 
-# 3. Extract all unique image references from the combined YAML, filtering out any empty lines or lines with spaces
+# 3. Extract all unique image references from the combined YAML, filtering out any invalid lines
 echo "--- Extracting Image References ---" >&2
-cat "$TMP_YAML" | yq '.. | .image? | select(.)' | grep -v ' ' | sort -u | sed '/^$/d'
+# - yq extracts image fields
+# - grep -v ' ' filters out lines with spaces (e.g., comments)
+# - grep -v '^---$' filters out YAML document separators
+# - sed '/^$/d' filters out blank lines
+cat "$TMP_YAML" | yq '.. | .image? | select(.)' | grep -v ' ' | grep -v '^---$' | sort -u | sed '/^$/d'
