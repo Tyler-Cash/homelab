@@ -39,9 +39,10 @@ find kubernetes/manifests \( -name "*.yaml" -o -name "*.yml" \) -exec cat {} + >
 # 3. Extract all unique image references from the combined YAML, filtering out any invalid lines
 echo "--- Extracting Image References ---" >&2
 # The pipeline below is designed to be robust against unexpected output from helm/yq.
-# - yq extracts image fields.
+# - yq eval-all 'select(.kind != "CustomResourceDefinition")' processes each YAML document and filters out CRDs, which contain schema definitions that pollute the output.
+# - The rest of the yq command '.. | .image? | select(.)' finds all image fields in the remaining documents.
 # - awk '{print $1}' extracts the first word, ignoring leading whitespace and subsequent text.
 # - tr -d ',"' removes any stray quotes or commas.
 # - grep -E '(\.|/|:)' ensures the line contains a dot, slash, or colon, which is characteristic of a valid image reference.
 # - sort -u provides the final unique list.
-cat "$TMP_YAML" | yq '.. | .image? | select(.)' | awk '{print $1}' | tr -d ',"' | grep -E '(\.|/|:)' | sort -u
+cat "$TMP_YAML" | yq eval-all 'select(.kind != "CustomResourceDefinition") | .. | .image? | select(.)' | awk '{print $1}' | tr -d ',"' | grep -E '(\.|/|:)' | sort -u
