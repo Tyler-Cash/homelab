@@ -1,0 +1,62 @@
+app-template:
+  image:
+    repository: ghcr.io/plexguide/huntarr
+    tag: 8.2.10
+    pullPolicy: IfNotPresent
+
+  env:
+    - name: HUNTARR_PORT
+      value: &port 9705
+
+  service:
+    main:
+      ports:
+        http:
+          port: *port
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: &hostname huntarr.k8s.tylercash.dev
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                port: *port
+      tls:
+        - secretName: huntarr-letsencrypt-certificate
+          hosts:
+            - *hostname
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: ceph-block
+      labels:
+        online-snapshot.home.arpa/enabled: "false"
+    backups:
+      enabled: true
+      type: pvc
+      existingClaim: sonarr-backups
+
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+
+  metrics:
+    enabled: true
+
+  probes:
+    startup:
+      enabled: true
+      spec:
+        failureThreshold: 60
+        periodSeconds: 5
+
+  resources:
+    limits:
+      cpu: 10m
+      memory: 256Mi
