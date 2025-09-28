@@ -95,11 +95,19 @@ jobs:
           path: "${{ steps.sanitize.outputs.name }}.cdx.json"
           retention-days: 7
 
+  check-alerts:
+    name: "Check for open critical alerts"
+    needs: scan
+    runs-on: ubuntu-latest
+    if: always() # This ensures the job runs even if the matrix has failures (which is expected)
+    steps:
       - name: "Check for open critical alerts"
-        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Give GitHub a few seconds to process the SARIF uploads
+          sleep 15
+
           # Determine the correct branch ref
           if [ -n "${{ github.head_ref }}" ]; then
             ref="refs/heads/${{ github.head_ref }}"
@@ -110,7 +118,6 @@ jobs:
           echo "Checking for open critical alerts on ref: $ref"
 
           # Query the GitHub API directly for open, critical alerts on the current branch.
-          # This is more robust than using the 'gh code-scanning' subcommand, which may not exist on older runners.
           open_alerts_count=$(gh api "/repos/${{ github.repository }}/code-scanning/alerts?ref=$ref&state=open&severity=critical" -q 'length')
 
           echo "Found $open_alerts_count open critical alerts."
