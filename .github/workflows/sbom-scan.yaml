@@ -74,7 +74,6 @@ jobs:
           scanners: 'vuln'
           exit-code: '1'
           github-pat: ${{ secrets.GITHUB_TOKEN }}
-          version: '0.66.0'
 
       - name: "Upload Trivy scan results to GitHub Security tab"
         uses: github/codeql-action/upload-sarif@v3
@@ -88,7 +87,6 @@ jobs:
           image-ref: ${{ matrix.image }}
           format: "cyclonedx"
           output: "${{ steps.sanitize.outputs.name }}.cdx.json"
-          version: '0.66.0'
 
       - name: "Upload SBOM as artifact"
         uses: actions/upload-artifact@v4
