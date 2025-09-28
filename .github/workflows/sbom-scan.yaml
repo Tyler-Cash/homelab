@@ -1,0 +1,77 @@
+name: "Image Security Scan"
+
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  discover:
+    name: "Discover Images"
+    runs-on: ubuntu-latest
+    outputs:
+      images: ${{ steps.discover.outputs.images }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      - name: "Install Helm"
+        uses: "azure/setup-helm@v4"
+        with:
+          version: "v3.13.3"
+
+      - name: "Run discovery script"
+        id: discover
+        run: |
+          chmod +x ./scripts/discover-images.sh
+          images=$(./scripts/discover-images.sh)
+          # Convert multi-line string to a JSON array for the matrix
+          echo "images=$(echo "$images" | jq -R . | jq -s .)" >> $GITHUB_OUTPUT
+
+  scan:
+    name: "Scan Images"
+    needs: discover
+    if: ${{ needs.discover.outputs.images != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJson(needs.discover.outputs.images) }}
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      - name: "Run Trivy vulnerability scanner"
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ matrix.image }}
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "HIGH,CRITICAL"
+          exit-code: "1"
+
+      - name: "Upload Trivy scan results to GitHub Security tab"
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: "Generate SBOM"
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ matrix.image }}
+          format: "cyclonedx"
+          output: "${{ matrix.image }}.cdx.json"
+
+      - name: "Upload SBOM as artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ matrix.image }}
+          path: "${{ matrix.image }}.cdx.json"
+          retention-days: 7
