@@ -57,6 +57,12 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v4
 
+      - name: "Sanitize image name for artifact"
+        id: sanitize
+        run: |
+          sanitized_name=$(echo "${{ matrix.image }}" | tr '/:@' '-')
+          echo "name=$sanitized_name" >> $GITHUB_OUTPUT
+
       - name: "Run Trivy vulnerability scanner"
         uses: aquasecurity/trivy-action@master
         with:
@@ -77,11 +83,11 @@ jobs:
         with:
           image-ref: ${{ matrix.image }}
           format: "cyclonedx"
-          output: "${{ matrix.image }}.cdx.json"
+          output: "${{ steps.sanitize.outputs.name }}.cdx.json"
 
       - name: "Upload SBOM as artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: sbom-${{ matrix.image }}
-          path: "${{ matrix.image }}.cdx.json"
+          name: "sbom-${{ steps.sanitize.outputs.name }}"
+          path: "${{ steps.sanitize.outputs.name }}.cdx.json"
           retention-days: 7
