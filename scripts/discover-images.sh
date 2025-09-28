@@ -7,17 +7,11 @@ set -e
 # It renders Helm charts and parses Kubernetes manifests to find image references.
 # This script assumes that 'helm' and 'yq' are installed and available in the PATH.
 
-# The first argument is the path to the temporary file for storing rendered YAML.
-TMP_YAML=$1
-if [ -z "$TMP_YAML" ]; then
-    echo "Error: Temporary file path not provided." >&2
-    exit 1
-fi
-
 # --- Image Discovery ---
 
-# Clear the temp file to start fresh
-> "$TMP_YAML"
+# Temp file to store all rendered manifests
+TMP_YAML=$(mktemp)
+trap 'rm -f "$TMP_YAML"' EXIT
 
 # 1. Find and render all Helm charts
 echo "--- Rendering Helm Charts ---" >&2

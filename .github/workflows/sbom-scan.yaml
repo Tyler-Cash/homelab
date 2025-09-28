@@ -37,20 +37,11 @@ jobs:
         id: discover
         run: |
           chmod +x ./scripts/discover-images.sh
-          TMP_FILE=$(mktemp)
-          echo "TMP_FILE_PATH=$TMP_FILE" >> $GITHUB_ENV
-          images=$(./scripts/discover-images.sh "$TMP_FILE")
-          # Use a heredoc to safely write the JSON output
-          cat <<EOF >> $GITHUB_OUTPUT
-          images=$(echo "$images" | jq -R . | jq -s .)
-          EOF
-
-      - name: "Upload debug artifact"
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: debug-rendered-yaml
-          path: ${{ env.TMP_FILE_PATH }}
+          images=$(./scripts/discover-images.sh)
+          # Convert to a JSON array and then compact it into a single line to ensure it's passed correctly.
+          json_images=$(echo "$images" | jq -R . | jq -s .)
+          compact_json=$(echo "$json_images" | tr -d '\n\r')
+          echo "images=$compact_json" >> $GITHUB_OUTPUT
 
   scan:
     name: "Scan Images"
