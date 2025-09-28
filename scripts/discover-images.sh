@@ -30,6 +30,6 @@ done
 echo "--- Finding and appending Kubernetes Manifests ---" >&2
 find kubernetes/manifests \( -name "*.yaml" -o -name "*.yml" \) -exec cat {} + >> "$TMP_YAML"
 
-# 3. Extract all unique image references from the combined YAML
+# 3. Extract all unique image references from the combined YAML, filtering out any empty lines
 echo "--- Extracting Image References ---" >&2
-cat "$TMP_YAML" | yq '.. | .image? | select(.)' | sort -u
+cat "$TMP_YAML" | yq '.. | .image? | select(.)' | sort -u | sed '/^$/d'
