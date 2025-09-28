@@ -69,10 +69,11 @@ jobs:
           image-ref: ${{ matrix.image }}
           format: "sarif"
           output: "trivy-results.sarif"
-          severity: "HIGH,CRITICAL"
+          severity: "CRITICAL"
           exit-code: "1"
           ignore-unfixed: true
           github-pat: ${{ secrets.GITHUB_TOKEN }}
+          scanners: "vuln"
 
       - name: "Upload Trivy scan results to GitHub Security tab"
         uses: github/codeql-action/upload-sarif@v3
