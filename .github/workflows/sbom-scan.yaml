@@ -109,8 +109,9 @@ jobs:
 
           echo "Checking for open critical alerts on ref: $ref"
 
-          # Query for open, critical alerts on the current branch
-          open_alerts_count=$(gh code-scanning alerts --ref "$ref" --state open --severity critical --json number -q 'length')
+          # Query the GitHub API directly for open, critical alerts on the current branch.
+          # This is more robust than using the 'gh code-scanning' subcommand, which may not exist on older runners.
+          open_alerts_count=$(gh api "/repos/${{ github.repository }}/code-scanning/alerts?ref=$ref&state=open&severity=critical" -q 'length')
 
           echo "Found $open_alerts_count open critical alerts."
 
