@@ -36,10 +36,14 @@ jobs:
       - name: "Run discovery script"
         id: discover
         run: |
+          set -v
           chmod +x ./scripts/discover-images.sh
           TMP_FILE=$(mktemp)
           echo "TMP_FILE_PATH=$TMP_FILE" >> $GITHUB_ENV
           images=$(./scripts/discover-images.sh "$TMP_FILE")
+          echo "--- RAW SCRIPT OUTPUT ---"
+          echo "$images"
+          echo "--- END RAW SCRIPT OUTPUT ---"
           # Convert multi-line string to a JSON array for the matrix
           echo "images=$(echo "$images" | jq -R . | jq -s .)" >> $GITHUB_OUTPUT
 
