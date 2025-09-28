@@ -1,0 +1,132 @@
+name: "Image Security Scan"
+
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  discover:
+    name: "Discover Images"
+    runs-on: ubuntu-latest
+    outputs:
+      images: ${{ steps.discover.outputs.images }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      - name: "Install Helm"
+        uses: "azure/setup-helm@v4"
+        with:
+          version: "v3.13.3"
+
+      - name: "Set up yq"
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+
+      - name: "Set up jq"
+        run: sudo apt-get install -y jq
+
+      - name: "Run discovery script"
+        id: discover
+        run: |
+          chmod +x ./scripts/discover-images.sh
+          images=$(./scripts/discover-images.sh)
+          # Convert to a JSON array and then compact it into a single line to ensure it's passed correctly.
+          json_images=$(echo "$images" | jq -R . | jq -s .)
+          compact_json=$(echo "$json_images" | tr -d '\n\r')
+          echo "images=$compact_json" >> $GITHUB_OUTPUT
+
+  scan:
+    name: "Scan Images"
+    needs: discover
+    if: ${{ needs.discover.outputs.images != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJson(needs.discover.outputs.images) }}
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      - name: "Sanitize image name for artifact"
+        id: sanitize
+        run: |
+          sanitized_name=$(echo "${{ matrix.image }}" | tr '/:@' '-')
+          echo "name=$sanitized_name" >> $GITHUB_OUTPUT
+
+      - name: "Run Trivy vulnerability scanner"
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ matrix.image }}
+          output: 'trivy-results.sarif'
+          format: 'sarif'
+          severity: 'CRITICAL'
+          ignore-unfixed: true
+          scanners: 'vuln'
+          exit-code: '0'
+          github-pat: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Upload Trivy scan results to GitHub Security tab"
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: "Generate SBOM"
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ matrix.image }}
+          format: "cyclonedx"
+          output: "${{ steps.sanitize.outputs.name }}.cdx.json"
+
+      - name: "Upload SBOM as artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "sbom-${{ steps.sanitize.outputs.name }}"
+          path: "${{ steps.sanitize.outputs.name }}.cdx.json"
+          retention-days: 7
+
+  check-alerts:
+    name: "Check for open critical alerts"
+    needs: scan
+    runs-on: ubuntu-latest
+    if: always() # This ensures the job runs even if the matrix has failures (which is expected)
+    steps:
+      - name: "Check for open critical alerts"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Give GitHub a few seconds to process the SARIF uploads
+          sleep 15
+
+          # Determine the correct ref to query for alerts.
+          # For pull requests, we use the 'merge' ref to get alerts for the merged state.
+          # For pushes, we use the standard branch ref.
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            ref="refs/pull/${{ github.event.number }}/merge"
+          else
+            ref="${{ github.ref }}"
+          fi
+
+          echo "Checking for open critical alerts on ref: $ref"
+
+          # Query the GitHub API directly for open, critical alerts on the current ref.
+          open_alerts_count=$(gh api "/repos/${{ github.repository }}/code-scanning/alerts?ref=$ref&state=open&severity=critical" -q 'length')
+
+          echo "Found $open_alerts_count open critical alerts."
+
+          if [ "$open_alerts_count" -gt 0 ]; then
+            echo "Failing workflow due to $open_alerts_count open critical alerts that have not been dismissed."
+            exit 1
+          else
+            echo "No open critical alerts found. Build can proceed."
+          fi

@@ -49,7 +49,14 @@ app-template:
   metrics:
     enabled: true
 
+  probes:
+    startup:
+      enabled: true
+      spec:
+        failureThreshold: 60
+        periodSeconds: 5
+
   resources:
-    requests:
-      cpu: 50m
+    limits:
+      cpu: 10m
       memory: 256Mi
