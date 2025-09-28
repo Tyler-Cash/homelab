@@ -109,10 +109,10 @@ jobs:
           sleep 15
 
           # Determine the correct ref to query for alerts.
-          # For pull requests, we use a special ref to ensure we get the latest alerts.
+          # For pull requests, we use the 'merge' ref to get alerts for the merged state.
           # For pushes, we use the standard branch ref.
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            ref="refs/pull/${{ github.event.number }}/head"
+            ref="refs/pull/${{ github.event.number }}/merge"
           else
             ref="${{ github.ref }}"
           fi
