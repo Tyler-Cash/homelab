@@ -48,7 +48,7 @@ app-template:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
-      size: 20Gi
+      size: 50Gi
     transcode:
       enabled: true
       storageClass: ceph-block
