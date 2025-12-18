@@ -1,7 +1,7 @@
 app-template:
   image:
     repository: jellyfin/jellyfin
-    tag: 10.11.4
+    tag: 10.11.5
 
   service:
     main:
