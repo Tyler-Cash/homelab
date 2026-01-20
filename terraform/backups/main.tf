@@ -23,7 +23,7 @@ provider "google-beta" {
 
 module "project-services" {
   source  = "terraform-google-modules/project-factory/google//modules/project_services"
-  version = "17.1"
+  version = "18.2"
 
   project_id = google_project.homelab_backups.project_id
 
