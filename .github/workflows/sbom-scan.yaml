@@ -89,7 +89,7 @@ jobs:
           output: "${{ steps.sanitize.outputs.name }}.cdx.json"
 
       - name: "Upload SBOM as artifact"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: "sbom-${{ steps.sanitize.outputs.name }}"
           path: "${{ steps.sanitize.outputs.name }}.cdx.json"
